@@ -93,6 +93,35 @@ Models: **Claude** via the Anthropic Messages API, a fast tier (`claude-haiku-5-
 customer-facing text and a strong tier (`claude-sonnet-5-5`) for judgement and images, set in the
 insurer profile's `ai` section.
 
+## How it makes money
+
+Where a $10 subscription goes each month. These figures are illustrative, from
+[`unit_economics`](python/economics/microinsurance_economics/unit_economics.py); the adopting
+insurer supplies the real inputs ([`docs/03-economic-models.md`](docs/03-economic-models.md)):
+
+| Line | $ / month |
+|---|---|
+| Expected claims (55% loss ratio) | 5.50 |
+| Partner commission (15%) | 1.50 |
+| Prevention rewards | 0.62 |
+| AI, cloud and operations | 0.50 |
+| Insurer margin + platform fee | 1.88 |
+
+- **Prevention pays for itself, by rule.** A task is offered only if its reward costs less than
+  the claims it avoids: `reward = α × (p_without − p_with) × average claim`, with α < 1. In the
+  demo, a screen protector and case cut screen claims from 4.0% to 2.5% a month on a $134 average
+  repair: $2.01 of claims avoided, a $0.50 reward, $1.51 kept by the insurer.
+- **Rewards come from partners' spare capacity.** Empty seats, unsold rooms, off-peak slots and
+  idle repair hours perish if unsold: their perceived value is the full price, their marginal
+  cost close to zero. A coupon also brings a paying visit:
+  `profit = redeemed × (new-visit share × margin × spend − face value)`.
+- **Settlement in kind at fair value.** A payout can be taken as a partner repair with a loaner;
+  the insurer pays the partner's tariff and the customer gets at least the cash value. Cash is
+  always offered first, and the insurer earns nothing from unused rewards.
+- **Everyone earns.** The insurer writes a segment agents could never reach and meets customers
+  every month; distribution partners earn commission, return visits and value from spare
+  capacity; the platform earns a fee per subscriber.
+
 ## See it
 
 <table>
