@@ -13,7 +13,9 @@ automatically the moment a storm warning or a concert cancellation is published.
 the customer gets prevention tasks and rewards, so the product is useful even in a month when
 nothing goes wrong.
 
-**Demo video (3 min):** `<add the YouTube link here>`
+[![Watch the 3-minute demo](docs/images/video-poster.jpg)](https://youtu.be/aL8x9VP4v8A)
+
+**[▶ Watch the 3-minute demo](https://youtu.be/aL8x9VP4v8A)**
 
 > [!NOTE]
 > A design and engineering demonstration, not an insurance product or an offer of insurance.
