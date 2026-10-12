@@ -1,0 +1,11 @@
+# The image builds from the sources only (infra/Dockerfile).
+.git
+target
+node_modules
+**/node_modules
+apps/*/dist
+python/.venv
+**/.pytest_cache
+**/.ruff_cache
+**/__pycache__
+.claude

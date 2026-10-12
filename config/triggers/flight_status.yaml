@@ -1,0 +1,17 @@
+# Data source (R55). Reported per flight number and scheduled local date (zone
+# `CX880/2026-11-02`, the reference a declared `trip.air` booking carries); a delay carries its
+# minutes late, estimated until departure.
+id: flight_status
+name: Flight status
+provider: Hong Kong International Airport flight information
+access: open_data
+status: available
+adapter: hkia_flight_info
+live: "https://www.hongkongairport.com/flightinfo-rest/rest/flights?span=1&date={date}&lang=en&cargo=false&arrival=false"
+history:
+  available: false
+poll_seconds: 120
+demo_mode_fixture: fixtures/hkia_departures_delayed.json
+codes:
+  DELAYED:   { event_type: travel.flight_delay, stage: delayed }
+  CANCELLED: { event_type: travel.flight_cancellation, stage: cancelled }

@@ -1,0 +1,523 @@
+{
+  "$defs": {
+    "AuditReason": {
+      "description": "Why a person looks at an automated decision.",
+      "oneOf": [
+        {
+          "const": "risk_review",
+          "description": "Its anomaly score reached `risk_review_threshold`.",
+          "type": "string"
+        },
+        {
+          "const": "random_sample",
+          "description": "Drawn in the random sample, `audit_sample_rate` of decisions (R14).",
+          "type": "string"
+        }
+      ]
+    },
+    "AuditStats": {
+      "description": "How often people overturn the automated path, per decision kind. Only the random sample\ncounts: risk-reviewed decisions were chosen for looking odd, so they would overstate it. The\nrate estimates the automated path's error and shows drift between periods.",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "overturn_rate": {
+          "$ref": "#/$defs/Bps"
+        },
+        "overturned": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "sampled": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "kind",
+        "sampled",
+        "overturned",
+        "overturn_rate"
+      ],
+      "type": "object"
+    },
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "ClaimReferral": {
+      "description": "Why a claim is with a person.",
+      "oneOf": [
+        {
+          "description": "No cover in force for the loss: outside the policy period, lapsed, not held or excluded.",
+          "properties": {
+            "referral": {
+              "const": "not_in_force",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The loss fell in the cover's waiting period (R07) or a re-entry waiting period (R47).",
+          "properties": {
+            "referral": {
+              "const": "waiting_period",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor gave no assessment (R22).",
+          "properties": {
+            "referral": {
+              "const": "no_assessment",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor recommended a person look.",
+          "properties": {
+            "referral": {
+              "const": "assessor_referred",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor's confidence is below `stp_min_confidence`.",
+          "properties": {
+            "referral": {
+              "const": "low_confidence",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The amount claimed exceeds the assessor's estimate by more than `estimate_tolerance`.",
+          "properties": {
+            "referral": {
+              "const": "above_estimate",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The claim payment would exceed the STP limit.",
+          "properties": {
+            "referral": {
+              "const": "above_stp_limit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Drawn for audit, or at the risk review threshold, before payment (R14).",
+          "properties": {
+            "reason": {
+              "$ref": "#/$defs/AuditReason"
+            },
+            "referral": {
+              "const": "audit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "reason"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a person, or needs human care (R46).",
+          "properties": {
+            "referral": {
+              "const": "human_care",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a decline to be reviewed: a different person decides (R15).",
+          "properties": {
+            "declined_by": {
+              "type": "string"
+            },
+            "referral": {
+              "const": "appeal",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "declined_by"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "GroupRate": {
+      "properties": {
+        "approved": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "credible": {
+          "description": "Enough decisions (`min_group_decisions`) to be compared.",
+          "type": "boolean"
+        },
+        "decisions": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "rate": {
+          "$ref": "#/$defs/Bps"
+        }
+      },
+      "required": [
+        "decisions",
+        "approved",
+        "rate",
+        "credible"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "ParityReport": {
+      "properties": {
+        "attribute": {
+          "type": "string"
+        },
+        "flagged": {
+          "description": "Credible groups below `min_parity_ratio` of the best.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "groups": {
+          "additionalProperties": {
+            "$ref": "#/$defs/GroupRate"
+          },
+          "type": "object"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "min_ratio": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Bps"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The lowest credible rate over the highest; none with fewer than two credible groups."
+        }
+      },
+      "required": [
+        "kind",
+        "attribute",
+        "groups",
+        "flagged"
+      ],
+      "type": "object"
+    },
+    "PersonAction": {
+      "description": "What a person can do with an item.",
+      "oneOf": [
+        {
+          "enum": [
+            "request_evidence",
+            "not_verify"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "approve",
+          "description": "Approve a claim at the loss the person assessed.",
+          "type": "string"
+        },
+        {
+          "const": "decline",
+          "description": "Decline a claim, with a reason (R13).",
+          "type": "string"
+        },
+        {
+          "const": "verify",
+          "description": "Credit a prevention task (R10).",
+          "type": "string"
+        },
+        {
+          "const": "agree",
+          "description": "Agree with an audited decision (R14).",
+          "type": "string"
+        },
+        {
+          "const": "overturn",
+          "description": "Overturn an audited decision, or a decision under review (R14, R15).",
+          "type": "string"
+        },
+        {
+          "const": "uphold",
+          "description": "Let a decision under review stand (R15).",
+          "type": "string"
+        }
+      ]
+    },
+    "Referral": {
+      "description": "Why a task is with a person.",
+      "oneOf": [
+        {
+          "const": "no_verdict",
+          "description": "The verifier gave no verdict (R22).",
+          "type": "string"
+        },
+        {
+          "const": "suspected_reuse",
+          "description": "The evidence looks reused or edited: only a person decides fraud (R13).",
+          "type": "string"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A pass drawn for audit before it is credited (R14).",
+          "properties": {
+            "audit": {
+              "$ref": "#/$defs/AuditReason"
+            }
+          },
+          "required": [
+            "audit"
+          ],
+          "type": "object"
+        },
+        {
+          "const": "appeal",
+          "description": "The customer asked a person to look again (R15).",
+          "type": "string"
+        }
+      ]
+    },
+    "WorkItem": {
+      "properties": {
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/PersonAction"
+          },
+          "type": "array"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "due_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "item_id": {
+          "type": "string"
+        },
+        "opened_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "urgent": {
+          "type": "boolean"
+        },
+        "work": {
+          "$ref": "#/$defs/WorkKind"
+        }
+      },
+      "required": [
+        "item_id",
+        "customer_id",
+        "opened_at",
+        "due_at",
+        "urgent",
+        "work",
+        "actions"
+      ],
+      "type": "object"
+    },
+    "WorkKind": {
+      "oneOf": [
+        {
+          "description": "A claim with a person: the only place a decline is made (R13).",
+          "properties": {
+            "amount_claimed": {
+              "$ref": "#/$defs/Money"
+            },
+            "claim_id": {
+              "type": "string"
+            },
+            "cover_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "claim_referral",
+              "type": "string"
+            },
+            "referral": {
+              "$ref": "#/$defs/ClaimReferral"
+            }
+          },
+          "required": [
+            "kind",
+            "claim_id",
+            "cover_id",
+            "amount_claimed",
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A prevention task with a person (R10, R14, R15).",
+          "properties": {
+            "kind": {
+              "const": "task_referral",
+              "type": "string"
+            },
+            "referral": {
+              "$ref": "#/$defs/Referral"
+            },
+            "task_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "task_id",
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A decision drawn for audit after the fact, such as a payout already paid (R14).",
+          "properties": {
+            "decision_id": {
+              "type": "string"
+            },
+            "decision_kind": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "audit",
+              "type": "string"
+            },
+            "reason": {
+              "$ref": "#/$defs/AuditReason"
+            }
+          },
+          "required": [
+            "kind",
+            "decision_id",
+            "decision_kind",
+            "reason"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A review request on any other decision (R15).",
+          "properties": {
+            "appeal_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "appeal",
+              "type": "string"
+            },
+            "subject_id": {
+              "type": "string"
+            },
+            "subject_type": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "appeal_id",
+            "subject_type",
+            "subject_id"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What the ops console shows: the queue in order, the fairness audit and the audit overturn\nrates.",
+  "properties": {
+    "as_of": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "audit": {
+      "items": {
+        "$ref": "#/$defs/AuditStats"
+      },
+      "type": "array"
+    },
+    "fairness": {
+      "items": {
+        "$ref": "#/$defs/ParityReport"
+      },
+      "type": "array"
+    },
+    "items": {
+      "items": {
+        "$ref": "#/$defs/WorkItem"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "as_of",
+    "items",
+    "fairness",
+    "audit"
+  ],
+  "title": "OpsSnapshot",
+  "type": "object"
+}

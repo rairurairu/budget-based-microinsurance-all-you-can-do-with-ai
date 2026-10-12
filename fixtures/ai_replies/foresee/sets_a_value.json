@@ -1,0 +1,26 @@
+{
+  "case": "sets_a_value",
+  "key": "foresee:8483be3a3aaf2e5e",
+  "input": {
+    "last_start_date": "2027-01-09",
+    "text": "Match at the stadium on 28 Nov, ticket was 450.",
+    "today": "2026-10-09",
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"events\": [{\"kind\": \"event.sports\", \"starts\": \"2026-11-28\", \"ends\": null, \"reference\": null, \"value\": 45000}]}"
+}

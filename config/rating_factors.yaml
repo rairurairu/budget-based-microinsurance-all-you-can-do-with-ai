@@ -1,0 +1,115 @@
+# Rating factors (R33, R43): the only data the rating formula may use. Illustrative; the insurer
+# replaces these with the factors in its filed rating basis.
+#
+# Each factor needs:
+#   id        permanent, snake_case
+#   level     market (same for every customer) | individual (this customer's exposure)
+#   basis     industry (in the insurer's filed rating basis) | novel (data the industry does
+#             not collect)
+#   status    approved (used in rating) | candidate (novel only: collected with consent and
+#             rated in shadow, never affects terms, until validated and approved; R43)
+#   data      for individual factors: where the value comes from. `declared` = the customer's
+#             own answers; otherwise a consented data type (R20). Withheld → undeclared group average.
+#   classes   the classes of business it rates (ids from lines_of_business.yaml; a parent covers its subtree)
+#   formula   one line, the formula it enters
+#
+# Age, gender and district may be industry factors here, in engine rating only (R19).
+# Ethnicity, religion and nationality are never factors. None of them ever reaches crates/ai.
+
+factors:
+  # ---- industry
+  - id: hazard_frequency
+    level: market
+    basis: industry
+    status: approved
+    classes: [pecuniary.income_weather, pecuniary.commute, pecuniary.event_ticket, travel.flight_delay]
+    formula: P(trigger in policy period) from the historical record, season and official outlooks
+
+  - id: age_band
+    level: individual
+    basis: industry
+    status: approved
+    data: declared
+    classes: [accident_health.personal_accident, travel]
+    formula: base frequency × age-band relativity
+
+  - id: address_district
+    level: individual
+    basis: industry
+    status: approved
+    data: declared
+    classes: [property.home_contents]
+    formula: base frequency × location relativity (theft, flood)
+
+  - id: occupation_class
+    level: individual
+    basis: industry
+    status: approved
+    data: declared
+    classes: [accident_health.personal_accident]
+    formula: base frequency × occupational class relativity
+
+  - id: device_value
+    level: individual
+    basis: industry
+    status: approved
+    data: declared
+    classes: [property.device]
+    formula: severity = min(average repair cost, replacement value)
+
+  - id: trip_plan
+    level: individual
+    basis: industry
+    status: approved
+    data: calendar_plans
+    classes: [travel]
+    formula: destination hazard × trip length × booked cost
+
+  - id: claims_experience
+    level: individual
+    basis: industry
+    status: approved
+    data: own_claims             # the insurer's own records of this policy
+    classes: [property, accident_health, travel, pecuniary]   # parametric too: exposure, not fault (R39)
+    formula: experience = own frequency / peer frequency (same rated exposure, same periods); counts above threshold; relativity ×= 1 + Z × (experience − 1)
+
+  # ---- novel: data the industry does not collect
+  - id: declared_work_hours
+    level: individual
+    basis: novel
+    status: approved
+    data: declared
+    classes: [pecuniary.income_weather]
+    formula: P(trigger during declared hours) = hazard_frequency × share of hazard hours in declared windows
+
+  - id: declared_route
+    level: individual
+    basis: novel
+    status: candidate
+    data: declared
+    classes: [pecuniary.commute]
+    formula: P(postponement on the declared route) from the operator's disruption record
+
+  - id: device_condition
+    level: individual
+    basis: novel
+    status: candidate
+    data: device_diagnostics
+    classes: [property.device]
+    formula: frequency × condition relativity (battery health, screen state, device age)
+
+  - id: road_exposure
+    level: individual
+    basis: novel
+    status: candidate
+    data: trip_data
+    classes: [accident_health.personal_accident]
+    formula: frequency × distance or hours on the road per policy period
+
+  - id: partner_work_activity
+    level: individual
+    basis: novel
+    status: candidate
+    data: partner_activity
+    classes: [pecuniary.income_weather, accident_health.personal_accident]
+    formula: verified hours and distance from the partner platform replace declared exposure

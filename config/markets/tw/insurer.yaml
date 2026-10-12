@@ -1,0 +1,142 @@
+# Insurer profile for Taiwan: the second market, read over config/ (ADR-012). Everything not set
+# here in config/markets/tw/ comes from config/. Illustrative: the insurer files its own values.
+market: TW
+currency: TWD
+utc_offset_minutes: 480          # Taiwan keeps no daylight saving
+languages:
+  default: zh-Hant
+  offered: [zh-Hant, en]
+regulator: Financial Supervisory Commission (Insurance Bureau)
+privacy_regime: Personal Data Protection Act
+launch_phase: 1
+carrier:
+  name: "<licensed insurer>"
+  approved_products:             # R24; illustrative. No rail cover: no rail operator feed is registered here (R55)
+    [weather_income, event_ticket, device_damage, personal_accident]
+kyc_provider: "<licensed eKYC provider>"   # R25
+
+policy_period:
+  length: month
+  allocation_step: 10            # NT$ step for premium allocation
+  min_policy_periods: 1          # R05
+  auto_renewal: premium_allocation   # R34
+  renewal_notice_days: 7         # R35; Decide
+  grace_period_days: 7           # R53; Decide
+  reinstatement_days: 30         # R53; Decide
+
+plans:                           # R01, R45; NT$ a month, illustrative for microinsurance (微型保險) price points
+  - { id: starter,   price: 50 }
+  - { id: essential, price: 100 }
+  - { id: plus,      price: 150, privileges: { extra_covers: [device_damage] } }
+  - { id: max,       price: 200, privileges: { extra_covers: [device_damage, personal_accident], extra_reward_families: [loyalty] } }
+
+promotions: []                   # R44
+
+pricing:
+  target_loss_ratio: 0.55        # illustrative
+  rating_horizon_periods: 3      # R32
+  continuous_cover_periods: 3    # R32
+  undisclosed_factor: undeclared_group_average   # R33
+  undeclared_credibility_full_exposure: 1000     # R33; Decide
+
+score:
+  max_effect: 0.20               # R11
+  point_half_life_days: 45       # R12
+  points_per_verified_activity: 100
+  points_for_max_effect: 1000
+  effect_modes: [premium_rebate, bonus_sum_insured]
+
+underwriting:                    # R39–R41; illustrative
+  risk_classes:
+    - { id: preferred,   max_relativity: 0.80 }
+    - { id: standard,    max_relativity: 1.25 }
+    - { id: substandard, max_relativity: 2.00 }
+    - { id: postponed }
+  claims_experience_periods: 12
+  claims_experience_threshold: 1.5
+  credibility_full_periods: 36
+  exclusion_notice_periods: 1
+  postponement_periods: 3
+  reentry_waiting_period_days: 14
+
+rewards:
+  families: [insurance, partner, loyalty]
+  monthly_cap_per_customer: 120  # R17; NT$, illustrative
+  reward_share_of_claims_avoided: 0.25   # R40
+  premium_rebate_funded_by: insurer      # R50
+  always_offer_cash: true        # R16: must stay true
+  loyalty:                       # R26
+    streak_periods: 3
+    reward: 40                   # NT$, within the monthly cap
+
+guardrails:
+  audit_sample_rate: 0.05        # R14: 1 in 20
+  risk_review_threshold: 0.8     # R14
+  human_care:                    # R46
+    urgent: [injury, hospitalisation, emergency_abroad]
+    large_loss_share_of_monthly_income: 0.5
+    urgent_response_seconds: 5
+    first_response: [emergency_numbers, assistance_provider_connect, guarantee_of_payment]
+    auto_guarantee_cap: 20000    # NT$ per case; Decide with the assistance provider
+    person_on_request: true      # R46: must stay true
+  appeal_sla_hours: 72           # R15
+  fairness:                      # R19
+    groups: [age_band, gender, district]
+    min_parity_ratio: 0.8
+    min_group_decisions: 30
+
+claims:                          # R57 (ADR-010); NT$, illustrative
+  stp_limit: 8000
+  stp_min_confidence: 0.85
+  estimate_tolerance: 0.15
+  referral_sla_hours: 48
+  anomaly:
+    early_claim_days: 30
+    late_notification_days: 30
+    frequent_claims: 3
+    near_sum_insured: 0.9
+    weights: { early_claim: 0.3, late_notification: 0.1, frequent_claims: 0.3, near_sum_insured: 0.2, evidence_reused: 0.8 }
+
+privacy:
+  delete_on_cancellation: true   # R20, R54: must stay true
+  record_retention_years: 7      # R54; Decide with counsel
+  location_required: false       # R20
+
+accumulation:                    # R51: from the reinsurance programme; limits illustrative
+  perils:
+    # One typhoon or rainstorm is one loss occurrence however many cities and counties suspend
+    # work: the reinsurance event definition counts the physical event, not the announcements.
+    - id: windstorm_and_rain
+      event_types: [work.suspension]   # only work suspensions pay; the warnings stop new cover (R06)
+      event_limit: 80000000      # NT$, all policies together
+      aggregation_hours: 24      # at least 24 for a daily benefit
+      across_zones: true
+    - { id: ticketed_event, event_types: [event.disruption], event_limit: 20000000 }
+  zone_accumulation_limit: 200000000   # NT$ benefit in force per peril and declared area
+  refresh_minutes: 5             # ADR-012
+
+distribution_partners:           # R52; illustrative
+  - id: delivery_app
+    licence_type: licensed_insurance_agency   # an insurance agent company (保險代理人公司)
+    licence_number: "<FSC licence no.>"
+    licence_expiry: 2027-12-31
+  - { id: ticketing_partner, licence_type: referral_only }
+
+channels:                        # ADR-011
+  own_journey_url: "<insurer's own online journey URL>"
+  customer_token_minutes: 30
+  partner_insights_min_cohort: 50   # R21; Decide with the privacy officer
+  partner_origins:
+    delivery_app: ["https://delivery.example"]
+
+payouts:
+  destinations: [partner_wallet, own_ewallet]
+
+experience:                      # experience studies for the actuary (ADR-012)
+  full_credibility_claims: 1082  # limited-fluctuation standard: 90% probability within 5% of expected
+
+ai:
+  provider: anthropic
+  fast_model: claude-haiku-5-5
+  strong_model: claude-sonnet-5-5
+  timeout_ms: 4000

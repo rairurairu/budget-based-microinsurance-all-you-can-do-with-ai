@@ -1,0 +1,65 @@
+{
+  "$defs": {
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "action": {
+      "description": "What the customer does, in one sentence.",
+      "type": "string"
+    },
+    "avg_claim_cost": {
+      "$ref": "#/$defs/Money",
+      "description": "Average claim cost in the class, at most the customer's sum insured (R48)."
+    },
+    "claim_prob_after": {
+      "$ref": "#/$defs/Bps"
+    },
+    "claim_prob_before": {
+      "$ref": "#/$defs/Bps",
+      "description": "This customer's claim probability per policy period without and with the action (R40)."
+    },
+    "cover_id": {
+      "type": "string"
+    },
+    "event_reference": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evidence": {
+      "description": "A registered evidence kind (`config/data_types.yaml`).",
+      "type": "string"
+    },
+    "reward_cost": {
+      "$ref": "#/$defs/Money"
+    },
+    "task_type": {
+      "description": "A registered loss prevention measure (`config/prevention_measures.yaml`).",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_type",
+    "cover_id",
+    "action",
+    "evidence",
+    "claim_prob_before",
+    "claim_prob_after",
+    "avg_claim_cost",
+    "reward_cost"
+  ],
+  "title": "PreventionTaskDraft",
+  "type": "object"
+}

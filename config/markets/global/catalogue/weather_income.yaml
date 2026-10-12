@@ -1,0 +1,24 @@
+# Weather income cover in the international demonstration market (ADR-012): the same product
+# design as config/catalogue, triggered by the weather service's CAP warnings.
+id: weather_income
+name: Weather income cover
+type: parametric
+class_of_business: pecuniary.income_weather
+launch_phase: 1
+exposure: { kind: declared_hours }    # optimiser: allocates only where the customer has exposure (R42)
+product_limit: 120                    # R34: US$ daily benefit per customer; illustrative
+key_features: "A daily benefit for each working day a tropical storm or hurricane warning, or a flash flood warning, disrupts at least an hour of your declared working hours, counting two hours to get back to work after it ends; one benefit per day however many warnings that day"
+trigger:                              # R55: registered event types, from config/event_types.yaml
+  events:
+    - { event_type: weather.tropical_cyclone, from_stage: tropical_storm_warning }
+    - { event_type: weather.flood, from_stage: flash_flood_warning }
+  requires_declared_hours: true       # R08
+  resumption_minutes: 120             # R08: time to resume work after the warning ends
+  min_disrupted_minutes: 60           # R08: a day counts once an hour of declared work is disrupted
+payout:
+  basis: fixed_daily
+  cap_ratio_of_daily_earnings: 0.8    # R09: below typical daily earnings; Decide
+eligibility:
+  block_new_while:                    # R06
+    - { event_type: weather.tropical_cyclone, from_stage: tropical_storm_watch }
+waiting_period_days: 0

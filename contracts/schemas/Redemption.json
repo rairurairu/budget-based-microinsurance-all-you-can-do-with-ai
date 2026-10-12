@@ -1,0 +1,71 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Redeemed": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Delivered by the supplier, which is paid the price on delivery (R56).",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "supplier_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "supplier_id"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The customer spent part or all of their reward balance.",
+  "properties": {
+    "amount": {
+      "$ref": "#/$defs/Money"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "method": {
+      "$ref": "#/$defs/Redeemed"
+    },
+    "offer_id": {
+      "type": "string"
+    },
+    "redemption_id": {
+      "description": "The ledger's idempotency key.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "redemption_id",
+    "customer_id",
+    "offer_id",
+    "amount",
+    "method"
+  ],
+  "title": "Redemption",
+  "type": "object"
+}

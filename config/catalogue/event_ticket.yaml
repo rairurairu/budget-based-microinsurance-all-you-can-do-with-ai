@@ -1,0 +1,16 @@
+id: event_ticket
+name: Event ticket cover
+type: parametric
+class_of_business: pecuniary.event_ticket
+launch_phase: 1
+exposure: { kind: upcoming_event, of: [event] }
+product_limit: 3000                   # R34; illustrative
+key_features: "Get your ticket money back automatically if the show is cancelled"
+trigger:
+  events:
+    - { event_type: event.disruption, from_stage: cancelled }
+  match: ticket_reference
+payout:
+  basis: declared_value               # the ticket price
+settlement_in_kind: [future_event_credit, merchandise]   # R28
+waiting_period_days: 0

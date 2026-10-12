@@ -1,0 +1,68 @@
+{
+  "$defs": {
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Escalation": {
+      "description": "What the AI layer may add to a case. It can raise, never lower: both flags only ever add to\nwhat the rules found.",
+      "properties": {
+        "human_care": {
+          "description": "Signs of distress or vulnerability: a person takes the case.",
+          "type": "boolean"
+        },
+        "urgent": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "urgent",
+        "human_care"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Recommendation": {
+      "description": "The assessor's recommendation: approve or refer. There is no decline (R13).",
+      "enum": [
+        "approve",
+        "refer"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The AI assessor's reading of the evidence, already parsed into this type. `estimate` is the\nloss the evidence shows; it is a check on the amount claimed, never the amount paid.",
+  "properties": {
+    "confidence": {
+      "$ref": "#/$defs/Bps"
+    },
+    "escalation": {
+      "$ref": "#/$defs/Escalation",
+      "default": {
+        "human_care": false,
+        "urgent": false
+      },
+      "description": "What the assessor saw that needs a person or makes the case urgent (R46)."
+    },
+    "estimate": {
+      "$ref": "#/$defs/Money"
+    },
+    "recommend": {
+      "$ref": "#/$defs/Recommendation"
+    }
+  },
+  "required": [
+    "estimate",
+    "confidence",
+    "recommend"
+  ],
+  "title": "Assessment",
+  "type": "object"
+}

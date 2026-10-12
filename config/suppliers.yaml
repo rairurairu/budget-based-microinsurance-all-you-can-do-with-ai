@@ -1,0 +1,39 @@
+# Supplier panel (R28, R56, ADR-009): partners who deliver settlement in kind and partner rewards
+# under an agreed tariff. Illustrative; the insurer's supply agreements replace these.
+#
+# - Every option a cover's `settlement_in_kind` names must be delivered by exactly one supplier.
+# - `tariff`: what the insurer pays per delivery, with the option's `retail_value`; the option
+#   replaces a cash payout only up to its retail value and never at a tariff above the cash (R28).
+#   Or `invoiced: true`: the supplier invoices its cost, up to the amount reserved, and the rest
+#   of a payout is paid to the customer in cash.
+# - `valid_days`: how long the customer has to use it; not used in time, it goes back to them as
+#   cash (R56).
+# - `reward_valid_days`: set when the supplier also offers partner rewards (R16); the price of
+#   each offer comes with the offer.
+# - Suppliers are paid monthly for what they delivered (`supplier/<id>/<month>`).
+
+suppliers:
+  - id: airport_lounge_network
+    name: Airport lounge network
+    in_kind:
+      - { option: lounge_access, tariff: 180, retail_value: 450, valid_days: 30 }   # Decide
+    reward_valid_days: 90
+
+  - id: airline_rebooking
+    name: Airline rebooking desk
+    in_kind:
+      - { option: alternative_seat, invoiced: true, valid_days: 7 }
+
+  - id: ticketing_partner
+    name: Ticketing partner
+    in_kind:
+      - { option: future_event_credit, invoiced: true, valid_days: 365 }
+      - { option: merchandise, tariff: 60, retail_value: 250, valid_days: 90 }   # Decide
+    reward_valid_days: 90
+
+  - id: phone_repair_network
+    name: Phone repair network
+    in_kind:
+      - { option: partner_repair_with_loaner, invoiced: true, valid_days: 30 }
+      - { option: refurbished_replacement, invoiced: true, valid_days: 30 }
+    reward_valid_days: 60

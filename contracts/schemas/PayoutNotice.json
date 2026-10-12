@@ -1,0 +1,171 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "PayoutDecision": {
+      "description": "One payout to one policy on one loss occurrence, at one stage (R27).",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "lines": {
+          "description": "By cover id.",
+          "items": {
+            "$ref": "#/$defs/PayoutLine"
+          },
+          "type": "array"
+        },
+        "occurrence_id": {
+          "type": "string"
+        },
+        "options": {
+          "description": "Cash first, always (R16); then alternatives every cover in the payout permits, that are\nsuitable now and worth at least the cash they replace (R28).",
+          "items": {
+            "$ref": "#/$defs/Settlement"
+          },
+          "type": "array"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "stage": {
+          "$ref": "#/$defs/PayoutStage"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "policy_id",
+        "occurrence_id",
+        "stage",
+        "lines",
+        "amount",
+        "options"
+      ],
+      "type": "object"
+    },
+    "PayoutLine": {
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "cover_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cover_id",
+        "amount"
+      ],
+      "type": "object"
+    },
+    "PayoutStage": {
+      "description": "R51: the guaranteed share is paid at once; the balance when the loss occurrence closes.",
+      "enum": [
+        "guaranteed",
+        "balance"
+      ],
+      "type": "string"
+    },
+    "Settled": {
+      "description": "How a payout was settled.",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "cash": {
+          "$ref": "#/$defs/Money",
+          "description": "Paid to the customer; zero when settled in kind."
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "method": {
+          "$ref": "#/$defs/Settlement"
+        },
+        "premium_set_off": {
+          "$ref": "#/$defs/Money",
+          "description": "Premium due set off against a cash payout in the grace period (R53)."
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "method",
+        "amount",
+        "premium_set_off",
+        "cash"
+      ],
+      "type": "object"
+    },
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A parametric payout as the customer sees it.",
+  "properties": {
+    "customer_id": {
+      "type": "string"
+    },
+    "decided_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "decision": {
+      "$ref": "#/$defs/PayoutDecision"
+    },
+    "settled": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Settled"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "None while the customer is choosing between cash and an alternative (R16, R28)."
+    }
+  },
+  "required": [
+    "decision",
+    "customer_id",
+    "decided_at"
+  ],
+  "title": "PayoutNotice",
+  "type": "object"
+}

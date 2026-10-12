@@ -1,0 +1,102 @@
+{
+  "$defs": {
+    "Principal": {
+      "oneOf": [
+        {
+          "description": "A customer, on a partner's channel or the insurer's own journey (`partner_id` none).",
+          "properties": {
+            "customer_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "customer",
+              "type": "string"
+            },
+            "partner_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "customer_id"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A distribution partner's server (R21, R52).",
+          "properties": {
+            "kind": {
+              "const": "partner",
+              "type": "string"
+            },
+            "partner_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "partner_id"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A named person at the insurer: the reviewer on every decision they make (ADR-010).",
+          "properties": {
+            "kind": {
+              "const": "staff",
+              "type": "string"
+            },
+            "staff_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "staff_id"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A data source pushing its reports (R55).",
+          "properties": {
+            "kind": {
+              "const": "feed",
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "source"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A synthetic principal and its token.",
+  "properties": {
+    "label": {
+      "type": "string"
+    },
+    "principal": {
+      "$ref": "#/$defs/Principal"
+    },
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "label",
+    "principal",
+    "token"
+  ],
+  "title": "DemoSession",
+  "type": "object"
+}

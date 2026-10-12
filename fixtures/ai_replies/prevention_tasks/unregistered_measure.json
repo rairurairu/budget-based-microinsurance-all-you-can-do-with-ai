@@ -1,0 +1,28 @@
+{
+  "case": "unregistered_measure",
+  "key": "prevention_tasks:fced932ca9499cad",
+  "input": {
+    "cover": {
+      "class_of_business": "property.device",
+      "cover_id": "device_damage",
+      "key_features": "Repair or replace your phone fast, so you don't lose work days",
+      "name": "Phone and device damage cover"
+    },
+    "event": {
+      "ends": "2027-02-14",
+      "kind": "trip.air",
+      "starts": "2027-02-10"
+    },
+    "language": "en",
+    "measures": [
+      {
+        "description": "A case and a screen protector are fitted on the phone.",
+        "evidence": [
+          "photo"
+        ],
+        "task_type": "screen_protector_fitted"
+      }
+    ]
+  },
+  "reply": "{\"task\": {\"task_type\": \"phone_kept_in_pocket\", \"action\": \"Keep your phone in a zipped pocket on the plane.\", \"evidence\": \"photo\"}}"
+}

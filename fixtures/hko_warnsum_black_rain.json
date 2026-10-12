@@ -1,0 +1,16 @@
+{
+  "WRAIN": {
+    "name": "Rainstorm Warning Signal",
+    "code": "WRAINB",
+    "actionCode": "ISSUE",
+    "issueTime": "2026-09-08T00:50:00+08:00",
+    "updateTime": "2026-09-08T00:50:00+08:00"
+  },
+  "WFNTSA": {
+    "name": "Special Announcement on Flooding in the northern New Territories",
+    "code": "WFNTSA",
+    "actionCode": "ISSUE",
+    "issueTime": "2026-09-08T01:10:00+08:00",
+    "updateTime": "2026-09-08T01:10:00+08:00"
+  }
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic: the feed on Monday 14 September 2026 at 20:30. The Taipei and New Taipei alert is
+     updated (same day, new headline) and replaces the first; Hualien suspends work again on
+     Tuesday; the exercise and the classes-only alert have left the feed. Not real data. -->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Work and school suspensions (synthetic)</title>
+  <updated>2026-09-14T20:30:00+08:00</updated>
+  <entry>
+    <id>urn:synthetic:dgpa:20260914-001</id>
+    <updated>2026-09-14T08:00:00+08:00</updated>
+    <content type="application/cap+xml">
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260914-001</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-14T08:00:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Update</msgType>
+        <scope>Public</scope>
+        <references>synthetic@dgpa.example,DGPA-20260913-001,2026-09-13T20:00:00+08:00</references>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課</event>
+          <urgency>Immediate</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <headline>今日停止上班、停止上課</headline>
+          <area><areaDesc>臺北市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>63000</value></geocode></area>
+          <area><areaDesc>新北市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>65000</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+  <entry>
+    <id>urn:synthetic:dgpa:20260913-002</id>
+    <updated>2026-09-13T20:05:00+08:00</updated>
+    <content type="application/cap+xml">
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260913-002</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-13T20:05:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <area><areaDesc>花蓮縣</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>10015</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+  <entry>
+    <id>urn:synthetic:dgpa:20260914-002</id>
+    <updated>2026-09-14T20:30:00+08:00</updated>
+    <content type="application/cap+xml">
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260914-002</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-14T20:30:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-15T00:00:00+08:00</onset>
+          <expires>2026-09-16T00:00:00+08:00</expires>
+          <area><areaDesc>花蓮縣</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>10015</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+</feed>

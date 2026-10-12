@@ -1,0 +1,9 @@
+rules:
+- R55
+input:
+  today: '2026-10-09'
+  horizon_months: 3
+  text: Went to Osaka last week. Thinking about Europe sometime next year.
+expect:
+  source: model
+  events: []

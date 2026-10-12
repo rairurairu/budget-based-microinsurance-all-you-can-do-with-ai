@@ -1,0 +1,45 @@
+rules:
+- R23
+- R22
+harness_only: true
+input:
+  schedule:
+    plan_id: starter
+    allocations:
+    - cover_id: commute_disruption
+      premium: 4000
+      sum_insured: 30000
+  profile:
+    customer_id: cust-synthetic-commuter-zh
+    occupation: 文員
+    work_windows:
+    - weekday: 1
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 2
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 3
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 4
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 5
+      start_minute: 540
+      end_minute: 1080
+    declared_items:
+    - kind: device.phone
+      description: work phone
+      declared_value: 400000
+    commute_routes:
+    - mtr.tsuen_wan
+    upcoming_events: []
+    typical_daily_earnings: 90000
+    consents:
+    - photos
+    language: zh-Hant
+expect:
+  source: fallback
+  covers:
+  - commute_disruption

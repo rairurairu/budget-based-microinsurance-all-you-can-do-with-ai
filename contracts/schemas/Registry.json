@@ -1,0 +1,95 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What a customer can declare and opt into, and how the market writes money and time: the\nregistries the apps build their forms from (R20, R55).",
+  "properties": {
+    "allocation_step": {
+      "$ref": "#/$defs/Money",
+      "description": "The step premium is allocated in, in minor units (R34)."
+    },
+    "areas": {
+      "description": "The work areas a customer can declare: a city, county or district (ADR-012).",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "currency": {
+      "description": "ISO 4217, such as `HKD`.",
+      "type": "string"
+    },
+    "data_types": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "declared_item_kinds": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "default_language": {
+      "type": "string"
+    },
+    "evidence_kinds": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "languages": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "routes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "upcoming_event_kinds": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "urgent_circumstances": {
+      "description": "Circumstances that make a claim urgent (R46).",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "utc_offset_minutes": {
+      "description": "Minutes east of UTC of market local time.",
+      "format": "int32",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "currency",
+    "utc_offset_minutes",
+    "default_language",
+    "languages",
+    "data_types",
+    "evidence_kinds",
+    "upcoming_event_kinds",
+    "declared_item_kinds",
+    "routes",
+    "areas",
+    "allocation_step",
+    "urgent_circumstances"
+  ],
+  "title": "Registry",
+  "type": "object"
+}

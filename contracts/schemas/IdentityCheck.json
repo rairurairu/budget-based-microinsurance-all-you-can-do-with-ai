@@ -1,0 +1,27 @@
+{
+  "$defs": {
+    "KycStatus": {
+      "enum": [
+        "pending",
+        "verified",
+        "failed"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "session_id": {
+      "type": "string"
+    },
+    "status": {
+      "$ref": "#/$defs/KycStatus"
+    }
+  },
+  "required": [
+    "session_id",
+    "status"
+  ],
+  "title": "IdentityCheck",
+  "type": "object"
+}

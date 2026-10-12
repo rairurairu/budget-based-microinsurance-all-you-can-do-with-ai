@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Answers to rating factors, kept apart from the profile: never an AI input (R19, R33).",
+  "properties": {
+    "answers": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    }
+  },
+  "required": [
+    "answers"
+  ],
+  "title": "RatingAnswers",
+  "type": "object"
+}

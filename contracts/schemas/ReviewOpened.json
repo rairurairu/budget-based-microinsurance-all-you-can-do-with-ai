@@ -1,0 +1,572 @@
+{
+  "$defs": {
+    "Actor": {
+      "description": "Who made a decision.",
+      "oneOf": [
+        {
+          "enum": [
+            "person"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "ai",
+          "description": "A recommendation of the AI layer, applied by the engine's rules.",
+          "type": "string"
+        },
+        {
+          "const": "rules",
+          "description": "The engine's rules alone, such as a trigger match.",
+          "type": "string"
+        },
+        {
+          "const": "customer",
+          "description": "The customer's own choice, such as an allocation they confirmed (R03).",
+          "type": "string"
+        }
+      ]
+    },
+    "Appeal": {
+      "description": "One review request.",
+      "properties": {
+        "appeal_id": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "decided_by": {
+          "$ref": "#/$defs/Actor",
+          "description": "Who made the decision."
+        },
+        "decision_id": {
+          "description": "The decision reviewed, from the decision log.",
+          "type": "string"
+        },
+        "due_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "opened_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "original_reviewer": {
+          "description": "The person whose decision is reviewed: they may not review it themselves.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reason": {
+          "description": "In the customer's words.",
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/AppealState"
+        },
+        "subject_id": {
+          "type": "string"
+        },
+        "subject_type": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "appeal_id",
+        "decision_id",
+        "subject_type",
+        "subject_id",
+        "customer_id",
+        "decided_by",
+        "reason",
+        "opened_at",
+        "due_at",
+        "state"
+      ],
+      "type": "object"
+    },
+    "AppealState": {
+      "oneOf": [
+        {
+          "properties": {
+            "state": {
+              "const": "open",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The decision stands.",
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "reviewer": {
+              "type": "string"
+            },
+            "state": {
+              "const": "upheld",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "reviewer",
+            "on",
+            "note"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The decision is reversed; the subject goes back to a person to decide afresh.",
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "reviewer": {
+              "type": "string"
+            },
+            "state": {
+              "const": "overturned",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "reviewer",
+            "on",
+            "note"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "AuditReason": {
+      "description": "Why a person looks at an automated decision.",
+      "oneOf": [
+        {
+          "const": "risk_review",
+          "description": "Its anomaly score reached `risk_review_threshold`.",
+          "type": "string"
+        },
+        {
+          "const": "random_sample",
+          "description": "Drawn in the random sample, `audit_sample_rate` of decisions (R14).",
+          "type": "string"
+        }
+      ]
+    },
+    "Claim": {
+      "properties": {
+        "amount_claimed": {
+          "$ref": "#/$defs/Money"
+        },
+        "asked_for_person": {
+          "type": "boolean"
+        },
+        "circumstance": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim_id": {
+          "type": "string"
+        },
+        "class_of_business": {
+          "type": "string"
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "evidence": {
+          "description": "Registered evidence kinds sent so far.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "guarantee_requested": {
+          "$ref": "#/$defs/Money"
+        },
+        "loss_date": {
+          "format": "date",
+          "type": "string"
+        },
+        "notified_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/ClaimState"
+        },
+        "urgent": {
+          "description": "Urgent by the rules or the AI's escalation (R46); never reset.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "claim_id",
+        "policy_id",
+        "customer_id",
+        "cover_id",
+        "class_of_business",
+        "loss_date",
+        "notified_at",
+        "amount_claimed",
+        "asked_for_person",
+        "guarantee_requested",
+        "evidence",
+        "urgent",
+        "state"
+      ],
+      "type": "object"
+    },
+    "ClaimReferral": {
+      "description": "Why a claim is with a person.",
+      "oneOf": [
+        {
+          "description": "No cover in force for the loss: outside the policy period, lapsed, not held or excluded.",
+          "properties": {
+            "referral": {
+              "const": "not_in_force",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The loss fell in the cover's waiting period (R07) or a re-entry waiting period (R47).",
+          "properties": {
+            "referral": {
+              "const": "waiting_period",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor gave no assessment (R22).",
+          "properties": {
+            "referral": {
+              "const": "no_assessment",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor recommended a person look.",
+          "properties": {
+            "referral": {
+              "const": "assessor_referred",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor's confidence is below `stp_min_confidence`.",
+          "properties": {
+            "referral": {
+              "const": "low_confidence",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The amount claimed exceeds the assessor's estimate by more than `estimate_tolerance`.",
+          "properties": {
+            "referral": {
+              "const": "above_estimate",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The claim payment would exceed the STP limit.",
+          "properties": {
+            "referral": {
+              "const": "above_stp_limit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Drawn for audit, or at the risk review threshold, before payment (R14).",
+          "properties": {
+            "reason": {
+              "$ref": "#/$defs/AuditReason"
+            },
+            "referral": {
+              "const": "audit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "reason"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a person, or needs human care (R46).",
+          "properties": {
+            "referral": {
+              "const": "human_care",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a decline to be reviewed: a different person decides (R15).",
+          "properties": {
+            "declined_by": {
+              "type": "string"
+            },
+            "referral": {
+              "const": "appeal",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "declined_by"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "ClaimState": {
+      "oneOf": [
+        {
+          "description": "Waiting for evidence the cover asks for.",
+          "properties": {
+            "missing": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array",
+              "uniqueItems": true
+            },
+            "state": {
+              "const": "awaiting_evidence",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "missing"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Evidence complete: with the assessor, then `decide`.",
+          "properties": {
+            "state": {
+              "const": "assessing",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "due": {
+              "description": "A person decides by then: `referral_sla_hours`, or `appeal_sla_hours` on review.",
+              "format": "date-time",
+              "type": "string"
+            },
+            "referral": {
+              "$ref": "#/$defs/ClaimReferral"
+            },
+            "since": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "state": {
+              "const": "with_person",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "since",
+            "due",
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A claim payment was issued for `amount`.",
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/Money"
+            },
+            "by": {
+              "$ref": "#/$defs/DecidedBy"
+            },
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "state": {
+              "const": "approved",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "by",
+            "on",
+            "amount"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Only a person declines (R13).",
+          "properties": {
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "reason": {
+              "$ref": "#/$defs/DeclineReason"
+            },
+            "reviewer": {
+              "type": "string"
+            },
+            "state": {
+              "const": "declined",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "reviewer",
+            "on",
+            "reason"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "DecidedBy": {
+      "oneOf": [
+        {
+          "enum": [
+            "person"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "stp",
+          "description": "Straight through, on the assessor's recommendation and the rules.",
+          "type": "string"
+        }
+      ]
+    },
+    "DeclineReason": {
+      "description": "Why a person declined a claim. A closed set, each tied to the policy wording; the customer is\ntold the reason and that they can ask for a review (R15).",
+      "oneOf": [
+        {
+          "enum": [
+            "not_in_force",
+            "waiting_period",
+            "not_an_insured_loss",
+            "policy_exclusion",
+            "evidence_not_provided"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "fraud",
+          "description": "Fraud, which only a person finds (R10, R13).",
+          "type": "string"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What a review request opened: a review of the decision, or, for a declined claim, the claim\nback with a different person (R15).",
+  "properties": {
+    "appeal": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Appeal"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "claim": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Claim"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "title": "ReviewOpened",
+  "type": "object"
+}

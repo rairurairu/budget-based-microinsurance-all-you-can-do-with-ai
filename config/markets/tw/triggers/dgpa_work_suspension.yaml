@@ -1,0 +1,46 @@
+# Data source (R55): work suspensions for natural disasters, announced by each city and county
+# government and published by the Directorate-General of Personnel Administration (DGPA) in CAP
+# through the national alert platform (NCDR). Reported per city or county (ADR-012).
+id: dgpa_work_suspension
+name: Work and school suspensions for natural disasters
+provider: Directorate-General of Personnel Administration, via the NCDR alert platform
+access: open_data
+status: available
+adapter: cap                     # Common Alerting Protocol 1.2 (crates/triggers adapters/cap.rs)
+live: "<NCDR CAP feed of DGPA work and school suspensions>"   # Decide: the feed URL
+history:
+  available: true
+  since: 2000
+  reference: "DGPA record of work and school suspensions by city and county"
+poll_seconds: 60
+demo_mode_fixture: fixtures/markets/tw/cap_work_suspension.xml
+cap:                             # which of the alert's codes this source reads; confirm against the NCDR CAP profile
+  event_code: "profile:CAP-TWP:Event:1.0"
+  geocode: "Taiwan_Geocode_103"
+codes:                           # only work suspension pays; classes suspended alone do not stop work
+  WORK_SUSPENDED:        { event_type: work.suspension, stage: suspended }
+  WORK_SCHOOL_SUSPENDED: { event_type: work.suspension, stage: suspended }
+areas:                           # the Ministry of the Interior's city and county codes, to the area ids a
+                                 # customer declares (exposure: the declared work area, ADR-012)
+  "63000": tw.taipei_city
+  "64000": tw.kaohsiung_city
+  "65000": tw.new_taipei_city
+  "66000": tw.taichung_city
+  "67000": tw.tainan_city
+  "68000": tw.taoyuan_city
+  "10002": tw.yilan_county
+  "10004": tw.hsinchu_county
+  "10005": tw.miaoli_county
+  "10007": tw.changhua_county
+  "10008": tw.nantou_county
+  "10009": tw.yunlin_county
+  "10010": tw.chiayi_county
+  "10013": tw.pingtung_county
+  "10014": tw.taitung_county
+  "10015": tw.hualien_county
+  "10016": tw.penghu_county
+  "10017": tw.keelung_city
+  "10018": tw.hsinchu_city
+  "10020": tw.chiayi_city
+  "09007": tw.lienchiang_county
+  "09020": tw.kinmen_county

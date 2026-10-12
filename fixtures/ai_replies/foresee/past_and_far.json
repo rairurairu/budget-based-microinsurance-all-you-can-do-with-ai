@@ -1,0 +1,26 @@
+{
+  "case": "past_and_far",
+  "key": "foresee:40b5765ea0965181",
+  "input": {
+    "last_start_date": "2027-01-09",
+    "text": "Went to Osaka last week. Thinking about Europe sometime next year.",
+    "today": "2026-10-09",
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"events\": []}"
+}

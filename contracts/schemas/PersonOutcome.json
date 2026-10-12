@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "DeclineReason": {
+      "description": "Why a person declined a claim. A closed set, each tied to the policy wording; the customer is\ntold the reason and that they can ask for a review (R15).",
+      "oneOf": [
+        {
+          "enum": [
+            "not_in_force",
+            "waiting_period",
+            "not_an_insured_loss",
+            "policy_exclusion",
+            "evidence_not_provided"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "fraud",
+          "description": "Fraud, which only a person finds (R10, R13).",
+          "type": "string"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A person's decision on a claim with them.",
+  "oneOf": [
+    {
+      "description": "Pay the loss the person assessed, up to the sum insured (R48).",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "decision": {
+          "const": "approve",
+          "type": "string"
+        }
+      },
+      "required": [
+        "decision",
+        "amount"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "decision": {
+          "const": "decline",
+          "type": "string"
+        },
+        "reason": {
+          "$ref": "#/$defs/DeclineReason"
+        }
+      },
+      "required": [
+        "decision",
+        "reason"
+      ],
+      "type": "object"
+    },
+    {
+      "description": "Ask the customer for more evidence of these registered kinds.",
+      "properties": {
+        "decision": {
+          "const": "request_evidence",
+          "type": "string"
+        },
+        "kinds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "decision",
+        "kinds"
+      ],
+      "type": "object"
+    }
+  ],
+  "title": "PersonOutcome"
+}

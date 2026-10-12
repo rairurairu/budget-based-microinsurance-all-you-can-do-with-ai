@@ -1,0 +1,44 @@
+rules:
+- R55
+- R22
+harness_only: true
+input:
+  form:
+    channel: direct
+    language: en
+    questions:
+    - id: work_hours
+      text: When do you usually ride?
+      options:
+      - Weekday daytime
+      - Evenings or nights
+      - Weekends
+      - It changes
+    - id: devices
+      text: Which devices do you rely on for deliveries?
+      options:
+      - Phone
+      - Tablet
+      - Wearable
+      - None
+    - id: commute
+      text: Which MTR line do you take to start your shift?
+      options: []
+    - id: vehicle
+      text: How do you get around on deliveries?
+      options:
+      - Motorcycle
+      - Bicycle
+      - On foot
+    - id: plans
+      text: Any trip or ticketed event in the next three months?
+      options:
+      - A trip
+      - A concert or show
+      - No plans yet
+  answers:
+    commute: the green line
+expect:
+  source: fallback
+  devices: []
+  commute_routes: []

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic: a CAP 1.2 typhoon sea and land warning for Taiwan, issued on Sunday 13 September
+     2026 at 08:30. It stops new weather cover (R06) and pays nothing. Not real data. -->
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>CWA-TY-20260913-0830</identifier>
+  <sender>synthetic@cwa.example</sender>
+  <sent>2026-09-13T08:30:00+08:00</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>zh-TW</language>
+    <category>Met</category>
+    <event>颱風</event>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Observed</certainty>
+    <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>TYPHOON_SEA_LAND</value></eventCode>
+    <onset>2026-09-13T08:30:00+08:00</onset>
+    <headline>海上陸上颱風警報</headline>
+    <area><areaDesc>臺灣</areaDesc></area>
+  </info>
+</alert>

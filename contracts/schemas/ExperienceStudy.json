@@ -1,0 +1,169 @@
+{
+  "$defs": {
+    "MeasureRow": {
+      "description": "One prevention measure: claim frequency with and without a verified activity.",
+      "properties": {
+        "claims_with": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "claims_without": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "class_of_business": {
+          "type": "string"
+        },
+        "credibility_bps": {
+          "description": "On the claims of both groups together.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "frequency_with_bps": {
+          "description": "Claims per policy period, in basis points.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "frequency_without_bps": {
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "measure": {
+          "type": "string"
+        },
+        "periods_with": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "periods_without": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "class_of_business",
+        "measure",
+        "periods_with",
+        "claims_with",
+        "periods_without",
+        "claims_without",
+        "credibility_bps"
+      ],
+      "type": "object"
+    },
+    "StudyRow": {
+      "description": "One class of business in one policy period.",
+      "properties": {
+        "actual_to_expected_bps": {
+          "description": "Incurred ÷ expected in basis points; none without an expected cost.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "claims": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "class_of_business": {
+          "type": "string"
+        },
+        "credibility_bps": {
+          "description": "The weight the actuary gives this experience against the basis, in basis points.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "expected_minor": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "incurred_minor": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "loss_ratio_bps": {
+          "description": "Incurred ÷ premium in basis points; none without premium.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "period": {
+          "type": "string"
+        },
+        "policy_periods": {
+          "description": "Policy periods in force (exposure).",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "premium_minor": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "sum_insured_minor": {
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "class_of_business",
+        "period",
+        "policy_periods",
+        "premium_minor",
+        "sum_insured_minor",
+        "expected_minor",
+        "claims",
+        "incurred_minor",
+        "credibility_bps"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A study over a book, for the actuary.",
+  "properties": {
+    "as_of": {
+      "description": "The month the study runs to, `YYYY-MM`.",
+      "type": "string"
+    },
+    "classes": {
+      "items": {
+        "$ref": "#/$defs/StudyRow"
+      },
+      "type": "array"
+    },
+    "full_credibility_claims": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "prevention": {
+      "items": {
+        "$ref": "#/$defs/MeasureRow"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "as_of",
+    "full_credibility_claims",
+    "classes",
+    "prevention"
+  ],
+  "title": "ExperienceStudy",
+  "type": "object"
+}

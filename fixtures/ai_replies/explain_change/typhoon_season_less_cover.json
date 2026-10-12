@@ -1,0 +1,28 @@
+{
+  "case": "typhoon_season_less_cover",
+  "key": "explain_change:3ceaba0411596815",
+  "input": {
+    "below_declared_value": false,
+    "change": "less_cover_same_premium",
+    "cover": {
+      "cover_id": "weather_income",
+      "cover_type": "parametric",
+      "key_features": "A daily benefit for each working day a typhoon (Signal 8 or above) or a black rainstorm disrupts at least an hour of your declared working hours, counting two hours to get back to work after it is lowered; one benefit per day however many warnings that day",
+      "name": "Weather income cover",
+      "pays_on": [
+        "Tropical cyclone warning signal",
+        "Rainstorm warning"
+      ],
+      "waiting_period_days": 0
+    },
+    "language": "en",
+    "market_factors": [
+      {
+        "factor": "hazard_frequency",
+        "means": "P(trigger in policy period) from the historical record, season and official outlooks",
+        "risk": "higher"
+      }
+    ]
+  },
+  "reply": "{\"sentence\": \"Typhoon season is coming, so the same premium buys less weather cover next month.\"}"
+}

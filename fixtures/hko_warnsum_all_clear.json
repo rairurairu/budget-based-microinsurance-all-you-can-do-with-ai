@@ -1,0 +1,10 @@
+{
+  "WTCSGNL": {
+    "name": "Tropical Cyclone Warning Signal",
+    "code": "TC8NE",
+    "type": "No. 8 Northeast Gale or Storm Signal",
+    "actionCode": "CANCEL",
+    "issueTime": "2026-09-14T09:40:00+08:00",
+    "updateTime": "2026-09-15T06:20:00+08:00"
+  }
+}

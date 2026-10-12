@@ -1,0 +1,17 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "offer_ids": {
+      "description": "Every offer id, best first.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "offer_ids"
+  ],
+  "title": "rewards",
+  "type": "object"
+}

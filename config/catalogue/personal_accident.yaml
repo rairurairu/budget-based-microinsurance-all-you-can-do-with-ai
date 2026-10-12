@@ -1,0 +1,12 @@
+id: personal_accident
+name: Personal accident cover
+type: indemnity
+class_of_business: accident_health.personal_accident
+launch_phase: 3
+exposure: { kind: everyone }
+product_limit: 100000                 # R34; illustrative
+key_features: "Hospital and injury costs after an accident"
+claim:
+  evidence: [hospital_receipt, medical_certificate]
+  assessed_by: ai_estimate_then_rules
+waiting_period_days: 0

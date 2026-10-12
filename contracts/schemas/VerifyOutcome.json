@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "Verdict": {
+      "description": "The AI verifier's verdict, already parsed into this type.",
+      "properties": {
+        "passed": {
+          "type": "boolean"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "reuse_suspected": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "passed",
+        "reason",
+        "reuse_suspected"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What happens to the evidence.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Verdict",
+      "properties": {
+        "outcome": {
+          "const": "verdict",
+          "type": "string"
+        }
+      },
+      "required": [
+        "outcome"
+      ],
+      "type": "object"
+    },
+    {
+      "description": "A person checks it (no verdict could be given).",
+      "properties": {
+        "outcome": {
+          "const": "refer_to_person",
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "outcome",
+        "reason"
+      ],
+      "type": "object"
+    }
+  ],
+  "title": "VerifyOutcome"
+}

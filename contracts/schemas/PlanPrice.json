@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "Funder": {
+      "enum": [
+        "insurer",
+        "partner",
+        "co_funded"
+      ],
+      "type": "string"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What the customer pays for a plan on a day. The plan price itself, which is allocated across\ncovers, stays at `list_price`; the discount is paid by its funder.",
+  "properties": {
+    "discount": {
+      "$ref": "#/$defs/Money"
+    },
+    "funded_by": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Funder"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "list_price": {
+      "$ref": "#/$defs/Money"
+    },
+    "payable": {
+      "$ref": "#/$defs/Money"
+    },
+    "plan_id": {
+      "type": "string"
+    },
+    "promotion_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "plan_id",
+    "list_price",
+    "discount",
+    "payable"
+  ],
+  "title": "PlanPrice",
+  "type": "object"
+}

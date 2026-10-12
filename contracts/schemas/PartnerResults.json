@@ -1,0 +1,81 @@
+{
+  "$defs": {
+    "Figure": {
+      "description": "One aggregate. `value` is withheld when the cohort is too small (R21).",
+      "properties": {
+        "cohort_size": {
+          "description": "Customers the figure is computed over.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "metric": {
+          "type": "string"
+        },
+        "unit": {
+          "$ref": "#/$defs/Unit"
+        },
+        "value": {
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "metric",
+        "unit",
+        "cohort_size"
+      ],
+      "type": "object"
+    },
+    "Unit": {
+      "oneOf": [
+        {
+          "enum": [
+            "customers",
+            "count",
+            "hours"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "bps",
+          "description": "Basis points: 10,000 is 100%.",
+          "type": "string"
+        },
+        {
+          "const": "minor",
+          "description": "Minor units of the market's currency.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A distribution partner's results: aggregates over the customers who came through it, and\nover everyone who took one of its rewards.",
+  "properties": {
+    "figures": {
+      "items": {
+        "$ref": "#/$defs/Figure"
+      },
+      "type": "array"
+    },
+    "min_cohort": {
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "partner_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "partner_id",
+    "min_cohort",
+    "figures"
+  ],
+  "title": "PartnerResults",
+  "type": "object"
+}

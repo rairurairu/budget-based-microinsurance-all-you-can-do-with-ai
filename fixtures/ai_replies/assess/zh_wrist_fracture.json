@@ -1,0 +1,31 @@
+{
+  "case": "zh_wrist_fracture",
+  "key": "assess:9a55f6d412870249",
+  "input": {
+    "claim": {
+      "circumstance": "injury",
+      "description": "我踩單車時跌倒，手腕骨折，在醫院住了一晚，現在仍然很痛。",
+      "evidence_sent": [
+        "hospital_receipt",
+        "medical_certificate"
+      ],
+      "loss_date": "2026-10-18"
+    },
+    "cover": {
+      "class_of_business": "accident_health.personal_accident",
+      "evidence_kinds": [
+        "hospital_receipt",
+        "medical_certificate"
+      ],
+      "name": "Personal accident cover"
+    },
+    "currency": "HKD",
+    "documents": [
+      "瑪嘉烈醫院 收據 2026-10-19 急症室及住院一晚 骨科 診斷：右腕骨折 合共 HK$3,800",
+      "醫生證明書 2026-10-19 右腕骨折 建議休息六星期"
+    ],
+    "images": 0,
+    "language": "zh-Hant"
+  },
+  "reply": "{\"recommend\": \"approve\", \"estimate\": 3800, \"confidence\": 88, \"consistent\": true, \"urgent\": true, \"human_care\": false, \"reason\": \"收據顯示你因手腕骨折到醫院急症室求診並住院一晚。\"}"
+}

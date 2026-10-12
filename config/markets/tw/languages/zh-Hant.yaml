@@ -1,0 +1,71 @@
+# Traditional Chinese (Taiwan), read over config/languages/zh-Hant.yaml (ADR-012). See
+# config/languages/en.yaml for what each section does. Illustrative copy: the insurer replaces it
+# with approved wording.
+language: zh-Hant
+
+sentence:
+  terminators: ["。", "！", "？"]
+  max_chars: 60
+
+checks:
+  currency: ["$", "元", "塊", "新台幣", "新臺幣", "台幣", "臺幣", "NT"]
+  protected: ["年齡", "歲", "性別", "男性", "女性", "種族", "族群", "宗教", "國籍", "地區"]
+
+saved_answers:
+  proposal_form:
+    - id: occupation
+      text: 你平常做什麼工作？
+      options: [外送或叫車司機, 辦公室工作, 戶外或工地工作, 店面或攤販, 其他]
+    - id: work_hours
+      text: 你通常什麼時候工作？
+      options: [平日白天, 晚上或大夜, 週末, 不固定]
+    - id: commute
+      text: 你通常怎麼上班？
+      options: [捷運, 公車或客運, 機車或腳踏車, 步行, 在家工作]
+    - id: devices
+      text: 你工作時靠哪些電子產品？
+      options: [手機, 平板, 筆電, 智慧手錶, 沒有]
+    - id: plans
+      text: 接下來幾個月你有沒有旅行或已買票的活動？
+      options: [旅行, 演唱會或表演, 球賽, 暫時沒有]
+
+  covers:
+    commute_disruption: 你的通勤路線中斷時，你會自動收到給付。
+    contents: 你家中的財物受到保障，適合租屋族與學生。
+    device_damage: 手機損壞時會盡快維修或更換，讓你不用停工。
+    event_ticket: 演出取消時，你的票款會自動退還給你。
+    flight_delay: 你的航班延誤時，你會自動收到給付。
+    heat_stress_income: 高溫警告縮短你的戶外工作時間時，你會收到給付。
+    personal_accident: 意外後的住院及受傷費用都有保障。
+    scam_loss: 遇到網路詐騙後，你可拿回部分損失。
+    travel: 你已預訂的行程在出發前受到保障。
+    weather_income: 你工作的縣市因颱風或豪雨宣布停止上班時，你會收到當天的給付。
+
+  cover_names:
+    commute_disruption: 通勤中斷保障
+    contents: 居家財物保障
+    device_damage: 電子產品損壞保障
+    event_ticket: 活動票券保障
+    flight_delay: 航班延誤保障
+    heat_stress_income: 高溫工作收入保障
+    personal_accident: 個人意外保障
+    scam_loss: 網路詐騙損失保障
+    travel: 旅遊保障
+    weather_income: 天災停班收入保障
+  change:
+    more: 下個月同樣的保費可為你的{cover}買到更多保障。
+    less: 下個月同樣的保費可為你的{cover}買到較少保障。
+    same: 下個月你的{cover}維持不變。
+    below_declared_value: 下個月你的{cover}已低於你申報的價值。
+
+  verify:
+    no_evidence: 你沒有附上證明，我們的同仁會跟你聯絡。
+    reused: 這份證明之前已提交過，不能重複計算。
+    unreadable: 我們的同仁會查看這個檔案。
+    refer: 我們的同仁會盡快查看你的證明。
+
+  assess:
+    no_evidence: 請附上保障所需的證明，如有需要我們的同仁會協助你。
+    reused: 這份證明之前已提交過，我們的同仁會查看。
+    unreadable: 我們的同仁會查看這個檔案並與你聯絡。
+    refer: 我們的同仁會查看你的理賠申請並與你聯絡。

@@ -1,0 +1,48 @@
+# Loss prevention measures (R18, R36, R38, ADR-009): the kinds of prevention task the insurer
+# recognises. The AI writes an event-specific action for one of them; the engine sizes the reward
+# from the measure's claims data in the prevention basis (claim probability without and with it,
+# average claim cost, from the insurer's claims data; `python/economics`). Illustrative.
+#
+# - `id` is the task type the AI names; permanent once used. Retire with `retired: true`.
+# - `class_of_business` is a leaf class with at least one loss-based (indemnity) cover: behaviour
+#   cannot move a parametric trigger (R38). Points and rewards stay in its points pool (R36).
+# - `evidence`: registered evidence kinds that prove it (`data_types.yaml`); the customer must
+#   have opted into the data type of the one they send (R20).
+# - `repeat_after_days`: one verified activity per customer in this window (R10); Decide.
+
+measures:
+  - id: screen_protector_fitted
+    class_of_business: property.device
+    description: A case and a screen protector are fitted on the phone.
+    evidence: [photo]
+    repeat_after_days: 180
+
+  - id: device_health_check
+    class_of_business: property.device
+    description: The phone's battery and screen pass a diagnostics check read from the device.
+    evidence: [device_diagnostics]
+    repeat_after_days: 90
+
+  - id: smoke_alarm_fitted
+    class_of_business: property.home_contents
+    description: A working smoke alarm is fitted at home.
+    evidence: [photo]
+    repeat_after_days: 365
+
+  - id: protective_gear_worn
+    class_of_business: accident_health.personal_accident
+    description: A certified helmet is worn when riding a bicycle or motorcycle.
+    evidence: [photo]
+    repeat_after_days: 90
+
+  - id: luggage_secured
+    class_of_business: travel.trip
+    description: Luggage is locked and tagged, and valuables are photographed before the trip.
+    evidence: [photo]
+    repeat_after_days: 30
+
+  - id: two_step_verification_on
+    class_of_business: pecuniary.scam
+    description: Two-step verification is turned on for banking and payment apps.
+    evidence: [screenshot]
+    repeat_after_days: 365

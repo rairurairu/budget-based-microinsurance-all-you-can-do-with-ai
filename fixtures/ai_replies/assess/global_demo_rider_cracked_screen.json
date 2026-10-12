@@ -1,0 +1,26 @@
+{
+  "case": "global_demo_rider_cracked_screen",
+  "key": "assess:49de98e841afacf6",
+  "input": {
+    "claim": {
+      "circumstance": null,
+      "description": "I dropped my phone on the pavement and the screen cracked across the middle.",
+      "evidence_sent": [
+        "photo"
+      ],
+      "loss_date": "2026-11-16"
+    },
+    "cover": {
+      "class_of_business": "property.device",
+      "evidence_kinds": [
+        "photo"
+      ],
+      "name": "Phone and device damage cover"
+    },
+    "currency": "USD",
+    "documents": [],
+    "images": 1,
+    "language": "en"
+  },
+  "reply": "{\"recommend\": \"approve\", \"estimate\": 140, \"confidence\": 90, \"consistent\": true, \"urgent\": false, \"human_care\": false, \"reason\": \"The photo shows a phone screen cracked across the middle, as you described.\"}"
+}

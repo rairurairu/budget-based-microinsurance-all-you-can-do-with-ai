@@ -1,0 +1,12 @@
+# uv workspace for offline tools. Nothing here runs in production.
+[tool.uv.workspace]
+members = ["economics", "evals"]
+
+[dependency-groups]
+dev = ["pytest>=8", "ruff>=0.6", "pyright>=1.1.380", "maturin>=1.5"]
+
+[tool.ruff]
+line-length = 100
+
+[tool.pyright]
+typeCheckingMode = "strict"

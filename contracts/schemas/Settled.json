@@ -1,0 +1,72 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "How a payout was settled.",
+  "properties": {
+    "amount": {
+      "$ref": "#/$defs/Money"
+    },
+    "cash": {
+      "$ref": "#/$defs/Money",
+      "description": "Paid to the customer; zero when settled in kind."
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "method": {
+      "$ref": "#/$defs/Settlement"
+    },
+    "premium_set_off": {
+      "$ref": "#/$defs/Money",
+      "description": "Premium due set off against a cash payout in the grace period (R53)."
+    }
+  },
+  "required": [
+    "idempotency_key",
+    "method",
+    "amount",
+    "premium_set_off",
+    "cash"
+  ],
+  "title": "Settled",
+  "type": "object"
+}

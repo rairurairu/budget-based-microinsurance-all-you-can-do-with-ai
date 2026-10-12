@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "edited_suspected": {
+      "description": "The evidence looks edited or generated.",
+      "type": "boolean"
+    },
+    "passed": {
+      "description": "The evidence shows the action done, as the task describes.",
+      "type": "boolean"
+    },
+    "reason": {
+      "description": "One plain sentence for the customer.",
+      "type": "string"
+    },
+    "reuse_suspected": {
+      "description": "The evidence looks like it was taken earlier or for something else.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "edited_suspected",
+    "passed",
+    "reason",
+    "reuse_suspected"
+  ],
+  "title": "verify",
+  "type": "object"
+}

@@ -1,0 +1,21 @@
+{
+  "case": "states_new_sum_insured",
+  "key": "explain_change:4820b9c95fdbddb6",
+  "input": {
+    "below_declared_value": false,
+    "change": "more_cover_same_premium",
+    "cover": {
+      "cover_id": "commute_disruption",
+      "cover_type": "parametric",
+      "key_features": "Get paid when your regular route is disrupted",
+      "name": "Commute disruption cover",
+      "pays_on": [
+        "Rail service disruption"
+      ],
+      "waiting_period_days": 0
+    },
+    "language": "en",
+    "market_factors": []
+  },
+  "reply": "{\"sentence\": \"Your commute cover now pays 180 for each disruption.\"}"
+}

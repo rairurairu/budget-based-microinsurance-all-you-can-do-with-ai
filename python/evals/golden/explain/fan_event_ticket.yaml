@@ -1,0 +1,31 @@
+rules:
+- R23
+- R02
+input:
+  schedule:
+    plan_id: starter
+    allocations:
+    - cover_id: event_ticket
+      premium: 4000
+      sum_insured: 100000
+  profile:
+    customer_id: cust-synthetic-fan
+    occupation: office clerk
+    work_windows: []
+    declared_items: []
+    commute_routes: []
+    upcoming_events:
+    - kind: event.concert
+      starts: '2026-11-21'
+      ends: null
+      reference: EVT-2026-1121-ARENA
+      value: 88000
+    typical_daily_earnings: null
+    consents: []
+expect:
+  source: model
+  covers:
+  - event_ticket
+  not_sent:
+  - '880'
+  - '88000'

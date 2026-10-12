@@ -1,0 +1,34 @@
+{
+  "measures": {
+    "screen_protector_fitted": {
+      "claim_prob_without": 400,
+      "claim_prob_with": 250,
+      "avg_claim_cost": 13400
+    },
+    "device_health_check": {
+      "claim_prob_without": 400,
+      "claim_prob_with": 340,
+      "avg_claim_cost": 10000
+    },
+    "smoke_alarm_fitted": {
+      "claim_prob_without": 30,
+      "claim_prob_with": 20,
+      "avg_claim_cost": 187500
+    },
+    "protective_gear_worn": {
+      "claim_prob_without": 120,
+      "claim_prob_with": 80,
+      "avg_claim_cost": 75000
+    },
+    "luggage_secured": {
+      "claim_prob_without": 300,
+      "claim_prob_with": 220,
+      "avg_claim_cost": 18800
+    },
+    "two_step_verification_on": {
+      "claim_prob_without": 50,
+      "claim_prob_with": 20,
+      "avg_claim_cost": 100000
+    }
+  }
+}

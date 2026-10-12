@@ -1,0 +1,14 @@
+{
+  "name": "@microinsurance/ops-console",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json && node src/build.ts",
+    "test": "node --test src/*.test.ts",
+    "typecheck": "tsc --noEmit -p ."
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.1"
+  }
+}

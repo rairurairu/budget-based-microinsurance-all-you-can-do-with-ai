@@ -1,0 +1,44 @@
+rules:
+- R18
+- R22
+harness_only: true
+input:
+  event:
+    kind: trip.air
+    starts: '2027-02-10'
+    ends: '2027-02-14'
+    reference: CX520/2027-02-10
+    value: null
+  cover_id: device_damage
+  profile:
+    customer_id: cust-synthetic-traveller
+    occupation: food delivery rider
+    work_windows:
+    - weekday: 1
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 2
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 3
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 4
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 5
+      start_minute: 540
+      end_minute: 1080
+    declared_items:
+    - kind: device.phone
+      description: work phone
+      declared_value: 400000
+    commute_routes:
+    - mtr.tsuen_wan
+    upcoming_events: []
+    typical_daily_earnings: 90000
+    consents:
+    - photos
+expect:
+  source: fallback
+  task: null

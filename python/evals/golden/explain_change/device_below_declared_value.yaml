@@ -1,0 +1,18 @@
+rules:
+- R35
+- R48
+- R23
+input:
+  change:
+    cover_id: device_damage
+    premium: 3000
+    before: 400000
+    after: 350000
+    declared_value: 400000
+    below_declared_value: true
+  basis: null
+expect:
+  source: model
+  not_sent:
+  - '4000'
+  - '3500'

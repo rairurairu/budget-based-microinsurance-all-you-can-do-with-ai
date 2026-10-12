@@ -1,0 +1,142 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "PayoutDecision": {
+      "description": "One payout to one policy on one loss occurrence, at one stage (R27).",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "lines": {
+          "description": "By cover id.",
+          "items": {
+            "$ref": "#/$defs/PayoutLine"
+          },
+          "type": "array"
+        },
+        "occurrence_id": {
+          "type": "string"
+        },
+        "options": {
+          "description": "Cash first, always (R16); then alternatives every cover in the payout permits, that are\nsuitable now and worth at least the cash they replace (R28).",
+          "items": {
+            "$ref": "#/$defs/Settlement"
+          },
+          "type": "array"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "stage": {
+          "$ref": "#/$defs/PayoutStage"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "policy_id",
+        "occurrence_id",
+        "stage",
+        "lines",
+        "amount",
+        "options"
+      ],
+      "type": "object"
+    },
+    "PayoutLine": {
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "cover_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cover_id",
+        "amount"
+      ],
+      "type": "object"
+    },
+    "PayoutStage": {
+      "description": "R51: the guaranteed share is paid at once; the balance when the loss occurrence closes.",
+      "enum": [
+        "guaranteed",
+        "balance"
+      ],
+      "type": "string"
+    },
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What one pushed report did.",
+  "properties": {
+    "closed": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "opened": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "payouts": {
+      "items": {
+        "$ref": "#/$defs/PayoutDecision"
+      },
+      "type": "array"
+    },
+    "source": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "source",
+    "opened",
+    "closed",
+    "payouts"
+  ],
+  "title": "FeedOutcome",
+  "type": "object"
+}

@@ -1,0 +1,16 @@
+rules:
+- R35
+- R02
+- R22
+harness_only: true
+input:
+  change:
+    cover_id: commute_disruption
+    premium: 2500
+    before: 15000
+    after: 18000
+    declared_value: null
+    below_declared_value: false
+  basis: null
+expect:
+  source: fallback

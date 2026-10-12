@@ -1,0 +1,29 @@
+# Data source (R55). The rail operator's own line status, one code per line: no text is parsed
+# (ADR-008). Reported per line, in the route id a customer declares (exposure declared_route).
+id: mtr_line_status
+name: MTR line status
+provider: MTR Corporation
+access: open_data                # the public status file behind the operator's app
+status: available
+adapter: mtr_line_status
+live: "https://tnews.mtr.com.hk/alert/ryg_line_status.json"
+history:
+  available: false               # covers on it are priced on the insurer's filed rate
+poll_seconds: 60
+demo_mode_fixture: fixtures/mtr_line_status_suspended.json
+codes:                           # the operator's status, upper-cased; GREEN is normal service
+  YELLOW: { event_type: transit.rail_disruption, stage: delay }
+  RED:    { event_type: transit.rail_disruption, stage: suspension }
+
+lines:                           # the operator's line code → the route id a customer declares
+  EAL: mtr.east_rail
+  TML: mtr.tuen_ma
+  KTL: mtr.kwun_tong
+  TWL: mtr.tsuen_wan
+  ISL: mtr.island
+  SIL: mtr.south_island
+  TKL: mtr.tseung_kwan_o
+  TCL: mtr.tung_chung
+  AEL: mtr.airport_express
+  DRL: mtr.disneyland
+  LR: mtr.light_rail

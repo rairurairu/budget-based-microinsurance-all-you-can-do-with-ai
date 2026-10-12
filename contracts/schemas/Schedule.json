@@ -1,0 +1,49 @@
+{
+  "$defs": {
+    "Allocation": {
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "premium": {
+          "$ref": "#/$defs/Money",
+          "description": "Share of the plan price."
+        },
+        "sum_insured": {
+          "$ref": "#/$defs/Money",
+          "description": "Sum insured (indemnity) or benefit amount per trigger event (parametric) this premium buys."
+        }
+      },
+      "required": [
+        "cover_id",
+        "premium",
+        "sum_insured"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The covers and sums insured for one policy period. Allocations are ordered by cover id.",
+  "properties": {
+    "allocations": {
+      "items": {
+        "$ref": "#/$defs/Allocation"
+      },
+      "type": "array"
+    },
+    "plan_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "plan_id",
+    "allocations"
+  ],
+  "title": "Schedule",
+  "type": "object"
+}

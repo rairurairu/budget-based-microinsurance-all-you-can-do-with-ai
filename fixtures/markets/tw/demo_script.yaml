@@ -1,0 +1,30 @@
+# Demo mode's synthetic world for Taiwan (ADR-012; crates/workers src/demo.rs): weather income
+# cover paid where the city or county government suspends work. Files are relative to this one;
+# no customer here is real. Amounts in NT$.
+book:
+  - { id: demo-taipei-rider, starts: 2026-09-01, cover: weather_income, sum_insured: 1200, days: [1, 2, 3, 4, 5], hours: "09:00-18:00", areas: [tw.taipei_city] }
+  - { id: demo-new-taipei-courier, starts: 2026-09-01, cover: weather_income, sum_insured: 1000, days: [1, 2, 3, 4, 5], hours: "18:00-23:00", areas: [tw.new_taipei_city] }
+  - { id: demo-hualien-stall, starts: 2026-09-01, cover: weather_income, sum_insured: 800, days: [1, 2, 3, 4, 5, 6], hours: "08:00-17:00", areas: [tw.hualien_county] }
+  # Exposed to the typhoon but not suspended where they work; classes suspended only; an exercise.
+  - { id: demo-taoyuan-driver, starts: 2026-09-01, cover: weather_income, sum_insured: 1000, days: [1, 2, 3, 4, 5], hours: "07:00-16:00", areas: [tw.taoyuan_city] }
+  - { id: demo-taichung-tutor, starts: 2026-09-01, cover: weather_income, sum_insured: 900, days: [1, 2, 3, 4, 5], hours: "09:00-18:00", areas: [tw.taichung_city] }
+  - { id: demo-kaohsiung-porter, starts: 2026-09-01, cover: weather_income, sum_insured: 900, days: [1, 2, 3, 4, 5], hours: "09:00-18:00", areas: [tw.kaohsiung_city] }
+
+polls:
+  # The Central Weather Administration's sea and land warning from Sunday 08:30 local: no new
+  # weather cover while it is in force (R06); lifted on Tuesday.
+  - source: cwa_typhoon_warnings
+    steps:
+      - { file: cap_typhoon_warning.xml, at: 2026-09-13T01:00:00Z }
+      - { file: cap_empty.xml, at: 2026-09-15T08:00:00Z }
+  # Announced on Sunday at 20:00 for Monday: not in force until midnight. Hualien suspends work
+  # again on Tuesday. A day after the last suspension ends, the loss occurrence closes and the
+  # balance is paid.
+  - source: dgpa_work_suspension
+    steps:
+      - { file: cap_work_suspension.xml, at: 2026-09-13T12:00:00Z }
+      - { file: cap_work_suspension.xml, at: 2026-09-14T02:00:00Z }
+      - { file: cap_work_suspension_day2.xml, at: 2026-09-14T12:30:00Z }
+      - { file: cap_work_suspension_day2.xml, at: 2026-09-15T02:00:00Z }
+      - { file: cap_empty.xml, at: 2026-09-15T16:30:00Z }
+      - { file: cap_empty.xml, at: 2026-09-17T00:00:00Z }

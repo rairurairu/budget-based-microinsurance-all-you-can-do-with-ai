@@ -1,0 +1,151 @@
+# Insurer profile. Copy to insurer.<market>.yaml and fill in.
+market: HK
+currency: HKD
+utc_offset_minutes: 480          # market local time for declared hours and daily payouts (R08); Hong Kong keeps no daylight saving
+languages:                       # what a customer can choose in their settings; each needs config/languages/<tag>.yaml
+  default: en                    # used until the customer chooses
+  offered: [en, zh-Hant]
+regulator: Insurance Authority (Hong Kong)
+privacy_regime: PDPO
+launch_phase: 1                  # covers with this launch_phase or lower are offered (docs/08-roadmap.md rollout)
+carrier:
+  name: "<licensed insurer>"
+  approved_products:             # R24: only these covers (catalogue ids) may be bundled; illustrative
+    [weather_income, commute_disruption, event_ticket, device_damage, personal_accident]
+kyc_provider: "<licensed eKYC provider>"   # R25
+
+policy_period:
+  length: month                  # weekly option shown as price/week; Decide
+  allocation_step: 5             # HK$ step for premium allocation
+  min_policy_periods: 1          # R05
+  auto_renewal: premium_allocation   # R34: an unchanged allocation renews, re-rated
+  renewal_notice_days: 7         # R35; Decide
+  grace_period_days: 7           # R53: cover continues; claims paid net of premium due; Decide
+  reinstatement_days: 30         # R53: reinstate without new waiting periods; Decide
+
+plans:                           # R01, R45: chosen by the customer, never recommended; risk-rated (R31)
+  - { id: starter,   price: 40 }
+  - { id: essential, price: 80 }   # Decide
+  - { id: plus,      price: 115, privileges: { extra_covers: [device_damage] } }   # Decide
+  - { id: max,       price: 150, privileges: { extra_covers: [device_damage, personal_accident], extra_reward_families: [loyalty] } }
+#   privileges (optional, R45; Decide): the claim-based covers of the later rollout open first on the
+#   larger plans here (illustrative); any cover a plan opens must be approved (R24).
+
+promotions: []                   # R44: the only way a plan price goes down. Example:
+#  - id: launch_2027q1
+#    starts: 2027-01-01
+#    ends: 2027-03-31
+#    plans: [essential, plus]
+#    discount: 0.20
+#    eligibility: { channel: partner_app, new_customers_only: true }
+#    funded_by: insurer          # insurer | partner | co_funded
+
+pricing:
+  target_loss_ratio: 0.55        # illustrative; band 0.50-0.60
+  rating_horizon_periods: 3      # R32: rate = average of the next N periods
+  continuous_cover_periods: 3    # R32: below this, rate = max(this period, that average)
+  undisclosed_factor: undeclared_group_average   # R33: blended with the portfolio until credible
+  undeclared_credibility_full_exposure: 1000     # R33: policy periods of data before the undeclared group's own average gets full weight; Decide
+
+score:
+  max_effect: 0.20               # R11: per points pool (R36, config/lines_of_business.yaml)
+  point_half_life_days: 45       # R12: fades over ~3 months; Decide the curve
+  points_per_verified_activity: 100   # R10; Decide
+  points_for_max_effect: 1000    # R11: points at which a points pool reaches max_effect; Decide
+  effect_modes: [premium_rebate, bonus_sum_insured]   # R11: customer chooses; plan price unchanged
+
+underwriting:                    # R39–R41: the insurer's standard classes; illustrative
+  risk_classes:                  # relativity = customer expected claims / portfolio, per class of business
+    - { id: preferred,   max_relativity: 0.80 }
+    - { id: standard,    max_relativity: 1.25 }
+    - { id: substandard, max_relativity: 2.00 }
+    - { id: postponed }          # above the last threshold
+  claims_experience_periods: 12  # R39: claims and payouts counted over this window; Decide
+  claims_experience_threshold: 1.5   # R39: counts only when own frequency / peer frequency exceeds this; Decide
+  credibility_full_periods: 36   # R39: exposure at which the customer's own experience gets full weight; Decide
+  exclusion_notice_periods: 1    # R41: notice before a postponed class is excluded; the policy itself renews; Decide
+  postponement_periods: 3        # R41: then no allocation for this long, then reassessed; Decide
+  reentry_waiting_period_days: 14   # R47; Decide
+
+rewards:
+  families: [insurance, partner, loyalty]   # reward families offers and plan privileges may name
+  monthly_cap_per_customer: 30   # R17; illustrative
+  reward_share_of_claims_avoided: 0.25   # R40: must stay below 1 (R18); Decide
+  premium_rebate_funded_by: insurer      # R50
+  always_offer_cash: true        # R16: must stay true
+  loyalty:                       # R26: for sustained participation, never for not claiming; Decide
+    streak_periods: 3            # consecutive policy periods with a verified prevention activity in one points pool
+    reward: 10                   # HK$, within the monthly cap (R17)
+
+guardrails:
+  audit_sample_rate: 0.05        # R14: 1 in 20
+  risk_review_threshold: 0.8     # R14: an anomaly score (claims.anomaly) at or above this always goes to a person
+  human_care:                    # R46: the AI may mark urgent or escalate, never the reverse
+    urgent: [injury, hospitalisation, emergency_abroad]
+    large_loss_share_of_monthly_income: 0.5   # Decide
+    urgent_response_seconds: 5     # R46: first response before any person; Decide with the assistance provider
+    first_response: [emergency_numbers, assistance_provider_connect, guarantee_of_payment]   # Decide
+    auto_guarantee_cap: 5000       # R46: HK$ per case without confirmation; Decide with the assistance provider
+    person_on_request: true        # R46: must stay true
+  appeal_sla_hours: 72           # R15: a person decides a review request within this; Decide
+  fairness:                      # R19: approval rates compared across groups from the audit store; never AI inputs
+    groups: [age_band, gender, district]
+    min_parity_ratio: 0.8        # adverse impact ratio: a group below 0.8 of the best is flagged (four-fifths rule); Decide
+    min_group_decisions: 30      # decisions a group needs before it is compared; Decide
+
+claims:                          # R57: straight-through processing (STP) authority for indemnity claims (ADR-010)
+  stp_limit: 2000                # HK$: the largest claim payment approved without a person; Decide with the claims manager
+  stp_min_confidence: 0.85       # the assessor's confidence below which a person decides; Decide
+  estimate_tolerance: 0.15       # the amount claimed may exceed the assessor's estimate by this share; Decide
+  referral_sla_hours: 48         # a person decides a referred claim within this; Decide
+  anomaly:                       # R14: fraud indicators (red flags); the score is the sum of those present, at most 1; Decide with the claims team
+    early_claim_days: 30         # loss this soon after cover for it began (after any waiting period)
+    late_notification_days: 30   # notified this long after the loss
+    frequent_claims: 3           # claims in the class within claims_experience_periods, this one included
+    near_sum_insured: 0.9        # amount claimed at least this share of the sum insured
+    weights: { early_claim: 0.3, late_notification: 0.1, frequent_claims: 0.3, near_sum_insured: 0.2, evidence_reused: 0.8 }
+
+privacy:
+  delete_on_cancellation: true   # R20, R54: optional data only; must stay true
+  record_retention_years: 7      # R54: policy, premium, claims, ledger and offer records; Decide with counsel
+  location_required: false       # R20
+
+accumulation:                    # R51: from the reinsurance programme's event definition; limits illustrative
+  perils:                        # a loss occurrence = the peril's trigger events in one zone, each starting within
+                                 # aggregation_hours of the last ending (ADR-006). One event limit per occurrence.
+    - id: windstorm_and_rain     # a typhoon and the rain it brings are one occurrence, as under a windstorm hours clause
+      event_types: [weather.tropical_cyclone, weather.rainstorm]
+      event_limit: 20000000      # HK$, all policies together
+      aggregation_hours: 24      # at least 24 for a daily benefit: one benefit per day
+    - { id: workplace_heat, event_types: [workplace.heat_stress], event_limit: 5000000, aggregation_hours: 24 }
+    - { id: rail_disruption, event_types: [transit.rail_disruption], event_limit: 2000000, aggregation_hours: 1 }
+    - { id: flight_delay, event_types: [travel.flight_delay], event_limit: 2000000 }
+    - { id: ticketed_event, event_types: [event.disruption], event_limit: 5000000 }
+  zone_accumulation_limit: 50000000   # HK$ benefit in force per peril and zone before new allocation stops
+  refresh_minutes: 5             # benefit in force per zone is measured this often; new allocation is checked against the latest (ADR-012)
+
+distribution_partners:           # R52: binding only through a valid licence; illustrative
+  - id: delivery_app
+    licence_type: licensed_insurance_agency   # licensed_insurance_agency | licensed_insurance_broker | referral_only
+    licence_number: "<IA licence no.>"
+    licence_expiry: 2027-12-31
+  - { id: ticketing_partner, licence_type: referral_only }   # refers to the insurer's own journey; never binds (also a reward supplier)
+
+channels:                        # the API and the apps (ADR-011)
+  own_journey_url: "<insurer's own online journey URL>"   # where a referral-only partner sends the customer (R52)
+  customer_token_minutes: 30     # a customer token a partner exchanges for lasts this long
+  partner_insights_min_cohort: 50   # R21: no figure from fewer customers reaches a partner; Decide with the privacy officer
+  partner_origins:               # web origins each partner embeds the journey from; illustrative
+    delivery_app: ["https://delivery.example"]
+
+payouts:
+  destinations: [partner_wallet, own_ewallet]    # Decide default per partner
+
+experience:                      # experience studies for the actuary (ADR-012)
+  full_credibility_claims: 1082  # limited-fluctuation standard: 90% probability within 5% of expected
+
+ai:
+  provider: anthropic
+  fast_model: claude-haiku-5-5
+  strong_model: claude-sonnet-5-5
+  timeout_ms: 4000

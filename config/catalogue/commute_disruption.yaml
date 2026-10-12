@@ -1,0 +1,15 @@
+id: commute_disruption
+name: Commute disruption cover
+type: parametric
+class_of_business: pecuniary.commute
+launch_phase: 1
+exposure: { kind: declared_route }
+product_limit: 300                    # R34; illustrative
+key_features: "Get paid when your regular route is disrupted"
+trigger:
+  events:
+    - { event_type: transit.rail_disruption, from_stage: delay, min_minutes: 30 }   # Decide
+  match: declared_route
+payout:
+  basis: fixed_per_event
+waiting_period_days: 0

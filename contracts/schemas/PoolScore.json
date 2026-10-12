@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "effect": {
+      "$ref": "#/$defs/Bps",
+      "description": "The effect they earn in this pool, at most `max_effect` (R11)."
+    },
+    "points": {
+      "description": "Points after fading (R12).",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "pool": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "pool",
+    "points",
+    "effect"
+  ],
+  "title": "PoolScore",
+  "type": "object"
+}

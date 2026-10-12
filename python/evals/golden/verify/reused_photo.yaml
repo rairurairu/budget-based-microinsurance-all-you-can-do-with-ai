@@ -1,0 +1,23 @@
+rules:
+- R10
+input:
+  task:
+    task_type: screen_protector_fitted
+    cover_id: device_damage
+    event_reference: CX500/2026-12-20
+    action: Fit a screen protector on your phone before you fly.
+    evidence: photo
+    claim_prob_before: 400
+    claim_prob_after: 250
+    avg_claim_cost: 80000
+    reward_cost: 300
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/screen_protector_reused_synthetic.png
+  seen:
+  - e776eccc51605a6c7ab5b8a3dec3d4315af34fa569b925e4f9a3661a9ee2a04c
+expect:
+  source: rule
+  outcome: verdict
+  passed: false
+  reuse_suspected: true

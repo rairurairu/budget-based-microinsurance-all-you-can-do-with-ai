@@ -1,0 +1,48 @@
+{
+  "$defs": {
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "settlement": {
+      "$ref": "#/$defs/Settlement"
+    }
+  },
+  "required": [
+    "settlement"
+  ],
+  "title": "SettlementChoice",
+  "type": "object"
+}

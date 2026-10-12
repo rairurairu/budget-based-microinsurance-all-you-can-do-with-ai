@@ -1,0 +1,7 @@
+rules:
+- R19
+input:
+  channel: ticketing
+expect:
+  source: model
+  max_questions: 5

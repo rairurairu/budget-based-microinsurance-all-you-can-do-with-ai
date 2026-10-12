@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Where a recommendation came from: the model, its saved answer, or a fixed rule (R22).",
+  "enum": [
+    "model",
+    "fallback",
+    "rule"
+  ],
+  "title": "AiSource",
+  "type": "string"
+}

@@ -1,0 +1,56 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    # The PostgreSQL ledger and policy stores run the same tests as the in-memory ones (R27).
+    services:
+      db:
+        image: postgres:16
+        env: { POSTGRES_PASSWORD: dev, POSTGRES_DB: microinsurance }
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 2s --health-timeout 5s --health-retries 20
+    env:
+      DATABASE_URL: postgres://postgres:dev@localhost:5432/microinsurance
+    steps:
+      - uses: actions/checkout@v4
+      - run: rustup show
+      - run: cargo fmt --all --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo test
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: rustup show
+      - run: uv sync --project python
+      - run: uv run --project python maturin develop --uv -q -m crates/python-bindings/Cargo.toml
+      - run: uv run --project python cargo clippy -p microinsurance-python-bindings -- -D warnings
+      - run: uv run --project python ruff check python
+      - run: uv run --project python pyright python
+      - run: uv run --project python pytest python
+  typescript:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      # Node runs the TypeScript tests and build scripts directly (type stripping).
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm -r --if-present typecheck
+      - run: pnpm -r --if-present test
+      - run: pnpm -r --if-present build
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - run: rustup show
+      - run: pnpm install --frozen-lockfile
+      - run: cargo run -q -p microinsurance-contracts -- --check
+      - run: pnpm -r --if-present gen
+      - run: git diff --exit-code apps/api-client/src/generated

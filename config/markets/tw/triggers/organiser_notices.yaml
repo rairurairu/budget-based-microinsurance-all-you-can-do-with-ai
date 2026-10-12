@@ -1,0 +1,15 @@
+# Data source (R55). The ticketing partner sends notices in the engine's own notice format, as in
+# Hong Kong (crates/triggers adapters/organiser.rs): the format is the platform's, not a market's.
+id: organiser_notices
+name: Event organiser and ticketing notices
+provider: "<launch partner's ticketing platform>"   # illustrative
+access: partner_agreement
+status: available
+adapter: organiser_notice
+live: "<partner notice feed URL>"   # or POST /webhooks/triggers/organiser_notices
+history:
+  available: false
+poll_seconds: 300
+codes:
+  POSTPONED: { event_type: event.disruption, stage: postponed }
+  CANCELLED: { event_type: event.disruption, stage: cancelled }

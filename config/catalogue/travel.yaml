@@ -1,0 +1,11 @@
+id: travel
+name: Trip cover
+type: indemnity
+class_of_business: travel.trip
+launch_phase: 3
+exposure: { kind: upcoming_event, of: [trip] }
+product_limit: 20000                  # R34; illustrative
+key_features: "Your booked trip, protected before you leave"
+claim:
+  evidence: [booking, receipt, photo]
+  assessed_by: ai_estimate_then_rules

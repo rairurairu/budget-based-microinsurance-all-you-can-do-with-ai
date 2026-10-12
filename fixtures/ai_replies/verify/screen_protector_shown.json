@@ -1,0 +1,15 @@
+{
+  "case": "screen_protector_shown",
+  "key": "verify:033ea0390ec9e0b2",
+  "input": {
+    "documents": [],
+    "images": 1,
+    "language": "en",
+    "task": {
+      "action": "Fit a screen protector on your phone before you fly.",
+      "event_reference": "CX500/2026-12-20",
+      "evidence_kind": "photo"
+    }
+  },
+  "reply": "{\"passed\": true, \"reuse_suspected\": false, \"edited_suspected\": false, \"reason\": \"The photo shows a screen protector fitted on the phone.\"}"
+}

@@ -1,0 +1,15 @@
+[package]
+name = "microinsurance-learning"
+version = "0.0.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[features]
+# JSON Schemas for the contracts (`crates/contracts`).
+schema = ["dep:schemars"]
+
+[dependencies]
+serde.workspace = true
+schemars = { workspace = true, optional = true }

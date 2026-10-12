@@ -1,0 +1,32 @@
+{
+  "$defs": {
+    "AiSource": {
+      "description": "Where a recommendation came from: the model, its saved answer, or a fixed rule (R22).",
+      "enum": [
+        "model",
+        "fallback",
+        "rule"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "cover_id": {
+      "type": "string"
+    },
+    "sentence": {
+      "type": "string"
+    },
+    "source": {
+      "$ref": "#/$defs/AiSource"
+    }
+  },
+  "required": [
+    "cover_id",
+    "sentence",
+    "source"
+  ],
+  "title": "ChangeSentence",
+  "type": "object"
+}

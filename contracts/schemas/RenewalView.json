@@ -1,0 +1,249 @@
+{
+  "$defs": {
+    "AiSource": {
+      "description": "Where a recommendation came from: the model, its saved answer, or a fixed rule (R22).",
+      "enum": [
+        "model",
+        "fallback",
+        "rule"
+      ],
+      "type": "string"
+    },
+    "Alternative": {
+      "description": "Room for more premium in one cover of the plan.",
+      "properties": {
+        "can_take": {
+          "$ref": "#/$defs/Money",
+          "description": "The most extra premium the cover can take this period."
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "exposure": {
+          "$ref": "#/$defs/Exposure",
+          "description": "What makes the extra cover usable: declaring it (a trip, a ticket, a device)."
+        }
+      },
+      "required": [
+        "cover_id",
+        "can_take",
+        "exposure"
+      ],
+      "type": "object"
+    },
+    "ChangeSentence": {
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "sentence": {
+          "type": "string"
+        },
+        "source": {
+          "$ref": "#/$defs/AiSource"
+        }
+      },
+      "required": [
+        "cover_id",
+        "sentence",
+        "source"
+      ],
+      "type": "object"
+    },
+    "Exposure": {
+      "description": "What a customer must have for a cover to protect them this policy period. The optimiser\nplaces usable premium only where there is exposure (R42).",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ExposureKind"
+        },
+        "of": {
+          "default": [],
+          "description": "For declared items and upcoming events: registered kinds; a parent covers its subtree.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ExposureKind": {
+      "description": "How a cover finds whom it protects. The engine computes the customer's need differently for\neach form; the kinds of items and events are registered in `config/exposure_types.yaml` (R55,\nADR-005).",
+      "oneOf": [
+        {
+          "const": "declared_hours",
+          "description": "Declared working hours (R08).",
+          "type": "string"
+        },
+        {
+          "const": "declared_route",
+          "description": "A declared regular route.",
+          "type": "string"
+        },
+        {
+          "const": "declared_item",
+          "description": "A declared item of a registered kind, with its value.",
+          "type": "string"
+        },
+        {
+          "const": "upcoming_event",
+          "description": "An upcoming event of a registered kind in the policy period, after the waiting period.",
+          "type": "string"
+        },
+        {
+          "const": "everyone",
+          "description": "Anyone covered has the exposure.",
+          "type": "string"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "RenewalNotice": {
+      "description": "R35: the new sums insured, shown `renewal_notice_days` before the period, so the customer can\nreallocate, change plan or cancel. `ai::explain` adds one sentence per line (R23).",
+      "properties": {
+        "changes": {
+          "items": {
+            "$ref": "#/$defs/SumInsuredChange"
+          },
+          "type": "array"
+        },
+        "issue_by": {
+          "description": "The notice must reach the customer by this day.",
+          "format": "date",
+          "type": "string"
+        },
+        "may_change_plan_or_cancel_without_penalty": {
+          "description": "R42: no plan is named; the customer chooses.",
+          "type": "boolean"
+        },
+        "period_starts": {
+          "format": "date",
+          "type": "string"
+        },
+        "placed_beyond_need": {
+          "$ref": "#/$defs/Money",
+          "description": "Premium the default places beyond what the customer can use now."
+        },
+        "unallocated": {
+          "$ref": "#/$defs/Money"
+        },
+        "update_request": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/UpdateRequest"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Set when the customer is asked to update the allocation in the app or web."
+        }
+      },
+      "required": [
+        "period_starts",
+        "issue_by",
+        "changes",
+        "unallocated",
+        "placed_beyond_need",
+        "may_change_plan_or_cancel_without_penalty"
+      ],
+      "type": "object"
+    },
+    "SumInsuredChange": {
+      "description": "One cover's sum insured before and after re-rating.",
+      "properties": {
+        "after": {
+          "$ref": "#/$defs/Money"
+        },
+        "before": {
+          "$ref": "#/$defs/Money"
+        },
+        "below_declared_value": {
+          "description": "R48: losses are paid on a first-loss basis up to the sum insured; the customer is told\nwhen it falls below the declared value.",
+          "type": "boolean"
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "declared_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "The declared value of the insured item, where there is one."
+        },
+        "premium": {
+          "$ref": "#/$defs/Money"
+        }
+      },
+      "required": [
+        "cover_id",
+        "premium",
+        "before",
+        "after",
+        "below_declared_value"
+      ],
+      "type": "object"
+    },
+    "UpdateRequest": {
+      "description": "The customer is asked to update the allocation; without an update by `respond_by`, the\noptimiser's default in this notice applies (R03, R34, R42).",
+      "properties": {
+        "alternatives": {
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "type": "array"
+        },
+        "respond_by": {
+          "description": "The last day an update can still apply to this period (R04).",
+          "format": "date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "respond_by",
+        "alternatives"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The renewal notice with one sentence per change (R35, R23).",
+  "properties": {
+    "issued_on": {
+      "description": "The day the notice was issued (`ProposeRenewal`, R35); none while it is a preview at\ntoday's rates.",
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notice": {
+      "$ref": "#/$defs/RenewalNotice"
+    },
+    "sentences": {
+      "items": {
+        "$ref": "#/$defs/ChangeSentence"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "notice",
+    "sentences"
+  ],
+  "title": "RenewalView",
+  "type": "object"
+}

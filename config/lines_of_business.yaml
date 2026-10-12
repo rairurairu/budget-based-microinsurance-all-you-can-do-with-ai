@@ -1,0 +1,70 @@
+# Lines and classes of business (R36, R37). Set by the insurer along its own lines of business;
+# illustrative. Depth 1 = line of business, depth 2 = class of business, deeper = sub-class.
+#
+# - An id is a dotted path; the parent is the id without its last segment, so
+#   `property.device` sits under `property`. No separate parent field.
+# - Add a subdivision by adding a node; no code change. `just check` validates the tree.
+# - The loader refuses: a missing parent, a duplicate id, a cover naming an unknown id or a
+#   node that has children. Errors name the rule (R37) and the offending id.
+# - Ids are permanent once used (points and ledger entries refer to them). Retire a node with
+#   `retired: true`; never rename or reuse it.
+# - `description` is one plain sentence. The prevention task writer reads it to stay in scope and
+#   explanations may quote it (R23).
+
+points_pool_depth: 1     # R36: points, score and rewards pool at this depth; 1 = line of business. Min 1
+
+experience_links: []   # R39: the only way a claim in one class moves another. Each needs data. Example:
+#  - { from: travel.trip, to: travel.flight_delay, weight: 0.5, evidence: "<back-test reference>" }
+
+nodes:
+  - id: property
+    name: Property
+
+  - id: property.device
+    name: Personal devices
+    description: Accidental damage to phones, tablets and laptops.
+
+  - id: property.home_contents
+    name: Home contents
+    description: Theft of or damage to belongings at home.
+
+  - id: accident_health
+    name: Accident and health
+
+  - id: accident_health.personal_accident
+    name: Personal accident
+    description: Injury from an accident, at work, on the road or at home.
+
+  - id: travel
+    name: Travel
+
+  - id: travel.trip
+    name: Trip
+    description: Cancellation, lost belongings and costs on a booked trip.
+
+  - id: travel.flight_delay
+    name: Flight delay
+    description: A booked flight leaves late.
+
+  - id: pecuniary
+    name: Pecuniary loss
+
+  - id: pecuniary.income_weather
+    name: Weather income
+    description: Working hours lost to a typhoon or black rainstorm warning.
+
+  - id: pecuniary.income_heat
+    name: Heat income
+    description: Outdoor working hours lost to a heat stress at work warning.
+
+  - id: pecuniary.commute
+    name: Commute
+    description: A regular route is postponed.
+
+  - id: pecuniary.event_ticket
+    name: Event ticket
+    description: A ticketed event is cancelled.
+
+  - id: pecuniary.scam
+    name: Online scam
+    description: Money lost to an online scam.

@@ -1,0 +1,20 @@
+# Data source (R55): Central Weather Administration typhoon warnings in CAP, for Taiwan as a whole
+# (no areas: reported territory-wide). They stop new weather cover (R06) and pay nothing.
+id: cwa_typhoon_warnings
+name: Typhoon warnings
+provider: Central Weather Administration, via the NCDR alert platform
+access: open_data
+status: available
+adapter: cap
+live: "<NCDR CAP feed of CWA typhoon warnings>"   # Decide: the feed URL
+history:
+  available: true
+  since: 1958
+  reference: "CWA typhoon warning archive"
+poll_seconds: 60
+demo_mode_fixture: fixtures/markets/tw/cap_typhoon_warning.xml
+cap:                             # confirm against the NCDR CAP profile
+  event_code: "profile:CAP-TWP:Event:1.0"
+codes:
+  TYPHOON_SEA:      { event_type: weather.tropical_cyclone, stage: sea_warning }
+  TYPHOON_SEA_LAND: { event_type: weather.tropical_cyclone, stage: sea_and_land_warning }

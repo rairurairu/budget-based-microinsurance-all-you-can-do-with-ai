@@ -1,0 +1,53 @@
+{
+  "$defs": {
+    "ProposalQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "description": "snake_case, unique in the form.",
+          "type": "string"
+        },
+        "options": {
+          "description": "Answers to tap; empty for a typed answer.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "text": {
+          "description": "One plain question.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "options"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "channel": {
+      "type": "string"
+    },
+    "language": {
+      "description": "The language tag the form is written in.",
+      "type": "string"
+    },
+    "questions": {
+      "items": {
+        "$ref": "#/$defs/ProposalQuestion"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "channel",
+    "language",
+    "questions"
+  ],
+  "title": "ProposalForm",
+  "type": "object"
+}

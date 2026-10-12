@@ -1,0 +1,29 @@
+{
+  "case": "fan_event_ticket",
+  "key": "explain:62416e004f6bd8d9",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "event_ticket",
+        "cover_type": "parametric",
+        "key_features": "Get your ticket money back automatically if the show is cancelled",
+        "name": "Event ticket cover",
+        "pays_on": [
+          "Ticketed event postponed or cancelled"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [],
+      "declared_routes": 0,
+      "declared_working_hours": false,
+      "occupation": "office clerk",
+      "upcoming_events": [
+        "event.concert"
+      ]
+    },
+    "language": "en"
+  },
+  "reply": "{\"explanations\": [{\"cover_id\": \"event_ticket\", \"sentence\": \"If your concert is cancelled, you get your ticket money back without making a claim.\"}]}"
+}

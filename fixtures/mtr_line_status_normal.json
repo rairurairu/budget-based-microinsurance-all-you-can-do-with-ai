@@ -1,0 +1,96 @@
+{
+  "ryg_status": {
+    "lastBuildDate": "2026-11-03 10:05:00",
+    "refreshInterval": 180000,
+    "line": [
+      {
+        "line_code": "TWL",
+        "line_name": "Tsuen Wan Line",
+        "line_name_tc": "荃灣綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "KTL",
+        "line_name": "Kwun Tong Line",
+        "line_name_tc": "觀塘綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "ISL",
+        "line_name": "Island Line",
+        "line_name_tc": "港島綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "SIL",
+        "line_name": "South Island Line",
+        "line_name_tc": "南港島綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "TKL",
+        "line_name": "Tseung Kwan O Line",
+        "line_name_tc": "將軍澳綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "TCL",
+        "line_name": "Tung Chung Line",
+        "line_name_tc": "東涌綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "DRL",
+        "line_name": "Disneyland Resort Line",
+        "line_name_tc": "迪士尼綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "AEL",
+        "line_name": "Airport Express",
+        "line_name_tc": "機場快綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "EAL",
+        "line_name": "East Rail Line",
+        "line_name_tc": "東鐵綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "TML",
+        "line_name": "Tuen Ma Line",
+        "line_name_tc": "屯馬綫",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      },
+      {
+        "line_code": "LR",
+        "line_name": "Light Rail",
+        "line_name_tc": "輕鐵",
+        "line_color": "#000000",
+        "status": "green",
+        "messages": ""
+      }
+    ]
+  }
+}

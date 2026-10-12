@@ -1,0 +1,17 @@
+[package]
+name = "microinsurance-ledger"
+version = "0.0.0"
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+publish = false
+
+[dependencies]
+microinsurance-engine.workspace = true
+thiserror.workspace = true
+serde.workspace = true
+sqlx.workspace = true
+
+[dev-dependencies]
+tokio.workspace = true
+chrono.workspace = true

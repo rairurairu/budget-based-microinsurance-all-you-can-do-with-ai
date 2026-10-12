@@ -1,0 +1,13 @@
+id: device_damage
+name: Phone and device damage cover
+type: indemnity
+class_of_business: property.device
+launch_phase: 3
+exposure: { kind: declared_item, of: [device] }
+product_limit: 10000                  # R34; first-loss basis (R48); illustrative
+key_features: "Repair or replace your phone fast, so you don't lose work days"
+claim:
+  evidence: [photo]
+  assessed_by: ai_estimate_then_rules     # R13: approve or refer
+waiting_period_days: 14                   # R07
+settlement_in_kind: [partner_repair_with_loaner, refurbished_replacement]

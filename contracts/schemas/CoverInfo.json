@@ -1,0 +1,123 @@
+{
+  "$defs": {
+    "CoverType": {
+      "enum": [
+        "parametric",
+        "indemnity"
+      ],
+      "type": "string"
+    },
+    "Exposure": {
+      "description": "What a customer must have for a cover to protect them this policy period. The optimiser\nplaces usable premium only where there is exposure (R42).",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ExposureKind"
+        },
+        "of": {
+          "default": [],
+          "description": "For declared items and upcoming events: registered kinds; a parent covers its subtree.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ExposureKind": {
+      "description": "How a cover finds whom it protects. The engine computes the customer's need differently for\neach form; the kinds of items and events are registered in `config/exposure_types.yaml` (R55,\nADR-005).",
+      "oneOf": [
+        {
+          "const": "declared_hours",
+          "description": "Declared working hours (R08).",
+          "type": "string"
+        },
+        {
+          "const": "declared_route",
+          "description": "A declared regular route.",
+          "type": "string"
+        },
+        {
+          "const": "declared_item",
+          "description": "A declared item of a registered kind, with its value.",
+          "type": "string"
+        },
+        {
+          "const": "upcoming_event",
+          "description": "An upcoming event of a registered kind in the policy period, after the waiting period.",
+          "type": "string"
+        },
+        {
+          "const": "everyone",
+          "description": "Anyone covered has the exposure.",
+          "type": "string"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "One cover of the catalogue as a customer reads it.",
+  "properties": {
+    "class_of_business": {
+      "type": "string"
+    },
+    "cover_id": {
+      "type": "string"
+    },
+    "cover_type": {
+      "$ref": "#/$defs/CoverType"
+    },
+    "daily_benefit": {
+      "description": "A parametric cover paying its benefit once per disrupted day (R08); otherwise per event or\nper loss.",
+      "type": "boolean"
+    },
+    "exposure": {
+      "$ref": "#/$defs/Exposure",
+      "description": "What makes the cover protect the customer (R42)."
+    },
+    "key_features": {
+      "description": "The key features sentence (R23).",
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "product_limit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "waiting_period_days": {
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "cover_id",
+    "name",
+    "cover_type",
+    "class_of_business",
+    "key_features",
+    "exposure",
+    "waiting_period_days",
+    "daily_benefit"
+  ],
+  "title": "CoverInfo",
+  "type": "object"
+}

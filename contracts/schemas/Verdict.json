@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The AI verifier's verdict, already parsed into this type.",
+  "properties": {
+    "passed": {
+      "type": "boolean"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "reuse_suspected": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "passed",
+    "reason",
+    "reuse_suspected"
+  ],
+  "title": "Verdict",
+  "type": "object"
+}

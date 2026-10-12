@@ -1,0 +1,47 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "events": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "ends": {
+            "format": "date",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "kind": {
+            "description": "A registered upcoming event kind, such as `event.concert` or `trip.air`.",
+            "type": "string"
+          },
+          "reference": {
+            "description": "A booking or ticket reference the customer wrote, as written.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "starts": {
+            "format": "date",
+            "type": "string"
+          }
+        },
+        "required": [
+          "ends",
+          "kind",
+          "reference",
+          "starts"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "events"
+  ],
+  "title": "foresee",
+  "type": "object"
+}

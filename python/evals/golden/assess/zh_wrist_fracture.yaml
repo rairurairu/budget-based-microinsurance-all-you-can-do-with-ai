@@ -1,0 +1,33 @@
+rules:
+- R46
+- R23
+- R19
+input:
+  language: zh-Hant
+  claim:
+    claim_id: claim-synthetic-5
+    policy_id: pol-synthetic-5
+    customer_id: cust-synthetic-5
+    cover_id: personal_accident
+    class_of_business: accident_health.personal_accident
+    loss_date: '2026-10-18'
+    notified_at: '2026-10-20T09:00:00Z'
+    amount_claimed: 380000
+    circumstance: injury
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [hospital_receipt, medical_certificate]
+    urgent: false
+    state: { state: assessing }
+  description: 我踩單車時跌倒，手腕骨折，在醫院住了一晚，現在仍然很痛。
+  evidence:
+  - media_type: text/plain
+    text: "瑪嘉烈醫院 收據 2026-10-19 急症室及住院一晚 骨科 診斷：右腕骨折 合共 HK$3,800"
+  - media_type: text/plain
+    text: "醫生證明書 2026-10-19 右腕骨折 建議休息六星期"
+  seen: []
+expect:
+  source: model
+  outcome: assessed
+  recommend: approve
+  urgent: true

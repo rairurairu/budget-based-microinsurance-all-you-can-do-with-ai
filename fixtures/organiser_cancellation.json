@@ -1,0 +1,27 @@
+{
+  "notices": [
+    {
+      "notice_id": "N-2026-0412",
+      "event_id": "EVT-2026-1121-ARENA",
+      "status": "cancelled",
+      "announced_at": "2026-11-18T15:00:00+08:00",
+      "event_starts": "2026-11-21T20:00:00+08:00",
+      "title": "Synthetic arena concert, 21 November 2026"
+    },
+    {
+      "notice_id": "N-2026-0413",
+      "event_id": "EVT-2026-1128-STADIUM",
+      "status": "postponed",
+      "announced_at": "2026-11-18T16:30:00+08:00",
+      "event_starts": "2026-11-28T19:45:00+08:00",
+      "title": "Synthetic stadium match, 28 November 2026"
+    },
+    {
+      "notice_id": "N-2026-0414",
+      "event_id": "EVT-2026-1205-THEATRE",
+      "status": "venue_changed",
+      "announced_at": "2026-11-18T17:00:00+08:00",
+      "title": "Synthetic theatre show, 5 December 2026"
+    }
+  ]
+}

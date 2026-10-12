@@ -1,0 +1,110 @@
+{
+  "$defs": {
+    "EarnedFor": {
+      "description": "What a reward can be earned for. A closed type with no claim-free variant: no reward is ever\nconditional on not claiming (R26).",
+      "oneOf": [
+        {
+          "description": "A verified prevention activity (R10, R40).",
+          "properties": {
+            "for": {
+              "const": "verified_activity",
+              "type": "string"
+            },
+            "task_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "for",
+            "task_id"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Verified activity in this many consecutive policy periods in one points pool (R26).",
+          "properties": {
+            "for": {
+              "const": "participation_streak",
+              "type": "string"
+            },
+            "periods": {
+              "format": "uint32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "for",
+            "periods"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "RewardEarned": {
+      "description": "A reward earned, before the monthly cap.",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "earned_for": {
+          "$ref": "#/$defs/EarnedFor"
+        },
+        "on": {
+          "description": "Market local date.",
+          "format": "date",
+          "type": "string"
+        },
+        "pool": {
+          "description": "The points pool of the behaviour it rewards (R36).",
+          "type": "string"
+        },
+        "reward_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reward_id",
+        "customer_id",
+        "pool",
+        "earned_for",
+        "amount",
+        "on"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A reward granted into the customer's reward balance: the amount earned, reduced to the room\nleft under the monthly cap (R17).",
+  "properties": {
+    "granted": {
+      "$ref": "#/$defs/Money"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "over_cap": {
+      "$ref": "#/$defs/Money",
+      "description": "Earned but over the monthly cap; the customer is told."
+    },
+    "reward": {
+      "$ref": "#/$defs/RewardEarned"
+    }
+  },
+  "required": [
+    "idempotency_key",
+    "reward",
+    "granted",
+    "over_cap"
+  ],
+  "title": "Grant",
+  "type": "object"
+}

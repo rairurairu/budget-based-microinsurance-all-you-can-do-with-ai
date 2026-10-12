@@ -1,0 +1,56 @@
+rules:
+- R23
+- R02
+- R19
+market: global
+note: The international demo market (config/markets/global), as demo mode asks it. Saved reply written
+  for the demo; EVAL_LIVE=1 just eval-record replaces it with the live model's.
+input:
+  schedule:
+    plan_id: max
+    allocations:
+    - cover_id: device_damage
+      premium: 500
+      sum_insured: 68400
+    - cover_id: personal_accident
+      premium: 500
+      sum_insured: 1179200
+    - cover_id: weather_income
+      premium: 1000
+      sum_insured: 3600
+  profile:
+    customer_id: cust-synthetic-global-rider
+    occupation: delivery rider
+    work_windows:
+    - weekday: 1
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 2
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 3
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 4
+      start_minute: 540
+      end_minute: 1080
+    - weekday: 5
+      start_minute: 540
+      end_minute: 1080
+    declared_items:
+    - kind: device.phone
+      description: work phone
+      declared_value: 60000
+    commute_routes: []
+    upcoming_events: []
+    typical_daily_earnings: 12000
+    consents:
+    - photos
+expect:
+  source: model
+  covers:
+  - device_damage
+  - personal_accident
+  - weather_income
+  not_sent:
+  - cust-synthetic-global-rider

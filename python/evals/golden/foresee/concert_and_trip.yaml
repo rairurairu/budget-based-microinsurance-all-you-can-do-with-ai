@@ -1,0 +1,15 @@
+rules:
+- R02
+- R55
+input:
+  today: '2026-10-09'
+  horizon_months: 3
+  text: Got tickets for the arena concert on 21 Nov, booking EVT-2026-1121-ARENA, paid HK$880! Also flying
+    to Tokyo on CX500 on 20 Dec, back on 27 Dec.
+expect:
+  source: model
+  events:
+  - kind: event.concert
+    starts: '2026-11-21'
+  - kind: trip.air
+    starts: '2026-12-20'

@@ -1,0 +1,210 @@
+{
+  "as_of": "2026-10-21T02:00:00Z",
+  "items": [
+    {
+      "item_id": "claim-demo-3",
+      "customer_id": "cust-demo-cyclist",
+      "opened_at": "2026-10-20T09:05:00Z",
+      "due_at": "2026-10-22T09:05:00Z",
+      "urgent": true,
+      "work": {
+        "kind": "claim_referral",
+        "claim_id": "claim-demo-3",
+        "cover_id": "personal_accident",
+        "amount_claimed": 380000,
+        "referral": {
+          "referral": "above_stp_limit"
+        }
+      },
+      "actions": ["approve", "decline", "request_evidence"]
+    },
+    {
+      "item_id": "claim-demo-4",
+      "customer_id": "cust-demo-phone-owner",
+      "opened_at": "2026-10-20T09:05:00Z",
+      "due_at": "2026-10-22T09:05:00Z",
+      "urgent": false,
+      "work": {
+        "kind": "claim_referral",
+        "claim_id": "claim-demo-4",
+        "cover_id": "device_damage",
+        "amount_claimed": 105000,
+        "referral": {
+          "referral": "audit",
+          "reason": "risk_review"
+        }
+      },
+      "actions": ["approve", "decline", "request_evidence"]
+    },
+    {
+      "item_id": "appeal/decision/demo-weekend-stall/windstorm_and_rain/not-matched",
+      "customer_id": "cust-demo-weekend-stall",
+      "opened_at": "2026-10-20T03:00:00Z",
+      "due_at": "2026-10-23T03:00:00Z",
+      "urgent": false,
+      "work": {
+        "kind": "appeal",
+        "appeal_id": "appeal/decision/demo-weekend-stall/windstorm_and_rain/not-matched",
+        "subject_type": "payout",
+        "subject_id": "demo-weekend-stall/windstorm_and_rain"
+      },
+      "actions": ["uphold", "overturn"]
+    },
+    {
+      "item_id": "claim-demo-2",
+      "customer_id": "cust-demo-new-phone",
+      "opened_at": "2026-10-21T01:00:00Z",
+      "due_at": "2026-10-24T01:00:00Z",
+      "urgent": false,
+      "work": {
+        "kind": "claim_referral",
+        "claim_id": "claim-demo-2",
+        "cover_id": "device_damage",
+        "amount_claimed": 90000,
+        "referral": {
+          "referral": "appeal",
+          "declined_by": "handler-amy"
+        }
+      },
+      "actions": ["approve", "decline", "request_evidence"]
+    }
+  ],
+  "fairness": [
+    {
+      "kind": "claim",
+      "attribute": "age_band",
+      "groups": {
+        "18-29": {
+          "decisions": 120,
+          "approved": 102,
+          "rate": 8500,
+          "credible": true
+        },
+        "30-49": {
+          "decisions": 210,
+          "approved": 176,
+          "rate": 8381,
+          "credible": true
+        },
+        "50-64": {
+          "decisions": 90,
+          "approved": 70,
+          "rate": 7778,
+          "credible": true
+        },
+        "65+": {
+          "decisions": 40,
+          "approved": 24,
+          "rate": 6000,
+          "credible": true
+        }
+      },
+      "min_ratio": 7059,
+      "flagged": ["65+"]
+    },
+    {
+      "kind": "claim",
+      "attribute": "district",
+      "groups": {
+        "hong_kong_island": {
+          "decisions": 95,
+          "approved": 79,
+          "rate": 8316,
+          "credible": true
+        },
+        "islands": {
+          "decisions": 12,
+          "approved": 4,
+          "rate": 3333,
+          "credible": false
+        },
+        "kowloon": {
+          "decisions": 160,
+          "approved": 130,
+          "rate": 8125,
+          "credible": true
+        },
+        "new_territories": {
+          "decisions": 193,
+          "approved": 159,
+          "rate": 8238,
+          "credible": true
+        }
+      },
+      "min_ratio": 9770,
+      "flagged": []
+    },
+    {
+      "kind": "claim",
+      "attribute": "gender",
+      "groups": {
+        "female": {
+          "decisions": 230,
+          "approved": 190,
+          "rate": 8261,
+          "credible": true
+        },
+        "male": {
+          "decisions": 230,
+          "approved": 182,
+          "rate": 7913,
+          "credible": true
+        }
+      },
+      "min_ratio": 9579,
+      "flagged": []
+    },
+    {
+      "kind": "prevention_verification",
+      "attribute": "age_band",
+      "groups": {
+        "18-29": {
+          "decisions": 300,
+          "approved": 261,
+          "rate": 8700,
+          "credible": true
+        },
+        "30-49": {
+          "decisions": 410,
+          "approved": 352,
+          "rate": 8585,
+          "credible": true
+        },
+        "50-64": {
+          "decisions": 150,
+          "approved": 126,
+          "rate": 8400,
+          "credible": true
+        },
+        "65+": {
+          "decisions": 35,
+          "approved": 29,
+          "rate": 8286,
+          "credible": true
+        }
+      },
+      "min_ratio": 9524,
+      "flagged": []
+    }
+  ],
+  "audit": [
+    {
+      "kind": "claim",
+      "sampled": 4,
+      "overturned": 1,
+      "overturn_rate": 2500
+    },
+    {
+      "kind": "payout",
+      "sampled": 1,
+      "overturned": 0,
+      "overturn_rate": 0
+    },
+    {
+      "kind": "prevention_verification",
+      "sampled": 1,
+      "overturned": 0,
+      "overturn_rate": 0
+    }
+  ]
+}

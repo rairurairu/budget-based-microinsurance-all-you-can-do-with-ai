@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A person's finding that a rewarded activity was fraudulent. Only a person finds fraud (R10,\nR13).",
+  "properties": {
+    "note": {
+      "type": "string"
+    },
+    "on": {
+      "format": "date",
+      "type": "string"
+    },
+    "reviewer": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "reviewer",
+    "on",
+    "note"
+  ],
+  "title": "FraudFinding",
+  "type": "object"
+}

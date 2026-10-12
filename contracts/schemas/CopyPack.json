@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "One language's copy, as the apps fetch it.",
+  "properties": {
+    "language": {
+      "type": "string"
+    },
+    "text": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "Text by dotted key, such as `plans.title`; `{name}` marks a value the app fills in.",
+      "type": "object"
+    }
+  },
+  "required": [
+    "language",
+    "text"
+  ],
+  "title": "CopyPack",
+  "type": "object"
+}

@@ -1,0 +1,127 @@
+{
+  "$defs": {
+    "DeclineReason": {
+      "description": "Why a person declined a claim. A closed set, each tied to the policy wording; the customer is\ntold the reason and that they can ask for a review (R15).",
+      "oneOf": [
+        {
+          "enum": [
+            "not_in_force",
+            "waiting_period",
+            "not_an_insured_loss",
+            "policy_exclusion",
+            "evidence_not_provided"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "fraud",
+          "description": "Fraud, which only a person finds (R10, R13).",
+          "type": "string"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "PersonAction": {
+      "description": "What a person can do with an item.",
+      "oneOf": [
+        {
+          "enum": [
+            "request_evidence",
+            "not_verify"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "approve",
+          "description": "Approve a claim at the loss the person assessed.",
+          "type": "string"
+        },
+        {
+          "const": "decline",
+          "description": "Decline a claim, with a reason (R13).",
+          "type": "string"
+        },
+        {
+          "const": "verify",
+          "description": "Credit a prevention task (R10).",
+          "type": "string"
+        },
+        {
+          "const": "agree",
+          "description": "Agree with an audited decision (R14).",
+          "type": "string"
+        },
+        {
+          "const": "overturn",
+          "description": "Overturn an audited decision, or a decision under review (R14, R15).",
+          "type": "string"
+        },
+        {
+          "const": "uphold",
+          "description": "Let a decision under review stand (R15).",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A person's decision on a work item. The action must be one the item offers; the person is\nthe caller (ADR-010).",
+  "properties": {
+    "action": {
+      "$ref": "#/$defs/PersonAction"
+    },
+    "amount": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "For an approval: the loss the person assessed (R48)."
+    },
+    "decline_reason": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/DeclineReason"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "description": "For a decline: the reason, from the closed list (R13)."
+    },
+    "evidence_kinds": {
+      "default": null,
+      "description": "For a request for evidence: the registered kinds asked for.",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ],
+      "uniqueItems": true
+    },
+    "item_id": {
+      "type": "string"
+    },
+    "note": {
+      "default": "",
+      "type": "string"
+    }
+  },
+  "required": [
+    "item_id",
+    "action"
+  ],
+  "title": "PersonDecision",
+  "type": "object"
+}

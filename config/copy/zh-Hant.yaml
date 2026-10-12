@@ -1,0 +1,222 @@
+# 客戶 app 及合作夥伴嵌入元件的文字（繁體中文）。與 en.yaml 的鍵及 {佔位符} 必須完全相同，否則 API
+# 不會啟動。示範文字：保險公司以已批核的措辭取代。金額及日期由 app 按語言格式化。
+
+app:
+  title: 預算型微保險
+  tagline: 價錢由你揀，保障由我們每月為你配置。
+  language: 語言
+  loading: 載入中…
+  demo_as: "示範：以此身分操作"
+  demo_note: 示範模式。只有虛構客戶，內容並非真實。
+  close: 關閉
+  save: 儲存
+  saved: 已儲存。
+  cancel: 取消
+
+nav:
+  plans: 你的價錢
+  schedule: 你的保障
+  about: 關於你
+  tasks: 防損任務
+  rewards: 獎賞
+  payouts: 賠付
+  claims: 索償
+  privacy: 私隱
+
+plans:
+  title: 揀你的價錢
+  intro: 每個計劃對所有人同價。由你揀選，我們從不代你決定。
+  per_month: "每月 {price}"
+  promotion: "本月減 {discount}（{promotion}）"
+  choose: 報價
+
+quote:
+  title: "{plan} 的保障表"
+  starts: "{date} 起受保"
+  premium: "佔你價錢 {amount}"
+  sum_insured: "保額上限 {amount}"
+  benefit_per_day: "每個受影響工作天 {amount}"
+  benefit_per_event: "事件發生時 {amount}"
+  why: 為何這樣分配
+  need: "你最多可用到 {amount} 的保障"
+  no_need: 暫時未有需要保障的項目；申報後此保障才有用
+  own_split: 自行調整分配
+  price_split: 按我的分配報價
+  accept: 接受並投保
+  accept_change: 接受此更改
+  accepted_new: "你由 {date} 起受保。"
+  accepted_change: "完成。更改由下一個保單期生效。"
+  update_asked: 你部分價錢所買的保障暫時用不上。你可以轉到下面的保障，或保留此分配。
+  plan_change: 你的計劃由下一個保單期起更改。
+
+schedule:
+  title: 你的保障
+  none: 你暫時未有保障。
+  period: "{from} 至 {to}"
+  paid: 保費已繳
+  in_grace: "保費到期：保障持續至 {date}"
+  lapsed: "保單已失效：於 {date} 前繳費即可復效，毋須重新計算等候期"
+  next: 下一個保單期的更改
+  renewal: 下一個保單期
+  renewal_check: 查看下一期保障
+  below_value: 你的保額低於申報價值；損失按保額上限賠償。
+  update_by: "請於 {date} 前更新分配，否則沿用此分配。"
+
+about:
+  title: 關於你
+  intro: 你提供的資料決定你的價錢在哪裏買到保障。更改由下一個保單期生效。
+  occupation: 你的工作
+  earnings: 一般每日收入
+  work: 工作時間
+  weekday_1: 一
+  weekday_2: 二
+  weekday_3: 三
+  weekday_4: 四
+  weekday_5: 五
+  weekday_6: 六
+  weekday_7: 日
+  from: 由
+  to: 至
+  events: 預期事件
+  add_event: 加入事件
+  event_kind: 事件
+  event_date: 日期
+  event_reference: 訂位或門票編號
+  event_value: 門票或預訂費用
+  items: 你的物品
+  add_item: 加入物品
+  item_kind: 物品
+  item_description: 描述
+  item_value: 價值
+  routes: 你的常用路線
+  areas: 你的工作地區
+  remove: 移除
+  rating: 費率問題
+  rating_note: 可選填。不回答者按同樣沒有回答的客戶平均計算。
+  no_answer: 不回答
+
+tasks:
+  title: 防損任務
+  intro: 一些預防損失的小事。經驗證的任務可獲積分及獎賞。
+  refresh: 為我的計劃尋找任務
+  none: 暫時沒有任務。
+  reward: "驗證後獎賞 {amount}"
+  due: "請於 {date} 前提交"
+  accept: 接受任務
+  evidence: 提交證明
+  sample: 使用示範相片
+  review: 請專人再看一次
+  state_offered: 可接受
+  state_accepted: 等待你的證明
+  state_submitted: 檢查中
+  state_with_person: 專人檢查中
+  state_verified: 已驗證
+  state_not_verified: 未能驗證
+  state_expired: 已過期
+  credited: "已驗證：{amount} 已加入你的獎賞結餘。"
+  over_cap: "本月獎賞已達上限：{amount} 未能加入。"
+
+score:
+  title: 保障分數
+  points: "{points} 分"
+  effect: "此範疇最多可改善條款 {effect}"
+  none: 經驗證的防損任務會在此累積積分。
+
+rewards:
+  title: 獎賞
+  balance: "獎賞結餘：{amount}"
+  empty: 你的獎賞結餘為零。
+  cash: "提取現金 {amount}"
+  take: 選取
+  taken: 完成。
+
+payouts:
+  title: 賠付
+  intro: 受保事件發生時自動賠付，毋須填寫索償表。
+  live: 即時
+  none: 暫時未有賠付。
+  paid: "已賠付 {amount}"
+  stage_guaranteed: 即時賠付
+  stage_balance: 事件完結後的餘額
+  choose: "你想如何收取 {amount}？"
+  cash: 現金
+  in_kind: "改為 {option}"
+  set_off: "其中 {amount} 已用作繳付到期保費"
+  new: "新賠付：{amount}"
+
+claims:
+  title: 索償
+  intro: 適用於按實際損失賠償的保障。
+  new: 通知我們一宗損失
+  cover: 保障
+  date: 損失日期
+  amount: 金額
+  description: 發生了甚麼事
+  circumstance: 以下情況是否適用？
+  circumstance_none: 都不適用
+  person: 我想和專人傾談
+  guarantee: 醫院或服務提供者需要的擔保付款金額
+  submit: 提交
+  evidence: 提交證明
+  evidence_kinds: 你提交的是
+  none: 沒有索償。
+  state_awaiting_evidence: 等待你的證明
+  state_assessing: 評估中
+  state_with_person: 專人處理中
+  state_approved: "已批核：{amount}"
+  state_declined: 已拒賠
+  urgent: 援助正在安排，你會在數秒內收到我們的消息。
+  guarantee_auto: "擔保付款：即時 {amount}"
+  guarantee_confirm: "另外 {amount} 待援助機構確認"
+  person_offered: 如有需要，專人可致電給你。
+  review: 請另一位專人覆核
+  review_sent: 會由另一位專人覆核。
+  choose: "你想如何收取 {amount}？"
+
+decisions:
+  title: 與你有關的決定
+  review: 請專人覆核
+  reason: 原因
+  sent: 專人會覆核此決定。
+
+privacy:
+  title: 私隱
+  intro: 每類資料只用於它支援的保障，並只在你同意時使用。
+  data_trip_data: 行程數據
+  data_location: 位置
+  data_device_diagnostics: 裝置診斷
+  data_calendar_plans: 日曆計劃
+  data_photos: 相片
+  data_partner_activity: 合作平台工作紀錄
+  cancel: 取消我的保障
+  cancel_confirm: 確定取消？可選資料會即時刪除；紀錄按法例要求保留。
+  cancelled: "已取消。紀錄保留至 {date}。"
+  identity: 核實身分
+  identity_status: "身分核實：{status}"
+
+covers:
+  commute_disruption: 交通受阻
+  contents: 家居財物
+  device_damage: 手機及裝置損壞
+  event_ticket: 活動門票
+  flight_delay: 航班延誤
+  heat_stress_income: 酷熱工作收入
+  personal_accident: 個人意外
+  scam_loss: 詐騙損失
+  travel: 旅遊
+  weather_income: 惡劣天氣收入
+
+errors:
+  generic: 出現問題，請再試。
+  refused: "未能完成：{detail}"
+  signed_out: 你的登入已結束，請從 app 重新開啟此頁。
+
+embed:
+  title: 為你的工作而設的保障
+  intro: 揀一個每月價錢，我們按你的工作和計劃配置保障。
+  quote: 查看我的保障
+  accept: 立即投保
+  done: "由 {date} 起受保，可隨時在 app 管理。"
+  refer: 此 app 只作轉介。請到保險公司的網站完成投保。
+  refer_link: 前往保險公司網站
+  powered: 由持牌保險公司承保。

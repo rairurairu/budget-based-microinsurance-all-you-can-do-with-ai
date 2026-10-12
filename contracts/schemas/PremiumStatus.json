@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "properties": {
+        "status": {
+          "const": "paid",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    {
+      "description": "Cover continues; a claim is paid net of the premium due (R53).",
+      "properties": {
+        "last_day": {
+          "format": "date",
+          "type": "string"
+        },
+        "status": {
+          "const": "in_grace",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "last_day"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "reinstate_by": {
+          "format": "date",
+          "type": "string"
+        },
+        "since": {
+          "format": "date",
+          "type": "string"
+        },
+        "status": {
+          "const": "lapsed",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "since",
+        "reinstate_by"
+      ],
+      "type": "object"
+    }
+  ],
+  "title": "PremiumStatus"
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The customer's tap. The only way an offer becomes a change (R03).",
+  "properties": {
+    "at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "offer_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "offer_id",
+    "customer_id",
+    "at"
+  ],
+  "title": "CustomerTap",
+  "type": "object"
+}

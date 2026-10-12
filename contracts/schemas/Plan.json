@@ -1,0 +1,54 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Privileges": {
+      "description": "What a plan adds beyond the launch-phase catalogue, set in config only (R45).",
+      "properties": {
+        "extra_covers": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "extra_reward_families": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A fixed plan, the same for every customer (R01). Chosen by the customer, never recommended\n(R45).",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "price": {
+      "$ref": "#/$defs/Money"
+    },
+    "privileges": {
+      "$ref": "#/$defs/Privileges",
+      "default": {
+        "extra_covers": [],
+        "extra_reward_families": []
+      }
+    }
+  },
+  "required": [
+    "id",
+    "price"
+  ],
+  "title": "Plan",
+  "type": "object"
+}

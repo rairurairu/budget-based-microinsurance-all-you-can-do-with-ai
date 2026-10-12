@@ -1,0 +1,8 @@
+rules:
+- R19
+input:
+  channel: delivery_app
+  language: zh-Hant
+expect:
+  source: model
+  max_questions: 5

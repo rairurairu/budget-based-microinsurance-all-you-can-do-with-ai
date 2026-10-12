@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The customer asks a person to look at a decision (R15).",
+  "properties": {
+    "decision_id": {
+      "type": "string"
+    },
+    "reason": {
+      "description": "In the customer's words.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "reason"
+  ],
+  "title": "ReviewRequest",
+  "type": "object"
+}

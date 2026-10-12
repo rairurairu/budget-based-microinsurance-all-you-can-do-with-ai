@@ -1,0 +1,6 @@
+id: scam_loss
+name: Online scam loss cover
+type: indemnity
+class_of_business: pecuniary.scam
+launch_phase: concept
+key_features: "Part of your money back after an online scam"

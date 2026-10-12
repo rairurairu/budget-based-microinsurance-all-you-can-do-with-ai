@@ -1,0 +1,29 @@
+{
+  "case": "zh_answered_in_english",
+  "key": "explain:25a517849d2a350c",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "commute_disruption",
+        "cover_type": "parametric",
+        "key_features": "Get paid when your regular route is disrupted",
+        "name": "Commute disruption cover",
+        "pays_on": [
+          "Rail service disruption"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [
+        "device.phone"
+      ],
+      "declared_routes": 1,
+      "declared_working_hours": true,
+      "occupation": "文員",
+      "upcoming_events": []
+    },
+    "language": "zh-Hant"
+  },
+  "reply": "{\"explanations\": [{\"cover_id\": \"commute_disruption\", \"sentence\": \"You get paid when your line is disrupted.\"}]}"
+}

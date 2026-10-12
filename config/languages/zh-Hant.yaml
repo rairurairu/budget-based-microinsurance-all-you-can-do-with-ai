@@ -1,0 +1,70 @@
+# Traditional Chinese (Hong Kong). See en.yaml for what each section does. Illustrative copy: the
+# insurer replaces it with approved wording.
+language: zh-Hant
+
+sentence:
+  terminators: ["。", "！", "？"]
+  max_chars: 60
+
+checks:
+  currency: ["$", "元", "蚊", "港幣", "港元", "圓"]
+  protected: ["年齡", "歲", "性別", "男性", "女性", "種族", "宗教", "國籍", "地區"]
+
+saved_answers:
+  proposal_form:
+    - id: occupation
+      text: 你平日做甚麼工作？
+      options: [外賣或網約車, 辦公室工作, 戶外或地盤工作, 店舖或攤檔, 其他]
+    - id: work_hours
+      text: 你通常甚麼時候工作？
+      options: [平日日間, 晚上或通宵, 週末, 不固定]
+    - id: commute
+      text: 你通常怎樣上班？
+      options: [港鐵, 巴士或小巴, 電單車或單車, 步行, 在家工作]
+    - id: devices
+      text: 你工作時依靠哪些電子產品？
+      options: [手機, 平板電腦, 手提電腦, 智能手錶, 沒有]
+    - id: plans
+      text: 未來幾個月你有沒有旅行或已購票的活動？
+      options: [旅行, 演唱會或表演, 球賽, 暫時沒有]
+
+  covers:
+    commute_disruption: 你的常用路綫受阻時，你會自動收到賠償。
+    contents: 你家中的財物受到保障，適合租客及學生。
+    device_damage: 手機損壞時會盡快維修或更換，讓你不用停工。
+    event_ticket: 演出取消時，你的門票錢會自動退回給你。
+    flight_delay: 你的航班延誤時，你會自動收到賠償。
+    heat_stress_income: 工作暑熱警告縮短你的戶外工作時間時，你會收到賠償。
+    personal_accident: 意外後的住院及受傷費用都有保障。
+    scam_loss: 遇上網上騙案後，你可取回部分損失。
+    travel: 你已預訂的行程在出發前受到保障。
+    weather_income: 颱風訊號或黑雨令你在工作時間停工時，你會收到當天的賠償。
+
+  cover_names:
+    commute_disruption: 通勤受阻保障
+    contents: 家居財物保障
+    device_damage: 電子產品損壞保障
+    event_ticket: 活動門票保障
+    flight_delay: 航班延誤保障
+    heat_stress_income: 酷熱工作收入保障
+    personal_accident: 個人意外保障
+    scam_loss: 網上騙案損失保障
+    travel: 旅遊保障
+    weather_income: 天氣收入保障
+  change:
+    more: 下個月同樣的保費可為你的{cover}買到更多保障。
+    less: 下個月同樣的保費可為你的{cover}買到較少保障。
+    same: 下個月你的{cover}保持不變。
+    below_declared_value: 下個月你的{cover}已低於你申報的價值。
+
+  verify:
+    no_evidence: 你未有附上證明，我們的同事會跟你聯絡。
+    reused: 這份證明之前已提交過，不能再次計算。
+    unreadable: 我們的同事會查看這個檔案。
+    refer: 我們的同事會盡快查看你的證明。
+
+  assess:
+    no_evidence: 請附上保障所需的證明，如有需要我們的同事會協助你。
+    reused: 這份證明之前已提交過，我們的同事會查看。
+    unreadable: 我們的同事會查看這個檔案並與你聯絡。
+    refer: 我們的同事會查看你的索償並與你聯絡。

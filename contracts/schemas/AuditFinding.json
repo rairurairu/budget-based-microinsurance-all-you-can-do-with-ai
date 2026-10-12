@@ -1,0 +1,57 @@
+{
+  "$defs": {
+    "AuditReason": {
+      "description": "Why a person looks at an automated decision.",
+      "oneOf": [
+        {
+          "const": "risk_review",
+          "description": "Its anomaly score reached `risk_review_threshold`.",
+          "type": "string"
+        },
+        {
+          "const": "random_sample",
+          "description": "Drawn in the random sample, `audit_sample_rate` of decisions (R14).",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A person's finding on an audited decision: agreed, or overturned with a note (R14).",
+  "properties": {
+    "agreed": {
+      "type": "boolean"
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "kind": {
+      "description": "The decision kind, such as `claim` or `payout`.",
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "on": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "reason": {
+      "$ref": "#/$defs/AuditReason"
+    },
+    "reviewer": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "kind",
+    "reason",
+    "reviewer",
+    "agreed",
+    "note",
+    "on"
+  ],
+  "title": "AuditFinding",
+  "type": "object"
+}

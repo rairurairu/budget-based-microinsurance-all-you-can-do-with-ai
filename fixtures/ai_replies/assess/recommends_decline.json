@@ -1,0 +1,26 @@
+{
+  "case": "recommends_decline",
+  "key": "assess:a944be6a0851cf46",
+  "input": {
+    "claim": {
+      "circumstance": null,
+      "description": "My phone screen cracked when it fell off the table.",
+      "evidence_sent": [
+        "photo"
+      ],
+      "loss_date": "2026-10-18"
+    },
+    "cover": {
+      "class_of_business": "property.device",
+      "evidence_kinds": [
+        "photo"
+      ],
+      "name": "Phone and device damage cover"
+    },
+    "currency": "HKD",
+    "documents": [],
+    "images": 1,
+    "language": "en"
+  },
+  "reply": "{\"recommend\": \"decline\", \"estimate\": 0, \"confidence\": 95, \"consistent\": false, \"urgent\": false, \"human_care\": false, \"reason\": \"This damage is not covered.\"}"
+}

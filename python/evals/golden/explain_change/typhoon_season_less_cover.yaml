@@ -1,0 +1,33 @@
+rules:
+- R35
+- R23
+- R19
+- R02
+input:
+  change:
+    cover_id: weather_income
+    premium: 5500
+    before: 48000
+    after: 40000
+    declared_value: null
+    below_declared_value: false
+  basis:
+    cover_id: weather_income
+    need: 48000
+    rate: 1150
+    risk_class: standard
+    factors:
+    - factor_id: hazard_frequency
+      relativity: 13000
+      withheld: false
+      shadow: false
+    - factor_id: age_band
+      relativity: 9000
+      withheld: false
+      shadow: false
+expect:
+  source: model
+  not_sent:
+  - age_band
+  - '480'
+  - '400'

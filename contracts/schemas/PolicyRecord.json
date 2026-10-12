@@ -1,0 +1,297 @@
+{
+  "$defs": {
+    "Allocation": {
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "premium": {
+          "$ref": "#/$defs/Money",
+          "description": "Share of the plan price."
+        },
+        "sum_insured": {
+          "$ref": "#/$defs/Money",
+          "description": "Sum insured (indemnity) or benefit amount per trigger event (parametric) this premium buys."
+        }
+      },
+      "required": [
+        "cover_id",
+        "premium",
+        "sum_insured"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Plan": {
+      "description": "A fixed plan, the same for every customer (R01). Chosen by the customer, never recommended\n(R45).",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "price": {
+          "$ref": "#/$defs/Money"
+        },
+        "privileges": {
+          "$ref": "#/$defs/Privileges",
+          "default": {
+            "extra_covers": [],
+            "extra_reward_families": []
+          }
+        }
+      },
+      "required": [
+        "id",
+        "price"
+      ],
+      "type": "object"
+    },
+    "Policy": {
+      "properties": {
+        "commute_routes": {
+          "default": [],
+          "description": "Declared routes a route-matched trigger pays on (R55).",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "cover_starts": {
+          "additionalProperties": {
+            "format": "date",
+            "type": "string"
+          },
+          "type": "object"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "period": {
+          "$ref": "#/$defs/PolicyPeriod"
+        },
+        "plan": {
+          "$ref": "#/$defs/Plan"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "schedule": {
+          "$ref": "#/$defs/Schedule"
+        },
+        "subscribed_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "upcoming_events": {
+          "default": [],
+          "description": "Declared tickets and bookings a ticket- or booking-matched trigger pays on, with their\ndeclared value (R55).",
+          "items": {
+            "$ref": "#/$defs/UpcomingEvent"
+          },
+          "type": "array"
+        },
+        "work_areas": {
+          "default": [],
+          "description": "Declared work areas an area-matched trigger pays on (R55, ADR-012).",
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "work_windows": {
+          "items": {
+            "$ref": "#/$defs/WorkWindow"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "policy_id",
+        "customer_id",
+        "plan",
+        "schedule",
+        "period",
+        "cover_starts",
+        "work_windows",
+        "subscribed_at"
+      ],
+      "type": "object"
+    },
+    "PolicyPeriod": {
+      "description": "One policy period. `ends` is the first day after it, so consecutive periods share a date.",
+      "properties": {
+        "ends": {
+          "format": "date",
+          "type": "string"
+        },
+        "index": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "starts": {
+          "format": "date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "index",
+        "starts",
+        "ends"
+      ],
+      "type": "object"
+    },
+    "Privileges": {
+      "description": "What a plan adds beyond the launch-phase catalogue, set in config only (R45).",
+      "properties": {
+        "extra_covers": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "extra_reward_families": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "type": "object"
+    },
+    "Schedule": {
+      "description": "The covers and sums insured for one policy period. Allocations are ordered by cover id.",
+      "properties": {
+        "allocations": {
+          "items": {
+            "$ref": "#/$defs/Allocation"
+          },
+          "type": "array"
+        },
+        "plan_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "plan_id",
+        "allocations"
+      ],
+      "type": "object"
+    },
+    "UpcomingEvent": {
+      "description": "A known future event, for example a concert in three months.",
+      "properties": {
+        "ends": {
+          "format": "date",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "description": "A registered upcoming event kind (`config/exposure_types.yaml`), such as `event.concert`.",
+          "type": "string"
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "starts": {
+          "format": "date",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ticket price or booked cost, when declared."
+        }
+      },
+      "required": [
+        "kind",
+        "starts"
+      ],
+      "type": "object"
+    },
+    "WorkWindow": {
+      "description": "A declared working window in market local time (R08). `weekday` is ISO: 1 = Monday to\n7 = Sunday. Minutes count from local midnight; an `end_minute` at or before `start_minute`\nruns past midnight into the next day (a night shift), and the shift belongs to the day it\nstarts.",
+      "properties": {
+        "end_minute": {
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "start_minute": {
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weekday": {
+          "format": "uint8",
+          "maximum": 255,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weekday",
+        "start_minute",
+        "end_minute"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The policy as the store keeps it.",
+  "properties": {
+    "partner_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "policy": {
+      "$ref": "#/$defs/Policy"
+    },
+    "premium_due": {
+      "description": "The premium for the current period is due on its first day (R53).",
+      "format": "date",
+      "type": "string"
+    },
+    "premium_paid_on": {
+      "format": "date",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "quote_id": {
+      "description": "The quote that bound it (R49).",
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy",
+    "premium_due",
+    "quote_id"
+  ],
+  "title": "PolicyRecord",
+  "type": "object"
+}

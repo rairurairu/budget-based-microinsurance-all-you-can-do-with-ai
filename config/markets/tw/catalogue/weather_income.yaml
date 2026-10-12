@@ -1,0 +1,25 @@
+# Weather income cover in Taiwan (ADR-012): the same product design as config/catalogue (class of
+# business, daily benefit, declared hours), triggered by the official fact that work stops there:
+# the local government's work suspension where the customer works.
+id: weather_income
+name: Weather income cover
+type: parametric
+class_of_business: pecuniary.income_weather
+launch_phase: 1
+exposure: { kind: declared_hours }    # and a declared work area: the trigger matches on it (R42)
+product_limit: 1500                   # R34: NT$ daily benefit per customer; illustrative
+key_features: "A daily benefit for each working day your city or county government suspends work for a typhoon or heavy rain where you declared you work, if at least an hour of your declared working hours falls in it; one benefit per day however many announcements"
+trigger:                              # R55
+  events:
+    - { event_type: work.suspension, from_stage: suspended }
+  match: declared_area                # paid where the customer declared they work
+  requires_declared_hours: true       # R08
+  resumption_minutes: 0               # R08: the suspension itself runs to the end of the day announced
+  min_disrupted_minutes: 60           # R08: a day counts once an hour of declared work is suspended
+payout:
+  basis: fixed_daily
+  cap_ratio_of_daily_earnings: 0.8    # R09; Decide
+eligibility:
+  block_new_while:                    # R06: no new weather cover once a typhoon warning is in force
+    - { event_type: weather.tropical_cyclone, from_stage: sea_warning }
+waiting_period_days: 0

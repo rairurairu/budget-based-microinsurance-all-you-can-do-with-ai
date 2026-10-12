@@ -1,0 +1,93 @@
+{
+  "$defs": {
+    "JobRow": {
+      "description": "A job as the ops console lists it.",
+      "properties": {
+        "attempts": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "finished_at": {
+          "format": "date-time",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "key": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "last_error": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "run_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/JobStatus"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "key",
+        "status",
+        "attempts",
+        "run_at"
+      ],
+      "type": "object"
+    },
+    "JobStatus": {
+      "oneOf": [
+        {
+          "enum": [
+            "queued",
+            "running",
+            "done"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "failed",
+          "description": "Out of attempts: a person looks.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The job queue for people at the insurer: how many jobs are in each state, and the failed ones\nwaiting for a person.",
+  "properties": {
+    "counts": {
+      "additionalProperties": {
+        "format": "int64",
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "failed": {
+      "items": {
+        "$ref": "#/$defs/JobRow"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "counts",
+    "failed"
+  ],
+  "title": "JobsView",
+  "type": "object"
+}

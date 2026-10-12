@@ -1,0 +1,13 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "sentence": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "sentence"
+  ],
+  "title": "explain_change",
+  "type": "object"
+}

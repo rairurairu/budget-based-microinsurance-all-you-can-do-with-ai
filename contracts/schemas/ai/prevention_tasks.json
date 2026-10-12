@@ -1,0 +1,37 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "task": {
+      "additionalProperties": false,
+      "description": "None when no action the customer controls would make a loss less likely.",
+      "properties": {
+        "action": {
+          "description": "What the customer does, in one sentence (R23).",
+          "type": "string"
+        },
+        "evidence": {
+          "description": "One of the measure's evidence kinds the customer has consented to (R20).",
+          "type": "string"
+        },
+        "task_type": {
+          "description": "A registered loss prevention measure for the cover's class, such as\n`screen_protector_fitted`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "action",
+        "evidence",
+        "task_type"
+      ],
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "task"
+  ],
+  "title": "prevention_tasks",
+  "type": "object"
+}

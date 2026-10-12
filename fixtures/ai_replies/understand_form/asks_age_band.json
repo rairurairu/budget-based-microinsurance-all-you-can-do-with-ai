@@ -1,0 +1,37 @@
+{
+  "case": "asks_age_band",
+  "key": "understand_form:edba1da12f47a947",
+  "input": {
+    "channel": "partner_insurer_app",
+    "declared_item_kinds": [
+      "device",
+      "device.laptop",
+      "device.phone",
+      "device.tablet",
+      "device.wearable",
+      "home_contents",
+      "vehicle",
+      "vehicle.bicycle",
+      "vehicle.motorcycle"
+    ],
+    "language": "en",
+    "max_questions": 5,
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"questions\": [{\"id\": \"age_band\", \"text\": \"How old are you?\", \"options\": [\"18-30\", \"31-50\", \"51+\"]}]}"
+}

@@ -1,0 +1,32 @@
+rules:
+- R13
+- R57
+- R02
+harness_only: true
+note: "The API demo's rider claim (demo clock 18 Nov 2026). Synthetic image: replace with labelled pilot photos before scoring a live model."
+input:
+  claim:
+    claim_id: claim-synthetic-1
+    policy_id: pol-synthetic-1
+    customer_id: cust-synthetic-1
+    cover_id: device_damage
+    class_of_business: property.device
+    loss_date: '2026-11-16'
+    notified_at: '2026-11-18T07:00:00Z'
+    amount_claimed: 120000
+    circumstance: null
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [photo]
+    urgent: false
+    state: { state: assessing }
+  description: I dropped my phone on the pavement and the screen cracked across the middle.
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/cracked_screen_synthetic.png
+  seen: []
+expect:
+  source: model
+  outcome: assessed
+  recommend: approve
+  not_sent: ['120000', amount_claimed, sum_insured, cust-synthetic]

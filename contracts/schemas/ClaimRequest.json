@@ -1,0 +1,58 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The customer's notification of loss (R13, R46).",
+  "properties": {
+    "amount_claimed": {
+      "$ref": "#/$defs/Money"
+    },
+    "asked_for_person": {
+      "default": false,
+      "type": "boolean"
+    },
+    "circumstance": {
+      "default": null,
+      "description": "One of `guardrails.human_care.urgent`, when there is one (R46).",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "cover_id": {
+      "type": "string"
+    },
+    "description": {
+      "description": "In the customer's words, for the assessor.",
+      "type": "string"
+    },
+    "guarantee_requested": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "loss_date": {
+      "format": "date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "cover_id",
+    "loss_date",
+    "amount_claimed",
+    "description"
+  ],
+  "title": "ClaimRequest",
+  "type": "object"
+}

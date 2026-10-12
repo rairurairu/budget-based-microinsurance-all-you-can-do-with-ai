@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What cancellation does to data (R20, R54).",
+  "properties": {
+    "delete": {
+      "description": "Optional data the customer opted into; deleted now.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "retain_records_until": {
+      "description": "Policy, premium, claims, ledger and offer records are kept, access-restricted, until then.",
+      "format": "date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "delete",
+    "retain_records_until"
+  ],
+  "title": "CancellationData",
+  "type": "object"
+}

@@ -1,0 +1,37 @@
+{
+  "case": "zh_delivery_app",
+  "key": "understand_form:7ca2f40fb63d53d4",
+  "input": {
+    "channel": "delivery_app",
+    "declared_item_kinds": [
+      "device",
+      "device.laptop",
+      "device.phone",
+      "device.tablet",
+      "device.wearable",
+      "home_contents",
+      "vehicle",
+      "vehicle.bicycle",
+      "vehicle.motorcycle"
+    ],
+    "language": "zh-Hant",
+    "max_questions": 5,
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"questions\": [{\"id\": \"work_hours\", \"text\": \"你通常甚麼時候送遞？\", \"options\": [\"平日日間\", \"晚上或通宵\", \"週末\", \"不固定\"]}, {\"id\": \"devices\", \"text\": \"你送遞時依靠哪些電子產品？\", \"options\": [\"手機\", \"平板電腦\", \"智能手錶\", \"沒有\"]}, {\"id\": \"commute\", \"text\": \"你開工前搭哪條港鐵綫？\", \"options\": []}]}"
+}

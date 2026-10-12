@@ -1,0 +1,16 @@
+# Data source (R55). Reported per monitoring district.
+id: epd_aqhi
+name: Air Quality Health Index
+provider: Environmental Protection Department
+access: open_data
+status: available
+live: "<EPD AQHI open data feed>"
+history:
+  available: true
+  since: 2013
+  reference: "EPD AQHI records"
+poll_seconds: 3600
+codes:                           # the adapter reports the health risk category
+  HIGH:      { event_type: air.health_risk, stage: high }
+  VERY_HIGH: { event_type: air.health_risk, stage: very_high }
+  SERIOUS:   { event_type: air.health_risk, stage: serious }

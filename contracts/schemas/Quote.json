@@ -1,0 +1,502 @@
+{
+  "$defs": {
+    "AiSource": {
+      "description": "Where a recommendation came from: the model, its saved answer, or a fixed rule (R22).",
+      "enum": [
+        "model",
+        "fallback",
+        "rule"
+      ],
+      "type": "string"
+    },
+    "Allocation": {
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "premium": {
+          "$ref": "#/$defs/Money",
+          "description": "Share of the plan price."
+        },
+        "sum_insured": {
+          "$ref": "#/$defs/Money",
+          "description": "Sum insured (indemnity) or benefit amount per trigger event (parametric) this premium buys."
+        }
+      },
+      "required": [
+        "cover_id",
+        "premium",
+        "sum_insured"
+      ],
+      "type": "object"
+    },
+    "AllocationOutcome": {
+      "description": "An allocation of the whole plan price. When part of it buys nothing the customer can use\nyet, the customer is asked to update it in the app or web, with `alternatives` to choose from;\nwithout an update, this schedule (the optimiser's default) applies (R03, R34, R42).",
+      "properties": {
+        "alternatives": {
+          "description": "Covers with room for that premium, and what makes each useful.",
+          "items": {
+            "$ref": "#/$defs/Alternative"
+          },
+          "type": "array"
+        },
+        "beyond_capacity": {
+          "$ref": "#/$defs/Money",
+          "description": "The same shortfall measured on the plan's capacity; equals `unallocated`."
+        },
+        "placed_beyond_need": {
+          "$ref": "#/$defs/Money",
+          "description": "Premium the default places beyond what the customer can use now."
+        },
+        "schedule": {
+          "$ref": "#/$defs/Schedule"
+        },
+        "unallocated": {
+          "$ref": "#/$defs/Money",
+          "description": "Plan price no split can place: the remaining covers' limits are full, for example after a\npostponement (R41). Above zero, the customer may change plan or cancel without penalty\nbefore the period starts; no plan is suggested (R42, R45)."
+        }
+      },
+      "required": [
+        "schedule",
+        "unallocated",
+        "beyond_capacity",
+        "placed_beyond_need",
+        "alternatives"
+      ],
+      "type": "object"
+    },
+    "Alternative": {
+      "description": "Room for more premium in one cover of the plan.",
+      "properties": {
+        "can_take": {
+          "$ref": "#/$defs/Money",
+          "description": "The most extra premium the cover can take this period."
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "exposure": {
+          "$ref": "#/$defs/Exposure",
+          "description": "What makes the extra cover usable: declaring it (a trip, a ticket, a device)."
+        }
+      },
+      "required": [
+        "cover_id",
+        "can_take",
+        "exposure"
+      ],
+      "type": "object"
+    },
+    "AppliedFactor": {
+      "properties": {
+        "factor_id": {
+          "type": "string"
+        },
+        "relativity": {
+          "$ref": "#/$defs/Bps"
+        },
+        "shadow": {
+          "description": "A candidate factor, rated in shadow only (R43).",
+          "type": "boolean"
+        },
+        "withheld": {
+          "description": "Not disclosed or not consented: rated at the undeclared group average (R33).",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "factor_id",
+        "relativity",
+        "withheld",
+        "shadow"
+      ],
+      "type": "object"
+    },
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "CoverExplanation": {
+      "additionalProperties": false,
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "sentence": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cover_id",
+        "sentence"
+      ],
+      "type": "object"
+    },
+    "Exposure": {
+      "description": "What a customer must have for a cover to protect them this policy period. The optimiser\nplaces usable premium only where there is exposure (R42).",
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/ExposureKind"
+        },
+        "of": {
+          "default": [],
+          "description": "For declared items and upcoming events: registered kinds; a parent covers its subtree.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "type": "object"
+    },
+    "ExposureKind": {
+      "description": "How a cover finds whom it protects. The engine computes the customer's need differently for\neach form; the kinds of items and events are registered in `config/exposure_types.yaml` (R55,\nADR-005).",
+      "oneOf": [
+        {
+          "const": "declared_hours",
+          "description": "Declared working hours (R08).",
+          "type": "string"
+        },
+        {
+          "const": "declared_route",
+          "description": "A declared regular route.",
+          "type": "string"
+        },
+        {
+          "const": "declared_item",
+          "description": "A declared item of a registered kind, with its value.",
+          "type": "string"
+        },
+        {
+          "const": "upcoming_event",
+          "description": "An upcoming event of a registered kind in the policy period, after the waiting period.",
+          "type": "string"
+        },
+        {
+          "const": "everyone",
+          "description": "Anyone covered has the exposure.",
+          "type": "string"
+        }
+      ]
+    },
+    "Funder": {
+      "enum": [
+        "insurer",
+        "partner",
+        "co_funded"
+      ],
+      "type": "string"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Offer": {
+      "description": "Terms put to the customer.",
+      "properties": {
+        "change": {
+          "$ref": "#/$defs/OfferKind"
+        },
+        "created_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "explanation": {
+          "description": "One plain sentence from the AI layer (R23).",
+          "type": "string"
+        },
+        "offer_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "offer_id",
+        "customer_id",
+        "change",
+        "explanation",
+        "created_at"
+      ],
+      "type": "object"
+    },
+    "OfferKind": {
+      "oneOf": [
+        {
+          "description": "New business: a first schedule, bound through `partner_id` or, with none, the insurer's\nown journey (R52, R58).",
+          "properties": {
+            "kind": {
+              "const": "new_policy",
+              "type": "string"
+            },
+            "partner_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "schedule": {
+              "$ref": "#/$defs/Schedule"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "kind": {
+              "const": "reallocation",
+              "type": "string"
+            },
+            "schedule": {
+              "$ref": "#/$defs/Schedule"
+            }
+          },
+          "required": [
+            "kind",
+            "schedule"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Only ever the customer's own choice of plan (R45).",
+          "properties": {
+            "kind": {
+              "const": "plan_change",
+              "type": "string"
+            },
+            "plan": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "plan"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "cover_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "add_cover",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "cover_id"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "cover_id": {
+              "type": "string"
+            },
+            "kind": {
+              "const": "remove_cover",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "cover_id"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "PlanPrice": {
+      "description": "What the customer pays for a plan on a day. The plan price itself, which is allocated across\ncovers, stays at `list_price`; the discount is paid by its funder.",
+      "properties": {
+        "discount": {
+          "$ref": "#/$defs/Money"
+        },
+        "funded_by": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Funder"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "list_price": {
+          "$ref": "#/$defs/Money"
+        },
+        "payable": {
+          "$ref": "#/$defs/Money"
+        },
+        "plan_id": {
+          "type": "string"
+        },
+        "promotion_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "plan_id",
+        "list_price",
+        "discount",
+        "payable"
+      ],
+      "type": "object"
+    },
+    "Rate": {
+      "description": "Premium per unit of sum insured, in parts per million: 1,000,000 = premium equals the sum\ninsured. Finer than `Bps` because micro-cover rates are small (ADR-004).",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "Schedule": {
+      "description": "The covers and sums insured for one policy period. Allocations are ordered by cover id.",
+      "properties": {
+        "allocations": {
+          "items": {
+            "$ref": "#/$defs/Allocation"
+          },
+          "type": "array"
+        },
+        "plan_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "plan_id",
+        "allocations"
+      ],
+      "type": "object"
+    },
+    "Suggestion": {
+      "description": "The optimiser's suggested allocation: product information under the insurer's licence, with\nthe factors behind it (R49). The customer can change any part of it (R34).",
+      "properties": {
+        "basis": {
+          "items": {
+            "$ref": "#/$defs/SuggestionBasis"
+          },
+          "type": "array"
+        },
+        "outcome": {
+          "$ref": "#/$defs/AllocationOutcome"
+        }
+      },
+      "required": [
+        "outcome",
+        "basis"
+      ],
+      "type": "object"
+    },
+    "SuggestionBasis": {
+      "properties": {
+        "cover_id": {
+          "type": "string"
+        },
+        "factors": {
+          "items": {
+            "$ref": "#/$defs/AppliedFactor"
+          },
+          "type": "array"
+        },
+        "need": {
+          "$ref": "#/$defs/Money",
+          "description": "The sum insured this customer can use this period; zero means no exposure."
+        },
+        "rate": {
+          "$ref": "#/$defs/Rate"
+        },
+        "risk_class": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "cover_id",
+        "need",
+        "rate",
+        "risk_class",
+        "factors"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A quote: the terms put to the customer and everything they were shown with them, kept as\nshown (R49). Accepting it is the customer's tap (R03).",
+  "properties": {
+    "accepted_at": {
+      "format": "date-time",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "explained_by": {
+      "$ref": "#/$defs/AiSource"
+    },
+    "explanations": {
+      "description": "One plain sentence per cover (R23).",
+      "items": {
+        "$ref": "#/$defs/CoverExplanation"
+      },
+      "type": "array"
+    },
+    "offer": {
+      "$ref": "#/$defs/Offer"
+    },
+    "period_starts": {
+      "description": "The policy period the schedule is for.",
+      "format": "date",
+      "type": "string"
+    },
+    "price": {
+      "$ref": "#/$defs/PlanPrice",
+      "description": "What the customer pays for the plan today, with any promotional discount (R44)."
+    },
+    "schedule": {
+      "$ref": "#/$defs/Schedule",
+      "description": "The schedule offered: the suggestion's, or the customer's own split priced."
+    },
+    "shown_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "suggestion": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Suggestion"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "The optimiser's suggestion and the factors behind it, when one was asked for (R49)."
+    }
+  },
+  "required": [
+    "offer",
+    "schedule",
+    "price",
+    "explanations",
+    "explained_by",
+    "period_starts",
+    "shown_at"
+  ],
+  "title": "Quote",
+  "type": "object"
+}

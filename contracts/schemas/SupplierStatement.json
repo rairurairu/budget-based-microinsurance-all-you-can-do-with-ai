@@ -1,0 +1,73 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "StatementLine": {
+      "properties": {
+        "charge": {
+          "$ref": "#/$defs/Money"
+        },
+        "delivered_on": {
+          "format": "date",
+          "type": "string"
+        },
+        "option": {
+          "type": "string"
+        },
+        "order_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "order_id",
+        "option",
+        "delivered_on",
+        "charge"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What the insurer pays one supplier for what it delivered in a period.",
+  "properties": {
+    "from": {
+      "format": "date",
+      "type": "string"
+    },
+    "lines": {
+      "description": "By delivery date, then order id.",
+      "items": {
+        "$ref": "#/$defs/StatementLine"
+      },
+      "type": "array"
+    },
+    "statement_id": {
+      "description": "The ledger's idempotency key: one statement per supplier and period.",
+      "type": "string"
+    },
+    "supplier_id": {
+      "type": "string"
+    },
+    "total": {
+      "$ref": "#/$defs/Money"
+    },
+    "until": {
+      "description": "First day after the period.",
+      "format": "date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "statement_id",
+    "supplier_id",
+    "from",
+    "until",
+    "lines",
+    "total"
+  ],
+  "title": "SupplierStatement",
+  "type": "object"
+}

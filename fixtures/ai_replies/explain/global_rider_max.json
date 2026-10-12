@@ -1,0 +1,46 @@
+{
+  "case": "global_rider_max",
+  "key": "explain:2a9867ce04ef6c38",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "device_damage",
+        "cover_type": "indemnity",
+        "key_features": "Repair or replace your phone fast, so you don't lose work days",
+        "name": "Phone and device damage cover",
+        "pays_on": [],
+        "waiting_period_days": 14
+      },
+      {
+        "cover_id": "personal_accident",
+        "cover_type": "indemnity",
+        "key_features": "Hospital and injury costs after an accident",
+        "name": "Personal accident cover",
+        "pays_on": [],
+        "waiting_period_days": 0
+      },
+      {
+        "cover_id": "weather_income",
+        "cover_type": "parametric",
+        "key_features": "A daily benefit for each working day a tropical storm or hurricane warning, or a flash flood warning, disrupts at least an hour of your declared working hours, counting two hours to get back to work after it ends; one benefit per day however many warnings that day",
+        "name": "Weather income cover",
+        "pays_on": [
+          "Tropical storm or hurricane warning",
+          "Flood warning"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [
+        "device.phone"
+      ],
+      "declared_routes": 0,
+      "declared_working_hours": true,
+      "occupation": "delivery rider",
+      "upcoming_events": []
+    },
+    "language": "en"
+  },
+  "reply": "{\"explanations\":[{\"cover_id\":\"device_damage\",\"sentence\":\"If your work phone breaks, it is repaired or replaced fast, so you can keep taking orders.\"},{\"cover_id\":\"personal_accident\",\"sentence\":\"If you are hurt in an accident on the road, your hospital and injury costs are covered.\"},{\"cover_id\":\"weather_income\",\"sentence\":\"If a storm or flood warning stops your deliveries during your working hours, you get paid for that day automatically.\"}]}"
+}

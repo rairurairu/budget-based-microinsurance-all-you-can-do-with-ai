@@ -1,0 +1,11 @@
+[{"date":"2026-11-01","arrival":false,"cargo":false,"list":[
+  {"time":"23:55","flight":[{"no":"CX 880","airline":"CPA"},{"no":"AA 8933","airline":"AAL"}],"status":"Dep 02:40 (02/11/2026)","statusCode":null,"destination":["LAX"],"terminal":"T1","aisle":"A","gate":"34"}],
+  "lastUpdatedTime":"2026-11-02T13:00:00+08:00"},
+ {"date":"2026-11-02","arrival":false,"cargo":false,"list":[
+  {"time":"09:00","flight":[{"no":"KA 101","airline":"HDA"}],"status":"Dep 08:58","statusCode":null,"destination":["TPE"],"terminal":"T1","aisle":"B","gate":"5"},
+  {"time":"10:00","flight":[{"no":"CX 251","airline":"CPA"}],"status":"Est at 13:15","statusCode":null,"destination":["LHR"],"terminal":"T1","aisle":"C","gate":"60"},
+  {"time":"11:30","flight":[{"no":"UO 624","airline":"HKE"},{"no":"CX 5624","airline":"CPA"}],"status":"Cancelled","statusCode":null,"destination":["HND"],"terminal":"T2","aisle":"U","gate":"217"},
+  {"time":"12:30","flight":[{"no":"HX 035","airline":"CRK"}],"status":"Dep 12:50","statusCode":null,"destination":["MEL"],"terminal":"T2","aisle":"R","gate":"212"},
+  {"time":"14:00","flight":[{"no":"CX 400","airline":"CPA"}],"status":"Boarding","statusCode":null,"destination":["TPE"],"terminal":"T1","aisle":"C","gate":"20"},
+  {"time":"16:00","flight":[{"no":"CX 712","airline":"CPA"}],"status":"","statusCode":null,"destination":["SIN"],"terminal":"T1","aisle":"C","gate":"21"}],
+  "lastUpdatedTime":"2026-11-02T13:00:00+08:00"}]

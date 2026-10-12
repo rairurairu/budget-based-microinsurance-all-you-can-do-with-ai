@@ -1,0 +1,142 @@
+# Trigger event types (R55, ADR-005): what a parametric cover pays on, independent of any one data
+# source. A data source (config/triggers/*.yaml) maps its own codes to an event type and stage.
+# Illustrative for Hong Kong; the adopter adds entries for its market. Ids are permanent dotted
+# paths; retire an entry with `retired: true`, never rename or reuse it.
+#
+#   stages         ordered from least to most severe; a cover names the stage it pays `from`
+#   measure        in_force (has a start and an end; a cover may require `min_minutes` in force)
+#                  | delay (the source reports minutes late; a cover requires `min_minutes`)
+#   zone           the unit an event is reported for: territory | district | line | flight | event
+#   pricing_basis  historical_record (a registered source has history) | insurer_filed_rate
+
+event_types:
+  # ---- weather (Hong Kong Observatory)
+  - id: weather.tropical_cyclone
+    name: Tropical cyclone warning signal
+    stages: [signal_1, signal_3, signal_8, signal_9, signal_10]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.rainstorm
+    name: Rainstorm warning
+    stages: [amber, red, black]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.thunderstorm
+    name: Thunderstorm warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.very_hot
+    name: Very hot weather warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.cold
+    name: Cold weather warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.landslip
+    name: Landslip warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.strong_monsoon
+    name: Strong monsoon signal
+    stages: [signal]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.tsunami
+    name: Tsunami warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.fire_danger
+    name: Fire danger warning
+    stages: [yellow, red]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.frost
+    name: Frost warning
+    stages: [warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  # ---- work and health
+  - id: workplace.heat_stress
+    name: Heat stress at work warning
+    stages: [amber, red, black]
+    measure: in_force
+    zone: territory
+    pricing_basis: insurer_filed_rate    # issued since 2024: too short a record to rate on alone
+
+  - id: air.health_risk
+    name: Air quality health risk
+    stages: [high, very_high, serious]
+    measure: in_force
+    zone: district
+    pricing_basis: historical_record
+
+  # ---- transport
+  - id: transit.rail_disruption
+    name: Rail service disruption
+    stages: [delay, suspension]
+    measure: in_force
+    zone: line
+    pricing_basis: insurer_filed_rate    # Decide: the operator's incident record as history
+
+  - id: transit.road_closure
+    name: Road closure
+    stages: [closure]
+    measure: in_force
+    zone: district
+    pricing_basis: insurer_filed_rate
+
+  - id: travel.flight_delay
+    name: Flight departure delay
+    stages: [delayed]
+    measure: delay
+    zone: flight
+    pricing_basis: insurer_filed_rate
+
+  - id: travel.flight_cancellation
+    name: Flight cancellation
+    stages: [cancelled]
+    measure: in_force
+    zone: flight
+    pricing_basis: insurer_filed_rate
+
+  # ---- ticketed events
+  - id: event.disruption
+    name: Ticketed event postponed or cancelled
+    stages: [postponed, cancelled]
+    measure: in_force
+    zone: event
+    pricing_basis: insurer_filed_rate
+
+  # ---- utilities
+  - id: utility.power_outage
+    name: Power outage
+    stages: [outage]
+    measure: in_force
+    zone: district
+    pricing_basis: insurer_filed_rate

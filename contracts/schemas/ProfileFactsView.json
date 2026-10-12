@@ -1,0 +1,45 @@
+{
+  "$defs": {
+    "AiSource": {
+      "description": "Where a recommendation came from: the model, its saved answer, or a fixed rule (R22).",
+      "enum": [
+        "model",
+        "fallback",
+        "rule"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Facts read from the answers, in registered ids, for the customer to confirm in their profile.",
+  "properties": {
+    "commute_routes": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "devices": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "occupation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "source": {
+      "$ref": "#/$defs/AiSource"
+    }
+  },
+  "required": [
+    "devices",
+    "commute_routes",
+    "source"
+  ],
+  "title": "ProfileFactsView",
+  "type": "object"
+}

@@ -1,0 +1,30 @@
+rules:
+- R13
+- R57
+harness_only: true
+note: The saved reply approves evidence it calls inconsistent; the fixed check turns it into a referral.
+input:
+  claim:
+    claim_id: claim-synthetic-3
+    policy_id: pol-synthetic-3
+    customer_id: cust-synthetic-3
+    cover_id: device_damage
+    class_of_business: property.device
+    loss_date: '2026-10-18'
+    notified_at: '2026-10-20T09:00:00Z'
+    amount_claimed: 90000
+    circumstance: null
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [photo]
+    urgent: false
+    state: { state: assessing }
+  description: The screen broke yesterday when I sat on it.
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/damage_unclear_synthetic.png
+  seen: []
+expect:
+  source: model
+  outcome: assessed
+  recommend: refer

@@ -1,0 +1,35 @@
+# Data source (R55): maps the feed's own codes to registered event types and stages.
+id: hko_warnings
+name: Hong Kong Observatory weather warning summary
+provider: Hong Kong Observatory
+access: open_data                # open_data | partner_agreement | customer_consented
+status: available                # available | pending_agreement | planned
+adapter: hko_warnsum
+live: "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=en"
+history:
+  available: true
+  since: 1946
+  reference: "HKO Warnings and Signals Database (typhoon signals since 1946, rainstorm since 1998)"
+poll_seconds: 60
+demo_mode_fixture: fixtures/hko_warnsum_signal8.json
+codes:                           # warnsum codes; confirm against the HKO API docs
+  TC1:    { event_type: weather.tropical_cyclone, stage: signal_1 }
+  TC3:    { event_type: weather.tropical_cyclone, stage: signal_3 }
+  TC8NE:  { event_type: weather.tropical_cyclone, stage: signal_8 }
+  TC8SE:  { event_type: weather.tropical_cyclone, stage: signal_8 }
+  TC8SW:  { event_type: weather.tropical_cyclone, stage: signal_8 }
+  TC8NW:  { event_type: weather.tropical_cyclone, stage: signal_8 }
+  TC9:    { event_type: weather.tropical_cyclone, stage: signal_9 }
+  TC10:   { event_type: weather.tropical_cyclone, stage: signal_10 }
+  WRAINA: { event_type: weather.rainstorm, stage: amber }
+  WRAINR: { event_type: weather.rainstorm, stage: red }
+  WRAINB: { event_type: weather.rainstorm, stage: black }
+  WTS:    { event_type: weather.thunderstorm, stage: warning }
+  WHOT:   { event_type: weather.very_hot, stage: warning }
+  WCOLD:  { event_type: weather.cold, stage: warning }
+  WL:     { event_type: weather.landslip, stage: warning }
+  WMSGNL: { event_type: weather.strong_monsoon, stage: signal }
+  WTMW:   { event_type: weather.tsunami, stage: warning }
+  WFIREY: { event_type: weather.fire_danger, stage: yellow }
+  WFIRER: { event_type: weather.fire_danger, stage: red }
+  WFROST: { event_type: weather.frost, stage: warning }

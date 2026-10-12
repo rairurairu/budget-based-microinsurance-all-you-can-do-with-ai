@@ -1,0 +1,37 @@
+{
+  "case": "drops_cash",
+  "key": "rewards:dc51b5200dd4b2d9",
+  "input": {
+    "customer": {
+      "declared_items": [],
+      "occupation": "office clerk",
+      "upcoming_events": [
+        "event.concert"
+      ]
+    },
+    "offers": [
+      {
+        "description": "HK$10 cash to your wallet",
+        "family": "insurance",
+        "is_cash": true,
+        "offer_id": "cash_10",
+        "value_to_customer": 10
+      },
+      {
+        "description": "A handlebar phone mount from a partner shop",
+        "family": "partner",
+        "is_cash": false,
+        "offer_id": "phone_mount",
+        "value_to_customer": 25
+      },
+      {
+        "description": "One airport lounge visit",
+        "family": "partner",
+        "is_cash": false,
+        "offer_id": "lounge_pass",
+        "value_to_customer": 60
+      }
+    ]
+  },
+  "reply": "{\"offer_ids\": [\"lounge_pass\", \"phone_mount\"]}"
+}

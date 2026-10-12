@@ -1,0 +1,40 @@
+{
+  "case": "global_traveller",
+  "key": "explain:47f3cb54d8406e12",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "device_damage",
+        "cover_type": "indemnity",
+        "key_features": "Repair or replace your phone fast, so you don't lose work days",
+        "name": "Phone and device damage cover",
+        "pays_on": [],
+        "waiting_period_days": 14
+      },
+      {
+        "cover_id": "weather_income",
+        "cover_type": "parametric",
+        "key_features": "A daily benefit for each working day a tropical storm or hurricane warning, or a flash flood warning, disrupts at least an hour of your declared working hours, counting two hours to get back to work after it ends; one benefit per day however many warnings that day",
+        "name": "Weather income cover",
+        "pays_on": [
+          "Tropical storm or hurricane warning",
+          "Flood warning"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [
+        "device.phone"
+      ],
+      "declared_routes": 0,
+      "declared_working_hours": true,
+      "occupation": null,
+      "upcoming_events": [
+        "trip.air"
+      ]
+    },
+    "language": "en"
+  },
+  "reply": "{\"explanations\":[{\"cover_id\":\"device_damage\",\"sentence\":\"If your new phone breaks, at home or on your December trip, it is repaired or replaced fast.\"},{\"cover_id\":\"weather_income\",\"sentence\":\"If a storm or flood warning disrupts your working hours, you get paid for that working day automatically.\"}]}"
+}

@@ -1,0 +1,46 @@
+[workspace]
+resolver = "3"
+members = ["crates/*"]
+# python-bindings builds against a Python interpreter; build it with maturin (see its README).
+default-members = [
+    "crates/engine",
+    "crates/config",
+    "crates/ledger",
+    "crates/triggers",
+    "crates/learning",
+    "crates/store",
+    "crates/ai",
+    "crates/api",
+    "crates/workers",
+    "crates/contracts",
+]
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.89"
+license = "Apache-2.0"
+
+[workspace.dependencies]
+microinsurance-engine = { path = "crates/engine" }
+microinsurance-config = { path = "crates/config" }
+microinsurance-ledger = { path = "crates/ledger" }
+microinsurance-triggers = { path = "crates/triggers" }
+microinsurance-learning = { path = "crates/learning" }
+microinsurance-ai = { path = "crates/ai" }
+microinsurance-store = { path = "crates/store" }
+microinsurance-workers = { path = "crates/workers" }
+microinsurance-api = { path = "crates/api" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", default-features = false, features = ["serde", "std"] }
+thiserror = "2"
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "time", "net"] }
+axum = "0.8"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+tracing = "0.1"
+pyo3 = { version = "0.29", features = ["extension-module"] }
+criterion = "0.5"
+serde-saphyr = { version = "1.3", default-features = false, features = ["deserialize"] }
+schemars = { version = "1.2", features = ["chrono04"] }
+proptest = "1.11"
+sqlx = { version = "0.8", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "chrono"] }

@@ -1,0 +1,26 @@
+{
+  "case": "inconsistent_evidence",
+  "key": "assess:f1cd8a2cb2fe4cd3",
+  "input": {
+    "claim": {
+      "circumstance": null,
+      "description": "The screen broke yesterday when I sat on it.",
+      "evidence_sent": [
+        "photo"
+      ],
+      "loss_date": "2026-10-18"
+    },
+    "cover": {
+      "class_of_business": "property.device",
+      "evidence_kinds": [
+        "photo"
+      ],
+      "name": "Phone and device damage cover"
+    },
+    "currency": "HKD",
+    "documents": [],
+    "images": 1,
+    "language": "en"
+  },
+  "reply": "{\"recommend\": \"approve\", \"estimate\": 800, \"confidence\": 70, \"consistent\": false, \"urgent\": false, \"human_care\": false, \"reason\": \"The photo is too unclear to show the damage you described.\"}"
+}

@@ -1,0 +1,11 @@
+[project]
+name = "microinsurance-economics"
+version = "0.0.0"
+description = "Economic models for budget-based microinsurance (offline)"
+requires-python = ">=3.12"
+license = "Apache-2.0"
+dependencies = ["numpy>=2", "polars>=1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

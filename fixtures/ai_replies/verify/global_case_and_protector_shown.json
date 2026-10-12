@@ -1,0 +1,15 @@
+{
+  "case": "global_case_and_protector_shown",
+  "key": "verify:ec9f7e512e3399a4",
+  "input": {
+    "documents": [],
+    "images": 1,
+    "language": "en",
+    "task": {
+      "action": "Fit a screen protector and a case on your phone before you fly.",
+      "event_reference": "ZZ204/2026-12-20",
+      "evidence_kind": "photo"
+    }
+  },
+  "reply": "{\"passed\": true, \"reuse_suspected\": false, \"edited_suspected\": false, \"reason\": \"The photo shows a case and a screen protector on the phone.\"}"
+}

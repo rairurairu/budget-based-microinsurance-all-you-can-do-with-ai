@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A premium the partner's wallet collected for a policy bound through it (R53).",
+  "properties": {
+    "period_index": {
+      "description": "The policy period it pays for: the current one.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "policy_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "policy_id",
+    "period_index"
+  ],
+  "title": "PremiumPayment",
+  "type": "object"
+}

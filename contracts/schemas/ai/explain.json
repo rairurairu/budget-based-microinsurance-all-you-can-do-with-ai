@@ -1,0 +1,29 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "explanations": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "cover_id": {
+            "type": "string"
+          },
+          "sentence": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "cover_id",
+          "sentence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "explanations"
+  ],
+  "title": "explain",
+  "type": "object"
+}

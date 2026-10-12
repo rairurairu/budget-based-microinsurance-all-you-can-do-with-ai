@@ -1,0 +1,64 @@
+{
+  "$defs": {
+    "FraudFinding": {
+      "description": "A person's finding that a rewarded activity was fraudulent. Only a person finds fraud (R10,\nR13).",
+      "properties": {
+        "note": {
+          "type": "string"
+        },
+        "on": {
+          "format": "date",
+          "type": "string"
+        },
+        "reviewer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reviewer",
+        "on",
+        "note"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A reward voided on a person's finding of fraud.",
+  "properties": {
+    "amount": {
+      "$ref": "#/$defs/Money",
+      "description": "Taken back from the reward balance."
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "finding": {
+      "$ref": "#/$defs/FraudFinding"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "reward_id": {
+      "type": "string"
+    },
+    "unrecovered": {
+      "$ref": "#/$defs/Money",
+      "description": "Granted but already spent: recorded for the insurer to recover outside the reward\nbalance, if at all."
+    }
+  },
+  "required": [
+    "idempotency_key",
+    "reward_id",
+    "customer_id",
+    "amount",
+    "unrecovered",
+    "finding"
+  ],
+  "title": "Voided",
+  "type": "object"
+}

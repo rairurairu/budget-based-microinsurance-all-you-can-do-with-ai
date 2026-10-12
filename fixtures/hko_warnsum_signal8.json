@@ -1,0 +1,18 @@
+{
+  "WTCSGNL": {
+    "name": "Tropical Cyclone Warning Signal",
+    "code": "TC8NE",
+    "type": "No. 8 Northeast Gale or Storm Signal",
+    "actionCode": "ISSUE",
+    "issueTime": "2026-09-14T09:40:00+08:00",
+    "updateTime": "2026-09-14T09:40:00+08:00"
+  },
+  "WTS": {
+    "name": "Thunderstorm Warning",
+    "code": "WTS",
+    "actionCode": "EXTEND",
+    "issueTime": "2026-09-14T08:15:00+08:00",
+    "expireTime": "2026-09-14T13:00:00+08:00",
+    "updateTime": "2026-09-14T10:45:00+08:00"
+  }
+}

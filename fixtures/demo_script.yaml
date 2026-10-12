@@ -1,0 +1,42 @@
+# Demo mode's synthetic world for the base market, Hong Kong (crates/workers src/demo.rs): a book
+# of synthetic customers and the saved feed responses each source replays, with the time of each
+# poll (UTC). Files are relative to this one. No customer here is real.
+book:
+  # Three workers with weather income cover for September 2026.
+  - { id: demo-day-rider, starts: 2026-09-01, cover: weather_income, sum_insured: 480, days: [1, 2, 3, 4, 5], hours: "09:00-18:00" }
+  - { id: demo-night-courier, starts: 2026-09-01, cover: weather_income, sum_insured: 400, days: [1, 2, 3, 4, 5], hours: "22:00-06:00" }
+  - { id: demo-weekend-stall, starts: 2026-09-01, cover: weather_income, sum_insured: 300, days: [6, 7], hours: "10:00-20:00" }
+  # A Tsuen Wan Line commuter and a concert-goer for November 2026.
+  - { id: demo-tsuen-wan-commuter, starts: 2026-11-01, cover: commute_disruption, sum_insured: 150, days: [1, 2, 3, 4, 5], hours: "08:00-18:00", routes: [mtr.tsuen_wan] }
+  - id: demo-concert-fan
+    starts: 2026-11-01
+    cover: event_ticket
+    sum_insured: 1000
+    tickets:
+      - { kind: event.concert, starts: 2026-11-21, reference: EVT-2026-1121-ARENA, value: 88000 }   # value in cents
+
+polls:
+  # Signal 8 from Monday 09:40 to Tuesday 06:20 local; a day without warnings closes the loss
+  # occurrence and any balance is paid.
+  - source: hko_warnings
+    steps:
+      - { file: hko_warnsum_signal8.json, at: 2026-09-14T04:00:00Z }
+      - { file: hko_warnsum_signal8.json, at: 2026-09-14T15:00:00Z }
+      - { file: hko_warnsum_all_clear.json, at: 2026-09-14T22:30:00Z }
+      - { file: hko_warnsum_all_clear.json, at: 2026-09-15T23:00:00Z }
+  # The operator shows the Tsuen Wan Line suspended from 08:12 local and back to normal by 10:10;
+  # the rail peril's one-hour window then closes the occurrence.
+  - source: mtr_line_status
+    steps:
+      - { file: mtr_line_status_suspended.json, at: 2026-11-03T00:30:00Z }
+      - { file: mtr_line_status_suspended.json, at: 2026-11-03T01:30:00Z }
+      - { file: mtr_line_status_normal.json, at: 2026-11-03T02:10:00Z }
+      - { file: mtr_line_status_normal.json, at: 2026-11-03T04:00:00Z }
+  # A concert cancelled three days ahead; the notice ends when the show was due to start.
+  - source: organiser_notices
+    steps:
+      - { file: organiser_cancellation.json, at: 2026-11-18T07:05:00Z }
+      - { file: organiser_cancellation.json, at: 2026-11-21T13:00:00Z }
+
+# Then: a prevention task to the supplier's statement, and claims with the people's queue.
+then: [prevention, claims]

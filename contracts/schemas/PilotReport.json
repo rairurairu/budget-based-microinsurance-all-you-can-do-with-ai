@@ -1,0 +1,160 @@
+{
+  "$defs": {
+    "GateKind": {
+      "oneOf": [
+        {
+          "const": "scale",
+          "description": "Every one must pass, measured, to scale up.",
+          "type": "string"
+        },
+        {
+          "const": "stop",
+          "description": "Any one breached stops the pilot.",
+          "type": "string"
+        }
+      ]
+    },
+    "PilotGate": {
+      "description": "One pilot gate, as fixed before the pilot started (`pilot.yaml`): a bound in the metric's own\nterms, a rate as a fraction and hours as hours.",
+      "properties": {
+        "at_least": {
+          "default": null,
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "at_most": {
+          "default": null,
+          "format": "double",
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "kind": {
+          "$ref": "#/$defs/GateKind"
+        },
+        "metric": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "PilotMetric": {
+      "description": "One pilot metric.",
+      "properties": {
+        "metric": {
+          "type": "string"
+        },
+        "sample": {
+          "description": "What the figure rests on: customers, claims, findings or decisions.",
+          "format": "uint32",
+          "minimum": 0,
+          "type": "integer"
+        },
+        "unit": {
+          "$ref": "#/$defs/Unit"
+        },
+        "value": {
+          "description": "None when there is nothing to measure yet.",
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "metric",
+        "unit",
+        "sample"
+      ],
+      "type": "object"
+    },
+    "Unit": {
+      "oneOf": [
+        {
+          "enum": [
+            "customers",
+            "count",
+            "hours"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "bps",
+          "description": "Basis points: 10,000 is 100%.",
+          "type": "string"
+        },
+        {
+          "const": "minor",
+          "description": "Minor units of the market's currency.",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The pilot's report: what the book shows, with the gates to evaluate it against\n(`microinsurance_economics.pilot_evaluation`).",
+  "properties": {
+    "as_of": {
+      "format": "date",
+      "type": "string"
+    },
+    "ends": {
+      "format": "date",
+      "type": "string"
+    },
+    "from": {
+      "description": "The binding dates counted: the pilot's, unless the request named others.",
+      "format": "date",
+      "type": "string"
+    },
+    "gates": {
+      "items": {
+        "$ref": "#/$defs/PilotGate"
+      },
+      "type": "array"
+    },
+    "gates_fixed_on": {
+      "format": "date",
+      "type": "string"
+    },
+    "metrics": {
+      "items": {
+        "$ref": "#/$defs/PilotMetric"
+      },
+      "type": "array"
+    },
+    "pilot_id": {
+      "type": "string"
+    },
+    "starts": {
+      "format": "date",
+      "type": "string"
+    },
+    "to": {
+      "format": "date",
+      "type": "string"
+    }
+  },
+  "required": [
+    "pilot_id",
+    "starts",
+    "ends",
+    "gates_fixed_on",
+    "from",
+    "to",
+    "as_of",
+    "metrics",
+    "gates"
+  ],
+  "title": "PilotReport",
+  "type": "object"
+}

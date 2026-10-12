@@ -1,0 +1,183 @@
+{
+  "$defs": {
+    "DeclaredItem": {
+      "description": "Something the customer declared, with its declared value when given.",
+      "properties": {
+        "declared_value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "description": {
+          "type": "string"
+        },
+        "kind": {
+          "description": "A registered declared item kind (`config/exposure_types.yaml`), such as `device.phone`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "description"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "UpcomingEvent": {
+      "description": "A known future event, for example a concert in three months.",
+      "properties": {
+        "ends": {
+          "format": "date",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "kind": {
+          "description": "A registered upcoming event kind (`config/exposure_types.yaml`), such as `event.concert`.",
+          "type": "string"
+        },
+        "reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "starts": {
+          "format": "date",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Ticket price or booked cost, when declared."
+        }
+      },
+      "required": [
+        "kind",
+        "starts"
+      ],
+      "type": "object"
+    },
+    "WorkWindow": {
+      "description": "A declared working window in market local time (R08). `weekday` is ISO: 1 = Monday to\n7 = Sunday. Minutes count from local midnight; an `end_minute` at or before `start_minute`\nruns past midnight into the next day (a night shift), and the shift belongs to the day it\nstarts.",
+      "properties": {
+        "end_minute": {
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "start_minute": {
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "weekday": {
+          "format": "uint8",
+          "maximum": 255,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "weekday",
+        "start_minute",
+        "end_minute"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What the customer declares. Any field left out keeps its value.",
+  "properties": {
+    "commute_routes": {
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "declared_items": {
+      "items": {
+        "$ref": "#/$defs/DeclaredItem"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "language": {
+      "description": "One of the insurer's offered languages.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "occupation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "typical_daily_earnings": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "upcoming_events": {
+      "items": {
+        "$ref": "#/$defs/UpcomingEvent"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "work_areas": {
+      "description": "Registered areas where the declared hours are worked (ADR-012).",
+      "items": {
+        "type": "string"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    },
+    "work_windows": {
+      "items": {
+        "$ref": "#/$defs/WorkWindow"
+      },
+      "type": [
+        "array",
+        "null"
+      ]
+    }
+  },
+  "title": "ProfileUpdate",
+  "type": "object"
+}

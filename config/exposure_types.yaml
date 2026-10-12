@@ -1,0 +1,31 @@
+# What a customer can declare, so each cover knows whom it protects (R42, R55, ADR-005). Two
+# dotted trees, validated like lines_of_business.yaml: a parent covers its subtree, ids are
+# permanent. Catalogue covers name these under `exposure.of`; ai::foresee and ai::understand
+# return these ids. Illustrative; add entries without code changes.
+
+upcoming_event_kinds:
+  - { id: event, name: Ticketed event }
+  - { id: event.concert, name: Concert }
+  - { id: event.sports, name: Sports match }
+  - { id: event.performance, name: Theatre or show }
+  - { id: event.exhibition, name: Exhibition or fair }
+  - { id: trip, name: Trip }
+  - { id: trip.air, name: Trip by air }
+  - { id: trip.sea, name: Trip by sea }
+  - { id: trip.land, name: Trip by land }
+  - { id: life, name: Life change }
+  - { id: life.new_device, name: New device }
+  - { id: life.schedule_change, name: Change of working hours }
+  - { id: life.commute_change, name: Change of commute }
+  - { id: season, name: Seasonal risk }
+
+declared_item_kinds:
+  - { id: device, name: Personal device }
+  - { id: device.phone, name: Phone }
+  - { id: device.tablet, name: Tablet }
+  - { id: device.laptop, name: Laptop }
+  - { id: device.wearable, name: Wearable }
+  - { id: vehicle, name: Vehicle used for work }
+  - { id: vehicle.bicycle, name: Bicycle }
+  - { id: vehicle.motorcycle, name: Motorcycle }
+  - { id: home_contents, name: Belongings at home }

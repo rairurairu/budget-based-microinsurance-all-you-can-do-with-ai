@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "customer_id": {
+      "description": "The insurer's id for the customer.",
+      "type": "string"
+    },
+    "expires_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "token": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "token",
+    "customer_id",
+    "expires_at"
+  ],
+  "title": "IssuedToken",
+  "type": "object"
+}

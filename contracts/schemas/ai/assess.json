@@ -1,0 +1,48 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "confidence": {
+      "description": "How sure the assessment is, from 0 to 100.",
+      "type": "integer"
+    },
+    "consistent": {
+      "description": "The evidence fits the description and the loss date.",
+      "type": "boolean"
+    },
+    "estimate": {
+      "description": "The loss the evidence shows, in whole units of the market currency.",
+      "type": "integer"
+    },
+    "human_care": {
+      "description": "Signs of distress or vulnerability: a person should take the case.",
+      "type": "boolean"
+    },
+    "reason": {
+      "description": "One plain sentence for the customer saying what was seen.",
+      "type": "string"
+    },
+    "recommend": {
+      "description": "`approve` when the evidence clearly shows an insured loss of the kind described, otherwise\n`refer`. There is no decline: people decide declines.",
+      "enum": [
+        "approve",
+        "refer"
+      ],
+      "type": "string"
+    },
+    "urgent": {
+      "description": "An injury, a hospital stay, an emergency abroad or other urgent need.",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "confidence",
+    "consistent",
+    "estimate",
+    "human_care",
+    "reason",
+    "recommend",
+    "urgent"
+  ],
+  "title": "assess",
+  "type": "object"
+}

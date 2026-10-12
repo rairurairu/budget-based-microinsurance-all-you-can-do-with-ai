@@ -1,0 +1,77 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A claim payment approved: cash first, then settlement in kind the cover's terms permit, that\nis suitable now and worth at least the cash (R16, R28). Posted once under its key (R27).",
+  "properties": {
+    "amount": {
+      "$ref": "#/$defs/Money"
+    },
+    "claim_id": {
+      "type": "string"
+    },
+    "cover_id": {
+      "type": "string"
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "options": {
+      "items": {
+        "$ref": "#/$defs/Settlement"
+      },
+      "type": "array"
+    },
+    "policy_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "idempotency_key",
+    "claim_id",
+    "policy_id",
+    "cover_id",
+    "amount",
+    "options"
+  ],
+  "title": "ClaimPayment",
+  "type": "object"
+}

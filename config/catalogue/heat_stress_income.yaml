@@ -1,0 +1,17 @@
+id: heat_stress_income
+name: Heat stress income cover
+type: parametric
+class_of_business: pecuniary.income_heat
+launch_phase: concept
+exposure: { kind: declared_hours }
+product_limit: 600                    # illustrative
+key_features: "Get paid when a heat stress warning cuts your outdoor working hours"
+trigger:
+  events:
+    - { event_type: workplace.heat_stress, from_stage: red }
+  requires_declared_hours: true       # R08
+payout:
+  basis: tiered_by_stage              # share of the benefit amount by warning level
+  tiers: { red: 0.5, black: 1.0 }
+  cap_ratio_of_daily_earnings: 0.8    # R09
+waiting_period_days: 0

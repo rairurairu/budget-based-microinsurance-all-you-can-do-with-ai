@@ -1,0 +1,21 @@
+# Optional data a customer opts into, one type at a time (R20), deleted on cancellation (R54), and
+# the evidence a claim or prevention task may ask for (ADR-005). Ids are permanent. A rating factor
+# names a data type (rating_factors.yaml `data`); evidence that is optional data names its type.
+
+data_types:
+  - { id: trip_data, name: Trip data, description: "Distance and time on the road, from the phone" }
+  - { id: location, name: Location, description: "Where the phone is; never needed for prevention" }
+  - { id: device_diagnostics, name: Device diagnostics, description: "Battery health and screen state" }
+  - { id: calendar_plans, name: Calendar plans, description: "Trips and events from the calendar" }
+  - { id: photos, name: Photos, description: "Photos sent as evidence" }
+  - { id: partner_activity, name: Partner work activity, description: "Verified hours and distance from the partner platform" }
+
+evidence_kinds:
+  - { id: photo, data_type: photos }
+  - { id: screenshot, data_type: photos }
+  - { id: device_diagnostics, data_type: device_diagnostics }
+  - { id: trip_data, data_type: trip_data }
+  - { id: booking }
+  - { id: receipt }
+  - { id: hospital_receipt }
+  - { id: medical_certificate }

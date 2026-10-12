@@ -1,0 +1,39 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "questions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "description": "snake_case, unique in the form.",
+            "type": "string"
+          },
+          "options": {
+            "description": "Answers to tap; empty for a typed answer.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "text": {
+            "description": "One plain question.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "options",
+          "text"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "questions"
+  ],
+  "title": "understand_form",
+  "type": "object"
+}

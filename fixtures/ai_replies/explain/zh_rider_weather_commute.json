@@ -1,0 +1,40 @@
+{
+  "case": "zh_rider_weather_commute",
+  "key": "explain:173b0b046a2d77a1",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "commute_disruption",
+        "cover_type": "parametric",
+        "key_features": "Get paid when your regular route is disrupted",
+        "name": "Commute disruption cover",
+        "pays_on": [
+          "Rail service disruption"
+        ],
+        "waiting_period_days": 0
+      },
+      {
+        "cover_id": "weather_income",
+        "cover_type": "parametric",
+        "key_features": "A daily benefit for each working day a typhoon (Signal 8 or above) or a black rainstorm disrupts at least an hour of your declared working hours, counting two hours to get back to work after it is lowered; one benefit per day however many warnings that day",
+        "name": "Weather income cover",
+        "pays_on": [
+          "Tropical cyclone warning signal",
+          "Rainstorm warning"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [
+        "device.phone"
+      ],
+      "declared_routes": 1,
+      "declared_working_hours": true,
+      "occupation": "food delivery rider",
+      "upcoming_events": []
+    },
+    "language": "zh-Hant"
+  },
+  "reply": "{\"explanations\": [{\"cover_id\": \"commute_disruption\", \"sentence\": \"你上班的鐵路綫受阻時，你會自動收到賠償。\"}, {\"cover_id\": \"weather_income\", \"sentence\": \"颱風訊號或黑雨令你在工作時間停止送遞時，你會收到當天的賠償。\"}]}"
+}

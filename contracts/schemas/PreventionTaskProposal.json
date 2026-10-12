@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "What the AI prevention task writer proposes for a known event: the action and its evidence\nfor a registered measure, never an amount (R02). `size` turns it into a `PreventionTaskDraft`\nwith the claims data of the cover's class of business (R18, R36, R40).",
+  "properties": {
+    "action": {
+      "description": "What the customer does, in one sentence (R23).",
+      "type": "string"
+    },
+    "evidence": {
+      "description": "One of the measure's evidence kinds the customer has consented to (R20).",
+      "type": "string"
+    },
+    "task_type": {
+      "description": "A registered loss prevention measure for the cover's class, such as\n`screen_protector_fitted`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "task_type",
+    "action",
+    "evidence"
+  ],
+  "title": "PreventionTaskProposal",
+  "type": "object"
+}

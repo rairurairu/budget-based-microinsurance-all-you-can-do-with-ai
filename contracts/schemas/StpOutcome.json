@@ -1,0 +1,272 @@
+{
+  "$defs": {
+    "AuditReason": {
+      "description": "Why a person looks at an automated decision.",
+      "oneOf": [
+        {
+          "const": "risk_review",
+          "description": "Its anomaly score reached `risk_review_threshold`.",
+          "type": "string"
+        },
+        {
+          "const": "random_sample",
+          "description": "Drawn in the random sample, `audit_sample_rate` of decisions (R14).",
+          "type": "string"
+        }
+      ]
+    },
+    "ClaimPayment": {
+      "description": "A claim payment approved: cash first, then settlement in kind the cover's terms permit, that\nis suitable now and worth at least the cash (R16, R28). Posted once under its key (R27).",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "claim_id": {
+          "type": "string"
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "options": {
+          "items": {
+            "$ref": "#/$defs/Settlement"
+          },
+          "type": "array"
+        },
+        "policy_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "claim_id",
+        "policy_id",
+        "cover_id",
+        "amount",
+        "options"
+      ],
+      "type": "object"
+    },
+    "ClaimReferral": {
+      "description": "Why a claim is with a person.",
+      "oneOf": [
+        {
+          "description": "No cover in force for the loss: outside the policy period, lapsed, not held or excluded.",
+          "properties": {
+            "referral": {
+              "const": "not_in_force",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The loss fell in the cover's waiting period (R07) or a re-entry waiting period (R47).",
+          "properties": {
+            "referral": {
+              "const": "waiting_period",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor gave no assessment (R22).",
+          "properties": {
+            "referral": {
+              "const": "no_assessment",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor recommended a person look.",
+          "properties": {
+            "referral": {
+              "const": "assessor_referred",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The assessor's confidence is below `stp_min_confidence`.",
+          "properties": {
+            "referral": {
+              "const": "low_confidence",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The amount claimed exceeds the assessor's estimate by more than `estimate_tolerance`.",
+          "properties": {
+            "referral": {
+              "const": "above_estimate",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The claim payment would exceed the STP limit.",
+          "properties": {
+            "referral": {
+              "const": "above_stp_limit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Drawn for audit, or at the risk review threshold, before payment (R14).",
+          "properties": {
+            "reason": {
+              "$ref": "#/$defs/AuditReason"
+            },
+            "referral": {
+              "const": "audit",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "reason"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a person, or needs human care (R46).",
+          "properties": {
+            "referral": {
+              "const": "human_care",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer asked for a decline to be reviewed: a different person decides (R15).",
+          "properties": {
+            "declined_by": {
+              "type": "string"
+            },
+            "referral": {
+              "const": "appeal",
+              "type": "string"
+            }
+          },
+          "required": [
+            "referral",
+            "declined_by"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "Settlement": {
+      "oneOf": [
+        {
+          "properties": {
+            "method": {
+              "const": "cash",
+              "type": "string"
+            }
+          },
+          "required": [
+            "method"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "A registered alternative the cover's terms permit, such as `lounge_access`.",
+          "properties": {
+            "method": {
+              "const": "in_kind",
+              "type": "string"
+            },
+            "option": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "method",
+            "option"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The straight-through outcome: approve or refer. There is no decline (R13).",
+  "oneOf": [
+    {
+      "properties": {
+        "outcome": {
+          "const": "approved",
+          "type": "string"
+        },
+        "payment": {
+          "$ref": "#/$defs/ClaimPayment"
+        }
+      },
+      "required": [
+        "outcome",
+        "payment"
+      ],
+      "type": "object"
+    },
+    {
+      "properties": {
+        "outcome": {
+          "const": "referred",
+          "type": "string"
+        },
+        "referral": {
+          "$ref": "#/$defs/ClaimReferral"
+        }
+      },
+      "required": [
+        "outcome",
+        "referral"
+      ],
+      "type": "object"
+    }
+  ],
+  "title": "StpOutcome"
+}

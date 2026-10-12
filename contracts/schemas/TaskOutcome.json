@@ -1,0 +1,428 @@
+{
+  "$defs": {
+    "AuditReason": {
+      "description": "Why a person looks at an automated decision.",
+      "oneOf": [
+        {
+          "const": "risk_review",
+          "description": "Its anomaly score reached `risk_review_threshold`.",
+          "type": "string"
+        },
+        {
+          "const": "random_sample",
+          "description": "Drawn in the random sample, `audit_sample_rate` of decisions (R14).",
+          "type": "string"
+        }
+      ]
+    },
+    "Bps": {
+      "description": "A ratio in basis points: 10,000 = 100%.",
+      "format": "uint32",
+      "minimum": 0,
+      "type": "integer"
+    },
+    "EarnedFor": {
+      "description": "What a reward can be earned for. A closed type with no claim-free variant: no reward is ever\nconditional on not claiming (R26).",
+      "oneOf": [
+        {
+          "description": "A verified prevention activity (R10, R40).",
+          "properties": {
+            "for": {
+              "const": "verified_activity",
+              "type": "string"
+            },
+            "task_id": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "for",
+            "task_id"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Verified activity in this many consecutive policy periods in one points pool (R26).",
+          "properties": {
+            "for": {
+              "const": "participation_streak",
+              "type": "string"
+            },
+            "periods": {
+              "format": "uint32",
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "for",
+            "periods"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Grant": {
+      "description": "A reward granted into the customer's reward balance: the amount earned, reduced to the room\nleft under the monthly cap (R17).",
+      "properties": {
+        "granted": {
+          "$ref": "#/$defs/Money"
+        },
+        "idempotency_key": {
+          "type": "string"
+        },
+        "over_cap": {
+          "$ref": "#/$defs/Money",
+          "description": "Earned but over the monthly cap; the customer is told."
+        },
+        "reward": {
+          "$ref": "#/$defs/RewardEarned"
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "reward",
+        "granted",
+        "over_cap"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "PreventionTask": {
+      "description": "One prevention task offered to one customer.",
+      "properties": {
+        "class_of_business": {
+          "type": "string"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "draft": {
+          "$ref": "#/$defs/PreventionTaskDraft"
+        },
+        "due": {
+          "description": "Last day evidence can be sent: the event's start, or the policy period's last day.",
+          "format": "date",
+          "type": "string"
+        },
+        "offered_on": {
+          "format": "date",
+          "type": "string"
+        },
+        "policy_id": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "#/$defs/TaskState"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_id",
+        "customer_id",
+        "policy_id",
+        "class_of_business",
+        "draft",
+        "offered_on",
+        "due",
+        "state"
+      ],
+      "type": "object"
+    },
+    "PreventionTaskDraft": {
+      "properties": {
+        "action": {
+          "description": "What the customer does, in one sentence.",
+          "type": "string"
+        },
+        "avg_claim_cost": {
+          "$ref": "#/$defs/Money",
+          "description": "Average claim cost in the class, at most the customer's sum insured (R48)."
+        },
+        "claim_prob_after": {
+          "$ref": "#/$defs/Bps"
+        },
+        "claim_prob_before": {
+          "$ref": "#/$defs/Bps",
+          "description": "This customer's claim probability per policy period without and with the action (R40)."
+        },
+        "cover_id": {
+          "type": "string"
+        },
+        "event_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "description": "A registered evidence kind (`config/data_types.yaml`).",
+          "type": "string"
+        },
+        "reward_cost": {
+          "$ref": "#/$defs/Money"
+        },
+        "task_type": {
+          "description": "A registered loss prevention measure (`config/prevention_measures.yaml`).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_type",
+        "cover_id",
+        "action",
+        "evidence",
+        "claim_prob_before",
+        "claim_prob_after",
+        "avg_claim_cost",
+        "reward_cost"
+      ],
+      "type": "object"
+    },
+    "Referral": {
+      "description": "Why a task is with a person.",
+      "oneOf": [
+        {
+          "const": "no_verdict",
+          "description": "The verifier gave no verdict (R22).",
+          "type": "string"
+        },
+        {
+          "const": "suspected_reuse",
+          "description": "The evidence looks reused or edited: only a person decides fraud (R13).",
+          "type": "string"
+        },
+        {
+          "additionalProperties": false,
+          "description": "A pass drawn for audit before it is credited (R14).",
+          "properties": {
+            "audit": {
+              "$ref": "#/$defs/AuditReason"
+            }
+          },
+          "required": [
+            "audit"
+          ],
+          "type": "object"
+        },
+        {
+          "const": "appeal",
+          "description": "The customer asked a person to look again (R15).",
+          "type": "string"
+        }
+      ]
+    },
+    "RewardEarned": {
+      "description": "A reward earned, before the monthly cap.",
+      "properties": {
+        "amount": {
+          "$ref": "#/$defs/Money"
+        },
+        "customer_id": {
+          "type": "string"
+        },
+        "earned_for": {
+          "$ref": "#/$defs/EarnedFor"
+        },
+        "on": {
+          "description": "Market local date.",
+          "format": "date",
+          "type": "string"
+        },
+        "pool": {
+          "description": "The points pool of the behaviour it rewards (R36).",
+          "type": "string"
+        },
+        "reward_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reward_id",
+        "customer_id",
+        "pool",
+        "earned_for",
+        "amount",
+        "on"
+      ],
+      "type": "object"
+    },
+    "TaskState": {
+      "oneOf": [
+        {
+          "properties": {
+            "state": {
+              "const": "offered",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The customer tapped to take it on.",
+          "properties": {
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "accepted",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Evidence sent, by fingerprint.",
+          "properties": {
+            "evidence": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "submitted",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on",
+            "evidence"
+          ],
+          "type": "object"
+        },
+        {
+          "properties": {
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "referral": {
+              "$ref": "#/$defs/Referral"
+            },
+            "state": {
+              "const": "with_person",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on",
+            "referral"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Points and the reward are credited (R10).",
+          "properties": {
+            "by": {
+              "$ref": "#/$defs/VerifiedBy"
+            },
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "verified",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on",
+            "by"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Can be sent again before the due date, or appealed (R15).",
+          "properties": {
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "reason": {
+              "type": "string"
+            },
+            "state": {
+              "const": "not_verified",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on",
+            "reason"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Not sent by the due date.",
+          "properties": {
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "expired",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "VerifiedBy": {
+      "enum": [
+        "verifier",
+        "person"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What evidence for a task did: the task, and the reward granted if it was credited.",
+  "properties": {
+    "granted": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Grant"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "task": {
+      "$ref": "#/$defs/PreventionTask"
+    }
+  },
+  "required": [
+    "task"
+  ],
+  "title": "TaskOutcome",
+  "type": "object"
+}

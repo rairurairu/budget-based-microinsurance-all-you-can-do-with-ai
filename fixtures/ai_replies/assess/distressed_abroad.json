@@ -1,0 +1,30 @@
+{
+  "case": "distressed_abroad",
+  "key": "assess:0b69220ade915244",
+  "input": {
+    "claim": {
+      "circumstance": "emergency_abroad",
+      "description": "My father collapsed on our trip and is in hospital in Osaka, I do not know what to do and I am scared.",
+      "evidence_sent": [
+        "booking"
+      ],
+      "loss_date": "2026-10-18"
+    },
+    "cover": {
+      "class_of_business": "travel.trip",
+      "evidence_kinds": [
+        "booking",
+        "photo",
+        "receipt"
+      ],
+      "name": "Trip cover"
+    },
+    "currency": "HKD",
+    "documents": [
+      "Booking confirmation: return flights Hong Kong to Osaka, 15 to 22 October 2026."
+    ],
+    "images": 0,
+    "language": "en"
+  },
+  "reply": "{\"recommend\": \"refer\", \"estimate\": 0, \"confidence\": 60, \"consistent\": true, \"urgent\": true, \"human_care\": true, \"reason\": \"We are sorry to hear this, and a person from our team will contact you very soon.\"}"
+}

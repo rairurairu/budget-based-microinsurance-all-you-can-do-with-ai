@@ -1,0 +1,26 @@
+# Data source (R55). Road closures by district from the Transport Department's free-text feed;
+# the adapter reports these normalised codes using the `normalise` rules below. Rail disruptions
+# come from the operator's status feed (mtr_line_status.yaml).
+id: transit_disruptions
+name: Road closures
+provider: Transport Department special traffic news
+access: open_data
+status: available
+adapter: td_special_traffic_news
+live: "https://www.td.gov.hk/en/special_news/trafficnews.xml"   # data dictionary v4.0
+history:
+  available: false
+poll_seconds: 60
+demo_mode_fixture: fixtures/td_trafficnews.xml
+codes:
+  ROAD_CLOSED: { event_type: transit.road_closure, stage: closure }
+
+# How the adapter reads the free text (crates/triggers transit.rs). A message reports a code for
+# its district when its text (English and Chinese) contains one of the code's phrases, none of its
+# `except` and none of `not_in_force`; the first matching code wins. A message TD marks CLOSED is
+# not in force. Matching is case-insensitive.
+normalise:
+  not_in_force: [re-opened, reopened, "will be", 解封, 將會]
+  codes:                         # whole roads only: a lane closure is not a road closure
+    - { code: ROAD_CLOSED, phrases: ["closed to all traffic", 全線封閉, 現已封閉],
+        except: [lane, 行車線, 快線, 慢線, 中線] }

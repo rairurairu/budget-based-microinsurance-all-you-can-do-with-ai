@@ -1,0 +1,35 @@
+{
+  "$defs": {
+    "EvidenceFile": {
+      "description": "Evidence as uploaded: base64 of the file, with its media type.",
+      "properties": {
+        "data_base64": {
+          "type": "string"
+        },
+        "media_type": {
+          "description": "`image/jpeg`, `image/png`, `image/webp`, `text/plain` or `application/json`.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "media_type",
+        "data_base64"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "files": {
+      "items": {
+        "$ref": "#/$defs/EvidenceFile"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "files"
+  ],
+  "title": "EvidenceUpload",
+  "type": "object"
+}

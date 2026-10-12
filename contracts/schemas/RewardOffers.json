@@ -1,0 +1,88 @@
+{
+  "$defs": {
+    "Funder": {
+      "enum": [
+        "insurer",
+        "partner",
+        "co_funded"
+      ],
+      "type": "string"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "RewardOffer": {
+      "description": "A way to spend the reward balance: cash, or a partner reward from a registered supplier.",
+      "properties": {
+        "description": {
+          "description": "The partner's own words; the app shows cash in the customer's language.",
+          "type": "string"
+        },
+        "family": {
+          "description": "A configured reward family (`rewards.families`); `cash` for the cash offer.",
+          "type": "string"
+        },
+        "funded_by": {
+          "$ref": "#/$defs/Funder",
+          "description": "Who funds the value above the price."
+        },
+        "inventory": {
+          "format": "uint32",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "is_cash": {
+          "type": "boolean"
+        },
+        "offer_id": {
+          "type": "string"
+        },
+        "partner_id": {
+          "description": "The supplier that delivers it (`config/suppliers.yaml`); none for cash.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "perceived_value": {
+          "$ref": "#/$defs/Money",
+          "description": "What the customer sees."
+        },
+        "price": {
+          "$ref": "#/$defs/Money",
+          "description": "Taken from the reward balance: what the insurer pays the supplier when it is delivered.\nThe supplier's spare capacity funds the value above it."
+        }
+      },
+      "required": [
+        "offer_id",
+        "family",
+        "description",
+        "perceived_value",
+        "price",
+        "funded_by",
+        "is_cash"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A partner's spare capacity, published as reward offers (R16, R56).",
+  "properties": {
+    "offers": {
+      "items": {
+        "$ref": "#/$defs/RewardOffer"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "offers"
+  ],
+  "title": "RewardOffers",
+  "type": "object"
+}

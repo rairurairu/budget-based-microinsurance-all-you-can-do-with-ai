@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://www.td.gov.hk/en/special_news/trafficnews.xsd">
+  <message>
+    <INCIDENT_NUMBER>IN-26-90001</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Railway Incident</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>鐵路事故</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Signalling Fault</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Tsuen Wan Line</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN></DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T08:12:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>NEW</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990001</ID>
+    <CONTENT_EN>Due to a signalling fault, train service on the Tsuen Wan Line between Lai King Station and Central Station is suspended. Free shuttle bus services are provided.</CONTENT_EN>
+    <CONTENT_CN>因訊號故障，荃灣綫荔景站至中環站的列車服務暫停。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+  <message>
+    <INCIDENT_NUMBER>IN-26-90002</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Railway Incident</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>鐵路事故</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Train Fault</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Kwun Tong Line</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN></DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T08:20:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>UPDATED</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990002</ID>
+    <CONTENT_EN>Due to a train fault, train service on the Kwun Tong Line is delayed. Passengers should allow extra travelling time.</CONTENT_EN>
+    <CONTENT_CN>因列車故障，觀塘綫列車服務延誤。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+  <message>
+    <INCIDENT_NUMBER>IN-26-90003</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Road Incident</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>道路事故</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Vehicle Breakdown</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Tolo Highway</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN>Sha Tin</DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T07:55:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>UPDATED</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990003</ID>
+    <CONTENT_EN>Due to vehicle breakdown, the slow lane of Tolo Highway (Tai Po bound) near Science Park is closed to all traffic. Only remaining lanes are available to motorists.</CONTENT_EN>
+    <CONTENT_CN>因車輛故障，吐露港公路往大埔方向近科學園的慢線現已封閉。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+  <message>
+    <INCIDENT_NUMBER>IN-26-90004</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Road Incident</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>道路事故</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Landslip</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Shing Mun Road</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN>Tsuen Wan</DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T06:40:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>NEW</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990004</ID>
+    <CONTENT_EN>Due to a landslip, Shing Mun Road (both bound) near Shing Mun Reservoir is closed to all traffic.</CONTENT_EN>
+    <CONTENT_CN>因山泥傾瀉，城門道(雙向)近城門水塘現已全線封閉。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+  <message>
+    <INCIDENT_NUMBER>IN-26-90005</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Railway Incident</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>鐵路事故</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Power Fault</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Island Line</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN></DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T07:30:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>CLOSED</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990005</ID>
+    <CONTENT_EN>Train service on the Island Line has resumed. Train service is gradually returning to normal.</CONTENT_EN>
+    <CONTENT_CN>港島綫列車服務已恢復。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+  <message>
+    <INCIDENT_NUMBER>IN-26-90006</INCIDENT_NUMBER>
+    <INCIDENT_HEADING_EN>Special Traffic Arrangement</INCIDENT_HEADING_EN>
+    <INCIDENT_HEADING_CN>特別交通安排</INCIDENT_HEADING_CN>
+    <INCIDENT_DETAIL_EN>Public Event</INCIDENT_DETAIL_EN>
+    <INCIDENT_DETAIL_CN/>
+    <LOCATION_EN>Tung Chung Line</LOCATION_EN>
+    <LOCATION_CN/>
+    <DISTRICT_EN></DISTRICT_EN>
+    <DISTRICT_CN/>
+    <DIRECTION_EN/>
+    <DIRECTION_CN/>
+    <ANNOUNCEMENT_DATE>2026-11-03T05:00:00</ANNOUNCEMENT_DATE>
+    <INCIDENT_STATUS_EN>NEW</INCIDENT_STATUS_EN>
+    <INCIDENT_STATUS_CN/>
+    <NEAR_LANDMARK_EN/>
+    <NEAR_LANDMARK_CN/>
+    <BETWEEN_LANDMARK_EN/>
+    <BETWEEN_LANDMARK_CN/>
+    <ID>990006</ID>
+    <CONTENT_EN>Train service on the Tung Chung Line between Sunny Bay and Tung Chung will be suspended from 1am Sunday for engineering works.</CONTENT_EN>
+    <CONTENT_CN>東涌綫欣澳站至東涌站的列車服務將會於星期日凌晨1時起暫停。</CONTENT_CN>
+    <LATITUDE/>
+    <LONGITUDE/>
+  </message>
+</list>

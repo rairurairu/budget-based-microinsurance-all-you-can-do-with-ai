@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Whether a partner's channel can bind cover today (R52).",
+  "properties": {
+    "binds": {
+      "description": "True only with a licence valid today.",
+      "type": "boolean"
+    },
+    "partner_id": {
+      "type": "string"
+    },
+    "refer_to": {
+      "description": "Where to send the customer when the partner cannot bind: the insurer's own journey.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "partner_id",
+    "binds"
+  ],
+  "title": "ChannelInfo",
+  "type": "object"
+}

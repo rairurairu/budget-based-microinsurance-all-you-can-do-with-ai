@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "const": "premium_rebate",
+      "description": "Credited after the policy period; the plan price is unchanged.",
+      "type": "string"
+    },
+    {
+      "const": "bonus_sum_insured",
+      "description": "More cover at the same price.",
+      "type": "string"
+    }
+  ],
+  "title": "ScoreMode"
+}

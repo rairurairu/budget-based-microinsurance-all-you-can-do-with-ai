@@ -1,0 +1,7 @@
+id: contents
+name: Renter's contents cover
+type: indemnity
+class_of_business: property.home_contents
+launch_phase: concept
+exposure: { kind: declared_item, of: [home_contents] }
+key_features: "Your belongings at home, for renters and students"

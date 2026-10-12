@@ -1,0 +1,30 @@
+rules:
+- R46
+- R13
+input:
+  claim:
+    claim_id: claim-synthetic-6
+    policy_id: pol-synthetic-6
+    customer_id: cust-synthetic-6
+    cover_id: travel
+    class_of_business: travel.trip
+    loss_date: '2026-10-18'
+    notified_at: '2026-10-20T09:00:00Z'
+    amount_claimed: 450000
+    circumstance: emergency_abroad
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [booking]
+    urgent: false
+    state: { state: assessing }
+  description: My father collapsed on our trip and is in hospital in Osaka, I do not know what to do and I am scared.
+  evidence:
+  - media_type: text/plain
+    text: "Booking confirmation: return flights Hong Kong to Osaka, 15 to 22 October 2026."
+  seen: []
+expect:
+  source: model
+  outcome: assessed
+  recommend: refer
+  urgent: true
+  human_care: true

@@ -1,0 +1,28 @@
+{
+  "_note": "Synthetic audit store for demo mode: final decisions counted by audit group (R19) and people's findings on audited decisions (R14). Not real customers.",
+  "fairness": [
+    { "kind": "claim", "attribute": "age_band", "group": "18-29", "decisions": 120, "approved": 102 },
+    { "kind": "claim", "attribute": "age_band", "group": "30-49", "decisions": 210, "approved": 176 },
+    { "kind": "claim", "attribute": "age_band", "group": "50-64", "decisions": 90, "approved": 70 },
+    { "kind": "claim", "attribute": "age_band", "group": "65+", "decisions": 40, "approved": 24 },
+    { "kind": "claim", "attribute": "gender", "group": "female", "decisions": 230, "approved": 190 },
+    { "kind": "claim", "attribute": "gender", "group": "male", "decisions": 230, "approved": 182 },
+    { "kind": "claim", "attribute": "district", "group": "hong_kong_island", "decisions": 95, "approved": 79 },
+    { "kind": "claim", "attribute": "district", "group": "kowloon", "decisions": 160, "approved": 130 },
+    { "kind": "claim", "attribute": "district", "group": "new_territories", "decisions": 193, "approved": 159 },
+    { "kind": "claim", "attribute": "district", "group": "islands", "decisions": 12, "approved": 4 },
+    { "kind": "prevention_verification", "attribute": "age_band", "group": "18-29", "decisions": 300, "approved": 261 },
+    { "kind": "prevention_verification", "attribute": "age_band", "group": "30-49", "decisions": 410, "approved": 352 },
+    { "kind": "prevention_verification", "attribute": "age_band", "group": "50-64", "decisions": 150, "approved": 126 },
+    { "kind": "prevention_verification", "attribute": "age_band", "group": "65+", "decisions": 35, "approved": 29 }
+  ],
+  "audit_findings": [
+    { "decision_id": "decision/claim-s-101/stp", "kind": "claim", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": true, "note": "", "on": "2026-10-12T03:00:00Z" },
+    { "decision_id": "decision/claim-s-117/stp", "kind": "claim", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": true, "note": "", "on": "2026-10-13T03:00:00Z" },
+    { "decision_id": "decision/claim-s-142/stp", "kind": "claim", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": false, "note": "Receipt dated before the cover started", "on": "2026-10-14T03:00:00Z" },
+    { "decision_id": "decision/claim-s-150/stp", "kind": "claim", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": true, "note": "", "on": "2026-10-15T03:00:00Z" },
+    { "decision_id": "decision/claim-s-163/stp", "kind": "claim", "reason": "risk_review", "reviewer": "fraud-dee", "agreed": false, "note": "Same photo as another claim", "on": "2026-10-16T03:00:00Z" },
+    { "decision_id": "payout/demo-day-rider/windstorm_and_rain/guaranteed", "kind": "payout", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": true, "note": "", "on": "2026-09-16T03:00:00Z" },
+    { "decision_id": "task/cust-s-9/case_and_screen_protector/2026-10-02", "kind": "prevention_verification", "reason": "random_sample", "reviewer": "auditor-ben", "agreed": true, "note": "", "on": "2026-10-03T03:00:00Z" }
+  ]
+}

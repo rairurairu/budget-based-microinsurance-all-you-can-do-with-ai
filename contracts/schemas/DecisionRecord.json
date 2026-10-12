@@ -1,0 +1,85 @@
+{
+  "$defs": {
+    "Actor": {
+      "description": "Who made a decision.",
+      "oneOf": [
+        {
+          "enum": [
+            "person"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "ai",
+          "description": "A recommendation of the AI layer, applied by the engine's rules.",
+          "type": "string"
+        },
+        {
+          "const": "rules",
+          "description": "The engine's rules alone, such as a trigger match.",
+          "type": "string"
+        },
+        {
+          "const": "customer",
+          "description": "The customer's own choice, such as an allocation they confirmed (R03).",
+          "type": "string"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "One append-only decision-log row.",
+  "properties": {
+    "actor": {
+      "$ref": "#/$defs/Actor"
+    },
+    "at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "decision": {
+      "type": "string"
+    },
+    "decision_id": {
+      "type": "string"
+    },
+    "inputs_hash": {
+      "description": "SHA-256 of the inputs, so the decision can be replayed.",
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "reviewer": {
+      "default": null,
+      "description": "The person who decided, when `actor` is a person.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "subject_type": {
+      "description": "What was decided about, such as `claim` or `prevention_task`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision_id",
+    "actor",
+    "subject_type",
+    "subject_id",
+    "customer_id",
+    "decision",
+    "inputs_hash",
+    "reason",
+    "at"
+  ],
+  "title": "DecisionRecord",
+  "type": "object"
+}

@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Where a customer stands in one class of business.",
+  "oneOf": [
+    {
+      "description": "Premium may be allocated. After a postponement, losses before `reentry_waiting_until`\nare not covered (R47).",
+      "properties": {
+        "reentry_waiting_until": {
+          "format": "date",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "const": "open",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    {
+      "description": "The customer has been told the class will be excluded from `excluded_from`. Cover in it\ncontinues until then, without increase.",
+      "properties": {
+        "excluded_from": {
+          "format": "date",
+          "type": "string"
+        },
+        "status": {
+          "const": "exclusion_notice",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "excluded_from"
+      ],
+      "type": "object"
+    },
+    {
+      "description": "Excluded: no premium can be allocated before `until`; then the risk class is reassessed.",
+      "properties": {
+        "status": {
+          "const": "postponed",
+          "type": "string"
+        },
+        "until": {
+          "format": "date",
+          "type": "string"
+        }
+      },
+      "required": [
+        "status",
+        "until"
+      ],
+      "type": "object"
+    }
+  ],
+  "title": "ClassStatus"
+}

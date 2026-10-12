@@ -1,0 +1,30 @@
+# The pilot (docs/07-pilot-and-metrics.md, ADR-012): its dates, its wait-list control group and
+# the gates it must pass to scale, fixed before it starts and never changed after (the engine
+# refuses gates fixed on or after the start). A market's overlay may hold its own. Illustrative:
+# the insurer sets every value with its actuary and the partner; `Decide` on each.
+pilot:
+  id: hk_2027_typhoon_season
+  starts: 2027-05-01             # one partner app, automatic covers, one typhoon season
+  ends: 2027-10-31
+  gates_fixed_on: 2027-04-15
+  control:                       # R59: wait-list control for claims avoided; told in the key features
+    share: 0.20                  # of customers bound during the pilot; Decide
+    periods: 3                   # policy periods from binding before prevention tasks; Decide
+  # Each gate: a metric of microinsurance_economics.pilot_evaluation and a bound in the metric's
+  # own terms (a rate as a fraction, hours as hours). `scale`: every one must pass, measured, to
+  # scale up. `stop`: any one breached stops the pilot. Anything else holds.
+  gates:
+    - { metric: conversion_rate, kind: scale, at_least: 0.05 }
+    - { metric: renewal_rate, kind: scale, at_least: 0.70 }
+    - { metric: prevention_completion_rate, kind: scale, at_least: 0.40 }
+    - { metric: claims_avoided_vs_control, kind: scale, at_least: 0.10 }
+    - { metric: straight_through_rate, kind: scale, at_least: 0.60 }
+    - { metric: claim_payment_hours_p95, kind: scale, at_most: 48 }
+    - { metric: reward_redemption_rate, kind: scale, at_least: 0.30 }
+    - { metric: satisfaction, kind: scale, at_least: 0.70 }                 # survey, outside the book
+    - { metric: partner_incremental_revenue, kind: scale, at_least: 0 }     # from the partner, outside the book
+    - { metric: insurer_value, kind: scale, at_least: 0 }                   # docs/03-economic-models.md §6
+    - { metric: loss_ratio, kind: stop, at_most: 0.75 }
+    - { metric: audit_disagreement_rate, kind: stop, at_most: 0.10 }
+    - { metric: fraud_rate, kind: stop, at_most: 0.02 }
+    - { metric: fairness_min_parity, kind: stop, at_least: 0.80 }

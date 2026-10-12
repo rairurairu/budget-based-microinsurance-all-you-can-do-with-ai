@@ -1,0 +1,25 @@
+rules:
+- R10
+harness_only: true
+market: global
+note: 'The prevention task in the international demo market (config/markets/global), as demo mode asks it. Synthetic image: replace with labelled pilot photos before scoring a live model.'
+input:
+  task:
+    task_type: screen_protector_fitted
+    cover_id: device_damage
+    event_reference: ZZ204/2026-12-20
+    action: Fit a screen protector and a case on your phone before you fly.
+    evidence: photo
+    claim_prob_before: 400
+    claim_prob_after: 250
+    avg_claim_cost: 13400
+    reward_cost: 50
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/screen_protector_synthetic.png
+  seen: []
+expect:
+  source: model
+  outcome: verdict
+  passed: true
+  reuse_suspected: false

@@ -1,0 +1,9 @@
+rules:
+- R19
+- R22
+harness_only: true
+input:
+  channel: partner_insurer_app
+expect:
+  source: fallback
+  max_questions: 5

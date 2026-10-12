@@ -1,0 +1,40 @@
+{
+  "case": "rider_weather_commute",
+  "key": "explain:abcf3cd1724feadf",
+  "input": {
+    "covers": [
+      {
+        "cover_id": "commute_disruption",
+        "cover_type": "parametric",
+        "key_features": "Get paid when your regular route is disrupted",
+        "name": "Commute disruption cover",
+        "pays_on": [
+          "Rail service disruption"
+        ],
+        "waiting_period_days": 0
+      },
+      {
+        "cover_id": "weather_income",
+        "cover_type": "parametric",
+        "key_features": "A daily benefit for each working day a typhoon (Signal 8 or above) or a black rainstorm disrupts at least an hour of your declared working hours, counting two hours to get back to work after it is lowered; one benefit per day however many warnings that day",
+        "name": "Weather income cover",
+        "pays_on": [
+          "Tropical cyclone warning signal",
+          "Rainstorm warning"
+        ],
+        "waiting_period_days": 0
+      }
+    ],
+    "customer": {
+      "declared_items": [
+        "device.phone"
+      ],
+      "declared_routes": 1,
+      "declared_working_hours": true,
+      "occupation": "food delivery rider",
+      "upcoming_events": []
+    },
+    "language": "en"
+  },
+  "reply": "{\"explanations\": [{\"cover_id\": \"commute_disruption\", \"sentence\": \"You get paid automatically when your train line is disrupted on your way to work.\"}, {\"cover_id\": \"weather_income\", \"sentence\": \"You get paid for a working day that a typhoon signal or black rain stops your deliveries.\"}]}"
+}

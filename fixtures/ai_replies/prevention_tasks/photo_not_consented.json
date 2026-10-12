@@ -1,0 +1,28 @@
+{
+  "case": "photo_not_consented",
+  "key": "prevention_tasks:c74d9e5a599eb7ea",
+  "input": {
+    "cover": {
+      "class_of_business": "property.device",
+      "cover_id": "device_damage",
+      "key_features": "Repair or replace your phone fast, so you don't lose work days",
+      "name": "Phone and device damage cover"
+    },
+    "event": {
+      "ends": "2026-12-27",
+      "kind": "trip.air",
+      "starts": "2026-12-20"
+    },
+    "language": "en",
+    "measures": [
+      {
+        "description": "The phone's battery and screen pass a diagnostics check read from the device.",
+        "evidence": [
+          "device_diagnostics"
+        ],
+        "task_type": "device_health_check"
+      }
+    ]
+  },
+  "reply": "{\"task\": {\"task_type\": \"screen_protector_fitted\", \"action\": \"Fit a screen protector on your phone before you fly.\", \"evidence\": \"photo\"}}"
+}

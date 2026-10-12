@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic: a CAP 1.2 tropical storm warning for the international demonstration market
+     (config/markets/global), issued on Wednesday 18 November 2026 at 12:30 UTC and in force into
+     the next morning. The demo clock (DEMO_START in the justfile) is 14:00 UTC, so a delivery
+     rider working 09:00-18:00 has a disrupted working day when it is pushed. Not real data. -->
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+  <identifier>WX-TRW-20261118-1230</identifier>
+  <sender>synthetic@weather.example</sender>
+  <sent>2026-11-18T12:30:00Z</sent>
+  <status>Actual</status>
+  <msgType>Alert</msgType>
+  <scope>Public</scope>
+  <info>
+    <language>en</language>
+    <category>Met</category>
+    <event>Tropical Storm Warning</event>
+    <urgency>Immediate</urgency>
+    <severity>Severe</severity>
+    <certainty>Observed</certainty>
+    <eventCode><valueName>SAME</valueName><value>TRW</value></eventCode>
+    <onset>2026-11-18T12:30:00Z</onset>
+    <expires>2026-11-19T06:00:00Z</expires>
+    <headline>Tropical storm warning in effect for the whole territory</headline>
+    <area><areaDesc>Whole territory</areaDesc></area>
+  </info>
+</alert>

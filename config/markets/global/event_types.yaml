@@ -1,0 +1,19 @@
+# Trigger event types for the international demonstration market, read after
+# config/event_types.yaml: an entry here replaces the base entry with its id (ADR-012). The stages
+# follow the watch-then-warning scale most national weather services publish in CAP. Ids are
+# permanent: retire with `retired: true`, never rename or reuse.
+
+event_types:
+  - id: weather.tropical_cyclone
+    name: Tropical storm or hurricane warning
+    stages: [tropical_storm_watch, tropical_storm_warning, hurricane_warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  - id: weather.flood
+    name: Flood warning
+    stages: [flood_watch, flash_flood_warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record

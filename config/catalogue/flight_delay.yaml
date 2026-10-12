@@ -1,0 +1,15 @@
+id: flight_delay
+name: Flight delay cover
+type: parametric
+class_of_business: travel.flight_delay
+launch_phase: 3
+exposure: { kind: upcoming_event, of: [trip.air] }
+product_limit: 1000                   # R34; illustrative
+key_features: "Get paid automatically when your flight is delayed"
+trigger:
+  events:
+    - { event_type: travel.flight_delay, from_stage: delayed, min_minutes: 120 }   # Decide
+  match: declared_booking
+payout:
+  basis: fixed_per_event
+settlement_in_kind: [alternative_seat, lounge_access]

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Who is buying, for promotion eligibility only. Deliberately holds no risk class and no\nprotected attribute (R44).",
+  "properties": {
+    "channel": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "new_customer": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "new_customer"
+  ],
+  "title": "PurchaseContext",
+  "type": "object"
+}

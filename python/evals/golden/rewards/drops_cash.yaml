@@ -1,0 +1,50 @@
+rules:
+- R16
+- R22
+harness_only: true
+input:
+  profile:
+    customer_id: cust-synthetic-fan
+    occupation: office clerk
+    work_windows: []
+    declared_items: []
+    commute_routes: []
+    upcoming_events:
+    - kind: event.concert
+      starts: '2026-11-21'
+      ends: null
+      reference: EVT-2026-1121-ARENA
+      value: 88000
+    typical_daily_earnings: null
+    consents: []
+  offers:
+  - offer_id: cash_10
+    family: insurance
+    partner_id: null
+    description: HK$10 cash to your wallet
+    perceived_value: 1000
+    price: 100
+    funded_by: insurer
+    inventory: null
+    is_cash: true
+  - offer_id: phone_mount
+    family: partner
+    partner_id: partner_synthetic
+    description: A handlebar phone mount from a partner shop
+    perceived_value: 2500
+    price: 100
+    funded_by: partner
+    inventory: null
+    is_cash: false
+  - offer_id: lounge_pass
+    family: partner
+    partner_id: partner_synthetic
+    description: One airport lounge visit
+    perceived_value: 6000
+    price: 100
+    funded_by: partner
+    inventory: null
+    is_cash: false
+expect:
+  source: fallback
+  first: cash_10

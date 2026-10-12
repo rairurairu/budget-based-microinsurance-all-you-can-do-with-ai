@@ -1,0 +1,28 @@
+{
+  "case": "new_phone_trip",
+  "key": "prevention_tasks:81351337902fa259",
+  "input": {
+    "cover": {
+      "class_of_business": "property.device",
+      "cover_id": "device_damage",
+      "key_features": "Repair or replace your phone fast, so you don't lose work days",
+      "name": "Phone and device damage cover"
+    },
+    "event": {
+      "ends": "2026-12-27",
+      "kind": "trip.air",
+      "starts": "2026-12-20"
+    },
+    "language": "en",
+    "measures": [
+      {
+        "description": "A case and a screen protector are fitted on the phone.",
+        "evidence": [
+          "photo"
+        ],
+        "task_type": "screen_protector_fitted"
+      }
+    ]
+  },
+  "reply": "{\"task\": {\"task_type\": \"screen_protector_fitted\", \"action\": \"Fit a screen protector and a case on your phone before you fly.\", \"evidence\": \"photo\"}}"
+}

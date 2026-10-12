@@ -1,0 +1,81 @@
+# English for Taiwan, read over config/languages/en.yaml (ADR-012). One language a customer can
+# choose (insurer profile `languages.offered`; ADR-007). It holds the
+# words the fixed checks look for and the saved answers a customer sees when the AI is slow, fails
+# or answers outside the rules (R22). Saved answers pass the same checks as a model's reply, at
+# load, or the process does not start. Illustrative copy: the insurer replaces it with approved
+# wording.
+language: en
+
+sentence:                        # R23: one plain sentence
+  terminators: [".", "!", "?"]
+  max_words: 35                  # for a language written without spaces, set max_chars instead
+
+checks:
+  # R02: a reply naming any of these states money. Entries of letters, digits, hyphens and
+  # spaces match whole words; anything else matches anywhere in the text.
+  currency: ["$", "€", "£", "¥", nt, ntd, twd, usd, dollar, dollars, cent, cents]
+  # R19: a reply naming any of these mentions a protected attribute.
+  protected: [age, aged, years old, year-old, gender, male, female, man, woman, men, women,
+              ethnicity, ethnic, race, racial, religion, religious, nationality, district]
+
+saved_answers:
+  # understand_form: the fixed short proposal form.
+  proposal_form:
+    - id: occupation
+      text: What work do you do most days?
+      options: [Delivery or ride-hailing, Office work, Outdoor or site work, Shop or stall, Other]
+    - id: work_hours
+      text: When do you usually work?
+      options: [Weekday daytime, Evenings or nights, Weekends, It changes]
+    - id: commute
+      text: How do you usually get to work?
+      options: [MRT, Bus or coach, Scooter or bicycle, Walk, I work from home]
+    - id: devices
+      text: Which devices do you rely on for work?
+      options: [Phone, Tablet, Laptop, Wearable, None]
+    - id: plans
+      text: Do you have a trip or a ticketed event in the next few months?
+      options: [A trip, A concert or show, A sports match, No plans yet]
+
+  # explain: one sentence per catalogue cover.
+  covers:
+    commute_disruption: You get paid when your regular route is disrupted.
+    contents: Your belongings at home are covered, for renters and students.
+    device_damage: Your phone is repaired or replaced fast, so you don't lose work days.
+    event_ticket: You get your ticket money back automatically if the show is cancelled.
+    flight_delay: You get paid automatically when your flight is delayed.
+    heat_stress_income: You get paid when a heat stress warning cuts your outdoor working hours.
+    personal_accident: Hospital and injury costs after an accident are covered.
+    scam_loss: You get part of your money back after an online scam.
+    travel: Your booked trip is protected before you leave.
+    weather_income: You get paid for a working day your city or county suspends work for a typhoon or heavy rain where you work.
+
+  # explain_change: the cover's name in a sentence, and the sentence by change.
+  cover_names:
+    commute_disruption: commute disruption cover
+    contents: home contents cover
+    device_damage: device damage cover
+    event_ticket: event ticket cover
+    flight_delay: flight delay cover
+    heat_stress_income: heat stress income cover
+    personal_accident: personal accident cover
+    scam_loss: scam loss cover
+    travel: travel cover
+    weather_income: weather income cover
+  change:
+    more: Next month your {cover} buys more cover for the same premium.
+    less: Next month your {cover} buys less cover for the same premium.
+    same: Next month your {cover} stays the same.
+    below_declared_value: Next month your {cover} is below the value you declared.
+
+  verify:
+    no_evidence: No evidence was attached, so a person will check with you.
+    reused: This evidence was already sent before, so it cannot count again.
+    unreadable: A person will check this file.
+    refer: A person will check your evidence shortly.
+
+  assess:
+    no_evidence: Please add the evidence your cover asks for, and a person will help if you need it.
+    reused: A person will look at this evidence because it was sent before.
+    unreadable: A person will check this file and contact you.
+    refer: A person will look at your claim and contact you.

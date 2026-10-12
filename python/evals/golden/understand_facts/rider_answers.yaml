@@ -1,0 +1,54 @@
+rules:
+- R19
+- R55
+input:
+  form:
+    channel: delivery_app
+    language: en
+    questions:
+    - id: work_hours
+      text: When do you usually ride?
+      options:
+      - Weekday daytime
+      - Evenings or nights
+      - Weekends
+      - It changes
+    - id: devices
+      text: Which devices do you rely on for deliveries?
+      options:
+      - Phone
+      - Tablet
+      - Wearable
+      - None
+    - id: commute
+      text: Which MTR line do you take to start your shift?
+      options: []
+    - id: vehicle
+      text: How do you get around on deliveries?
+      options:
+      - Motorcycle
+      - Bicycle
+      - On foot
+    - id: plans
+      text: Any trip or ticketed event in the next three months?
+      options:
+      - A trip
+      - A concert or show
+      - No plans yet
+  answers:
+    work_hours: Weekday daytime
+    devices: Phone
+    commute: Tsuen Wan Line from Tsuen Wan to Mong Kok
+    vehicle: Motorcycle
+    plans: No plans yet
+    age: 32
+    gender: f
+expect:
+  source: model
+  devices:
+  - device.phone
+  commute_routes:
+  - mtr.tsuen_wan
+  not_sent:
+  - '32'
+  - '"f"'

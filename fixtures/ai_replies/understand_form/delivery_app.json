@@ -1,0 +1,37 @@
+{
+  "case": "delivery_app",
+  "key": "understand_form:f5a0385c9bf6306f",
+  "input": {
+    "channel": "delivery_app",
+    "declared_item_kinds": [
+      "device",
+      "device.laptop",
+      "device.phone",
+      "device.tablet",
+      "device.wearable",
+      "home_contents",
+      "vehicle",
+      "vehicle.bicycle",
+      "vehicle.motorcycle"
+    ],
+    "language": "en",
+    "max_questions": 5,
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"questions\": [{\"id\": \"work_hours\", \"text\": \"When do you usually ride?\", \"options\": [\"Weekday daytime\", \"Evenings or nights\", \"Weekends\", \"It changes\"]}, {\"id\": \"devices\", \"text\": \"Which devices do you rely on for deliveries?\", \"options\": [\"Phone\", \"Tablet\", \"Wearable\", \"None\"]}, {\"id\": \"commute\", \"text\": \"Which MTR line do you take to start your shift?\", \"options\": []}, {\"id\": \"vehicle\", \"text\": \"How do you get around on deliveries?\", \"options\": [\"Motorcycle\", \"Bicycle\", \"On foot\"]}, {\"id\": \"plans\", \"text\": \"Any trip or ticketed event in the next three months?\", \"options\": [\"A trip\", \"A concert or show\", \"No plans yet\"]}]}"
+}

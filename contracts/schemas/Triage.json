@@ -1,0 +1,175 @@
+{
+  "$defs": {
+    "FirstAction": {
+      "description": "What the first response does (`guardrails.human_care.first_response`). A closed set: each is\ncarried out by the assistance channel.",
+      "oneOf": [
+        {
+          "const": "emergency_numbers",
+          "description": "Local emergency numbers, shown at once.",
+          "type": "string"
+        },
+        {
+          "const": "assistance_provider_connect",
+          "description": "A call or chat with the assistance provider, opened at once.",
+          "type": "string"
+        },
+        {
+          "const": "guarantee_of_payment",
+          "description": "A guarantee of payment to the hospital or provider, automatic up to the cap.",
+          "type": "string"
+        }
+      ]
+    },
+    "FirstResponse": {
+      "description": "The automatic first response to an urgent case.",
+      "properties": {
+        "actions": {
+          "items": {
+            "$ref": "#/$defs/FirstAction"
+          },
+          "type": "array"
+        },
+        "guarantee": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Guarantee"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "None when no guarantee was asked for, or no cover in the class is active."
+        },
+        "respond_by": {
+          "description": "Sent by then: `urgent_response_seconds` after notification.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "respond_by",
+        "actions"
+      ],
+      "type": "object"
+    },
+    "Guarantee": {
+      "description": "A guarantee of payment: automatic up to `auto_guarantee_cap`, the rest only once the\nassistance provider confirms.",
+      "properties": {
+        "automatic": {
+          "$ref": "#/$defs/Money"
+        },
+        "to_confirm": {
+          "$ref": "#/$defs/Money"
+        }
+      },
+      "required": [
+        "automatic",
+        "to_confirm"
+      ],
+      "type": "object"
+    },
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "PersonRoute": {
+      "description": "Whether and how a person comes in.",
+      "oneOf": [
+        {
+          "const": "not_needed",
+          "description": "The usual path; the customer can still ask for a person at any time.",
+          "type": "string"
+        },
+        {
+          "const": "offered",
+          "description": "After the first response a person is offered; the customer chooses.",
+          "type": "string"
+        },
+        {
+          "const": "assigned",
+          "description": "A person takes the case: the customer asked, or needs human care.",
+          "type": "string"
+        }
+      ]
+    },
+    "UrgentBecause": {
+      "description": "Why a case is urgent.",
+      "oneOf": [
+        {
+          "description": "The customer reported a configured urgent circumstance, such as `injury`.",
+          "properties": {
+            "because": {
+              "const": "circumstance",
+              "type": "string"
+            },
+            "circumstance": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "because",
+            "circumstance"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The loss is at least `large_loss_share_of_monthly_income` of the customer's monthly\nearnings.",
+          "properties": {
+            "because": {
+              "const": "large_loss",
+              "type": "string"
+            }
+          },
+          "required": [
+            "because"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The AI layer marked it urgent.",
+          "properties": {
+            "because": {
+              "const": "ai_escalated",
+              "type": "string"
+            }
+          },
+          "required": [
+            "because"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "first_response": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FirstResponse"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "person": {
+      "$ref": "#/$defs/PersonRoute"
+    },
+    "urgent": {
+      "description": "Empty when the case is not urgent.",
+      "items": {
+        "$ref": "#/$defs/UrgentBecause"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "urgent",
+    "person"
+  ],
+  "title": "Triage",
+  "type": "object"
+}

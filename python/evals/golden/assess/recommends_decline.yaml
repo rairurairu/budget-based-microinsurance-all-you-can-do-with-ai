@@ -1,0 +1,29 @@
+rules:
+- R13
+- R22
+harness_only: true
+note: The saved reply tries to decline; the reply type has no decline, so a person assesses it.
+input:
+  claim:
+    claim_id: claim-synthetic-2
+    policy_id: pol-synthetic-2
+    customer_id: cust-synthetic-2
+    cover_id: device_damage
+    class_of_business: property.device
+    loss_date: '2026-10-18'
+    notified_at: '2026-10-20T09:00:00Z'
+    amount_claimed: 120000
+    circumstance: null
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [photo]
+    urgent: false
+    state: { state: assessing }
+  description: My phone screen cracked when it fell off the table.
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/damage_unclear_synthetic.png
+  seen: []
+expect:
+  source: fallback
+  outcome: refer_to_person

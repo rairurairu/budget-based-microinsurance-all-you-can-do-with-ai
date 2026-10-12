@@ -1,0 +1,25 @@
+# Data source (R55): the national weather service's public warnings in the Common Alerting
+# Protocol (CAP 1.2), read by the generic CAP adapter (crates/triggers adapters/cap.rs). The codes
+# are the event codes many services carry in `eventCode` (here the SAME codes); the adopting
+# insurer confirms them against its weather service's CAP profile. Territory-wide: no `areas`.
+id: weather_alerts
+name: National weather service warnings (CAP)
+provider: "<the market's national weather service>"
+access: open_data
+status: available
+adapter: cap
+live: "<the weather service's CAP feed URL>"
+history:
+  available: true
+  since: 2000
+  reference: "The weather service's archive of issued warnings"
+poll_seconds: 60
+demo_mode_fixture: fixtures/markets/global/cap_storm_warning.xml
+cap:
+  event_code: SAME
+codes:
+  TRA: { event_type: weather.tropical_cyclone, stage: tropical_storm_watch }
+  TRW: { event_type: weather.tropical_cyclone, stage: tropical_storm_warning }
+  HUW: { event_type: weather.tropical_cyclone, stage: hurricane_warning }
+  FFA: { event_type: weather.flood, stage: flood_watch }
+  FFW: { event_type: weather.flood, stage: flash_flood_warning }

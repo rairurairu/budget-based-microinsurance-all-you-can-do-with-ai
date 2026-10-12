@@ -1,0 +1,9 @@
+rules:
+- R55
+input:
+  today: '2026-10-09'
+  horizon_months: 3
+  text: Just work this month, nothing special.
+expect:
+  source: model
+  events: []

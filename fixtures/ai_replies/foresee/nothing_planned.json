@@ -1,0 +1,26 @@
+{
+  "case": "nothing_planned",
+  "key": "foresee:82fe7c097c570d1c",
+  "input": {
+    "last_start_date": "2027-01-09",
+    "text": "Just work this month, nothing special.",
+    "today": "2026-10-09",
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"events\": []}"
+}

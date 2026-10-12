@@ -1,0 +1,31 @@
+# Taiwan's trigger event types, read after config/event_types.yaml: an entry here replaces the
+# base entry with its id (ADR-012). An id names one peril everywhere; its stages are this market's
+# official scale. Ids are permanent: retire with `retired: true`, never rename or reuse.
+
+event_types:
+  # Central Weather Administration typhoon warnings (颱風警報): a sea warning, then a sea and land
+  # warning. Issued for Taiwan as a whole; they stop new weather cover (R06) and never pay.
+  - id: weather.tropical_cyclone
+    name: Typhoon warning
+    stages: [sea_warning, sea_and_land_warning]
+    measure: in_force
+    zone: territory
+    pricing_basis: historical_record
+
+  # CWA heavy rain advisories (大雨、豪雨、大豪雨、超大豪雨), per city and county.
+  - id: weather.rainstorm
+    name: Heavy rain advisory
+    stages: [heavy_rain, extremely_heavy_rain, torrential_rain, extremely_torrential_rain]
+    measure: in_force
+    zone: district
+    pricing_basis: historical_record
+
+  # The local government's suspension of work for a natural disaster (停止上班), per city and
+  # county, under the rules for natural-disaster work and school suspensions and published by the
+  # Directorate-General of Personnel Administration. The official fact that work stops.
+  - id: work.suspension
+    name: Work suspended by the local government
+    stages: [suspended]
+    measure: in_force
+    zone: district               # a city or county
+    pricing_basis: historical_record

@@ -1,0 +1,34 @@
+{
+  "additionalProperties": false,
+  "description": "Profile facts in registered ids, for the customer to confirm.",
+  "properties": {
+    "commute_routes": {
+      "description": "Declared route ids, such as `mtr.tsuen_wan`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "devices": {
+      "description": "Declared item kinds (`config/exposure_types.yaml`), such as `device.phone`.",
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "occupation": {
+      "description": "In the customer's words, short.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "commute_routes",
+    "devices",
+    "occupation"
+  ],
+  "title": "understand_facts",
+  "type": "object"
+}

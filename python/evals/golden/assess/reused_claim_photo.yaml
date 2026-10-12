@@ -1,0 +1,29 @@
+rules:
+- R14
+- R13
+input:
+  claim:
+    claim_id: claim-synthetic-4
+    policy_id: pol-synthetic-4
+    customer_id: cust-synthetic-4
+    cover_id: device_damage
+    class_of_business: property.device
+    loss_date: '2026-10-18'
+    notified_at: '2026-10-20T09:00:00Z'
+    amount_claimed: 120000
+    circumstance: null
+    asked_for_person: false
+    guarantee_requested: 0
+    evidence: [photo]
+    urgent: false
+    state: { state: assessing }
+  description: My phone screen cracked on the bus.
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/cracked_screen_reused_synthetic.png
+  seen:
+  - 115a0ba9182c363ee021e1e2b1fcb9e03fdaa70124d31402258582f8adfb496d
+expect:
+  source: rule
+  outcome: refer_to_person
+  evidence_reused: true

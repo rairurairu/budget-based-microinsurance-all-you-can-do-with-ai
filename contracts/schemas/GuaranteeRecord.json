@@ -1,0 +1,42 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A guarantee of payment sent to the assistance provider to confirm (R46).",
+  "properties": {
+    "automatic": {
+      "$ref": "#/$defs/Money"
+    },
+    "claim_id": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "reference": {
+      "type": "string"
+    },
+    "requested_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "to_confirm": {
+      "$ref": "#/$defs/Money"
+    }
+  },
+  "required": [
+    "claim_id",
+    "customer_id",
+    "automatic",
+    "to_confirm",
+    "reference",
+    "requested_at"
+  ],
+  "title": "GuaranteeRecord",
+  "type": "object"
+}

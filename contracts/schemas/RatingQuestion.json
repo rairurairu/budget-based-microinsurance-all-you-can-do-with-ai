@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A registered rating factor the customer may answer, with the answers its table rates (R33).\nNot answering is allowed: the factor is then rated at the undeclared group's average.",
+  "properties": {
+    "answers": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "factor_id": {
+      "type": "string"
+    },
+    "formula": {
+      "description": "What the factor means, from `config/rating_factors.yaml`.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "factor_id",
+    "formula",
+    "answers"
+  ],
+  "title": "RatingQuestion",
+  "type": "object"
+}

@@ -1,0 +1,74 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "api-demo",
+      "runtimeExecutable": "just",
+      "runtimeArgs": [
+        "dev"
+      ],
+      "port": 8080
+    },
+    {
+      "name": "api-demo-no-build",
+      "runtimeExecutable": "cargo",
+      "runtimeArgs": [
+        "run",
+        "-p",
+        "microinsurance-api"
+      ],
+      "env": {
+        "DEMO_MODE": "1"
+      },
+      "port": 8080
+    },
+    {
+      "name": "api-release-demo",
+      "runtimeExecutable": "cargo",
+      "runtimeArgs": [
+        "run",
+        "--release",
+        "-q",
+        "-p",
+        "microinsurance-api"
+      ],
+      "env": {
+        "DEMO_MODE": "1",
+        "PORT": "8091"
+      },
+      "port": 8091
+    },
+    {
+      "name": "api-release-postgres",
+      "runtimeExecutable": "cargo",
+      "runtimeArgs": [
+        "run",
+        "--release",
+        "-q",
+        "-p",
+        "microinsurance-api"
+      ],
+      "env": {
+        "DATABASE_URL": "postgres://postgres:dev@localhost:5432/microinsurance_loadtest",
+        "API_TOKEN_SECRET": "local-load-test-secret-not-for-any-real-use",
+        "AUDIT_SEED": "7",
+        "RATING_BASIS": "fixtures/rating_basis_synthetic.json",
+        "PREVENTION_BASIS": "fixtures/prevention_basis_synthetic.json",
+        "PORT": "8092"
+      },
+      "port": 8092
+    },
+    {
+      "name": "workers-jobs-postgres",
+      "runtimeExecutable": "target/release/microinsurance-workers.exe",
+      "runtimeArgs": [],
+      "env": {
+        "DATABASE_URL": "postgres://postgres:dev@localhost:5432/microinsurance_loadtest",
+        "AUDIT_SEED": "7",
+        "RATING_BASIS": "fixtures/rating_basis_synthetic.json",
+        "WORKER_POLLS": "0"
+      },
+      "port": 8093
+    }
+  ]
+}

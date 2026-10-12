@@ -1,0 +1,224 @@
+# The words the customer app and the partner embed show, in one offered language (ADR-011). Each
+# offered language (insurer profile `languages.offered`) has a file with exactly these keys and
+# the same {placeholders}; the API refuses to start otherwise. Illustrative copy: the insurer
+# replaces it with approved wording. Money and dates are formatted by the app for the language.
+
+app:
+  title: Budget-Based Microinsurance
+  tagline: You pick the price. We build the protection, every month.
+  language: Language
+  loading: Loading…
+  demo_as: "Demo: act as"
+  demo_note: Demo mode. Synthetic customers only; nothing here is real.
+  close: Close
+  save: Save
+  saved: Saved.
+  cancel: Cancel
+
+nav:
+  plans: Your price
+  schedule: Your cover
+  about: About you
+  tasks: Prevention tasks
+  rewards: Rewards
+  payouts: Payouts
+  claims: Claims
+  privacy: Privacy
+
+plans:
+  title: Pick your price
+  intro: Every plan is the same price for everyone. You choose one; we never pick for you.
+  per_month: "{price} a month"
+  promotion: "{discount} off this month ({promotion})"
+  choose: Quote this plan
+
+quote:
+  title: "Your schedule on {plan}"
+  starts: "Cover from {date}"
+  premium: "{amount} of your price"
+  sum_insured: "Cover up to {amount}"
+  benefit_per_day: "{amount} for each disrupted day"
+  benefit_per_event: "{amount} when it happens"
+  why: Why this split
+  need: "You can use up to {amount} of this cover"
+  no_need: Nothing to protect yet; declare it to make this cover useful
+  own_split: Change the split
+  price_split: Price my split
+  accept: Accept and get covered
+  accept_change: Accept this change
+  accepted_new: "You're covered from {date}."
+  accepted_change: "Done. The change applies from your next period."
+  update_asked: Part of your price buys cover you cannot use yet. You can move it to a cover below, or keep this split.
+  plan_change: Your plan changes from your next period.
+
+schedule:
+  title: Your cover
+  none: You have no cover yet.
+  period: "{from} to {to}"
+  paid: Premium paid
+  in_grace: "Premium due: cover continues until {date}"
+  lapsed: "Lapsed: pay by {date} to reinstate without new waiting periods"
+  next: Changes from your next period
+  renewal: Next period
+  renewal_check: See next period's cover
+  below_value: Your cover is below the value you declared; a loss is paid up to the cover.
+  update_by: "Update your split by {date}, or this split applies."
+
+about:
+  title: About you
+  intro: What you tell us decides where your price buys cover. Changes apply from your next period.
+  occupation: Your work
+  earnings: Typical daily earnings
+  work: When you work
+  weekday_1: Mon
+  weekday_2: Tue
+  weekday_3: Wed
+  weekday_4: Thu
+  weekday_5: Fri
+  weekday_6: Sat
+  weekday_7: Sun
+  from: From
+  to: To
+  events: Upcoming events
+  add_event: Add an event
+  event_kind: What
+  event_date: When
+  event_reference: Booking or ticket reference
+  event_value: Ticket price or booked cost
+  items: Your items
+  add_item: Add an item
+  item_kind: Item
+  item_description: Description
+  item_value: Value
+  routes: Your regular routes
+  areas: Where you work (city, county or district)
+  remove: Remove
+  rating: Questions for your rate
+  rating_note: Optional. Without an answer you are rated at the average of customers who did not answer.
+  no_answer: No answer
+
+tasks:
+  title: Prevention tasks
+  intro: Small things that prevent a loss. Verified tasks earn points and a reward.
+  refresh: Look for tasks for my plans
+  none: No tasks right now.
+  reward: "{amount} reward when verified"
+  due: "Send by {date}"
+  accept: Take it on
+  evidence: Send evidence
+  sample: Use a sample photo
+  review: Ask a person to look again
+  state_offered: Offered
+  state_accepted: Waiting for your evidence
+  state_submitted: Checking
+  state_with_person: A person is checking it
+  state_verified: Verified
+  state_not_verified: Not verified
+  state_expired: Expired
+  credited: "Verified: {amount} added to your reward balance."
+  over_cap: "This month's reward limit is reached: {amount} could not be added."
+
+score:
+  title: Protection score
+  points: "{points} points"
+  effect: "Up to {effect} better terms in this area"
+  none: Verified prevention tasks earn points here.
+
+rewards:
+  title: Rewards
+  balance: "Reward balance: {amount}"
+  empty: Your reward balance is empty.
+  cash: "Take {amount} in cash"
+  take: Take it
+  taken: Done.
+
+payouts:
+  title: Payouts
+  intro: When a covered event happens you are paid automatically. No claim form.
+  live: Live
+  none: No payouts yet.
+  paid: "{amount} paid"
+  stage_guaranteed: Paid now
+  stage_balance: Balance after the event
+  choose: "How would you like {amount}?"
+  cash: Cash
+  in_kind: "{option} instead"
+  set_off: "{amount} of it paid the premium due"
+  new: "New payout: {amount}"
+
+claims:
+  title: Claims
+  intro: For a loss on a cover that pays what you lost.
+  new: Tell us about a loss
+  cover: Cover
+  date: Date of the loss
+  amount: Amount
+  description: What happened
+  circumstance: Is any of these true?
+  circumstance_none: None of these
+  person: I'd like to talk to a person
+  guarantee: A hospital or provider needs a guarantee of payment of
+  submit: Send
+  evidence: Send evidence
+  evidence_kinds: What you are sending
+  none: No claims.
+  state_awaiting_evidence: Waiting for your evidence
+  state_assessing: Assessing
+  state_with_person: A person is looking at it
+  state_approved: "Approved: {amount}"
+  state_declined: Declined
+  urgent: Help is on its way. You'll hear from us within seconds.
+  guarantee_auto: "Guarantee of payment: {amount} now"
+  guarantee_confirm: "{amount} more for the assistance provider to confirm"
+  person_offered: A person can call you; just ask.
+  review: Ask another person to review
+  review_sent: A different person will review it.
+  choose: "How would you like {amount}?"
+
+decisions:
+  title: Decisions about you
+  review: Ask a person to review
+  reason: Why?
+  sent: A person will review it.
+
+privacy:
+  title: Privacy
+  intro: Each kind of data is used only for the cover it supports, and only if you say yes.
+  data_trip_data: Trip data
+  data_location: Location
+  data_device_diagnostics: Device diagnostics
+  data_calendar_plans: Calendar plans
+  data_photos: Photos
+  data_partner_activity: Partner work activity
+  cancel: Cancel my cover
+  cancel_confirm: Cancel? Optional data is deleted now; records are kept as the law requires.
+  cancelled: "Cancelled. Records are kept until {date}."
+  identity: Check my identity
+  identity_status: "Identity check: {status}"
+
+covers:
+  commute_disruption: Commute disruption
+  contents: Home contents
+  device_damage: Phone and device damage
+  event_ticket: Event ticket
+  flight_delay: Flight delay
+  heat_stress_income: Heat stress income
+  personal_accident: Personal accident
+  scam_loss: Scam loss
+  travel: Travel
+  weather_income: Weather income
+
+errors:
+  generic: Something went wrong. Please try again.
+  refused: "That can't be done: {detail}"
+  signed_out: Your session has ended. Open the page again from the app.
+
+embed:
+  title: Protection for your work
+  intro: Pick a monthly price. We build cover around your work and plans.
+  quote: See my cover
+  accept: Get covered
+  done: "Covered from {date}. Manage it any time in the app."
+  refer: This app introduces you to the insurer. Continue on the insurer's own site to get covered.
+  refer_link: Continue to the insurer
+  powered: Underwritten by a licensed insurer.

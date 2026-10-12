@@ -1,0 +1,158 @@
+{
+  "$defs": {
+    "Actor": {
+      "description": "Who made a decision.",
+      "oneOf": [
+        {
+          "enum": [
+            "person"
+          ],
+          "type": "string"
+        },
+        {
+          "const": "ai",
+          "description": "A recommendation of the AI layer, applied by the engine's rules.",
+          "type": "string"
+        },
+        {
+          "const": "rules",
+          "description": "The engine's rules alone, such as a trigger match.",
+          "type": "string"
+        },
+        {
+          "const": "customer",
+          "description": "The customer's own choice, such as an allocation they confirmed (R03).",
+          "type": "string"
+        }
+      ]
+    },
+    "AppealState": {
+      "oneOf": [
+        {
+          "properties": {
+            "state": {
+              "const": "open",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The decision stands.",
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "reviewer": {
+              "type": "string"
+            },
+            "state": {
+              "const": "upheld",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "reviewer",
+            "on",
+            "note"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The decision is reversed; the subject goes back to a person to decide afresh.",
+          "properties": {
+            "note": {
+              "type": "string"
+            },
+            "on": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "reviewer": {
+              "type": "string"
+            },
+            "state": {
+              "const": "overturned",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "reviewer",
+            "on",
+            "note"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "One review request.",
+  "properties": {
+    "appeal_id": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "string"
+    },
+    "decided_by": {
+      "$ref": "#/$defs/Actor",
+      "description": "Who made the decision."
+    },
+    "decision_id": {
+      "description": "The decision reviewed, from the decision log.",
+      "type": "string"
+    },
+    "due_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "opened_at": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "original_reviewer": {
+      "description": "The person whose decision is reviewed: they may not review it themselves.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reason": {
+      "description": "In the customer's words.",
+      "type": "string"
+    },
+    "state": {
+      "$ref": "#/$defs/AppealState"
+    },
+    "subject_id": {
+      "type": "string"
+    },
+    "subject_type": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "appeal_id",
+    "decision_id",
+    "subject_type",
+    "subject_id",
+    "customer_id",
+    "decided_by",
+    "reason",
+    "opened_at",
+    "due_at",
+    "state"
+  ],
+  "title": "Appeal",
+  "type": "object"
+}

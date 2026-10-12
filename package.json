@@ -1,0 +1,14 @@
+{
+  "name": "budget-based-microinsurance",
+  "license": "Apache-2.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.0",
+  "scripts": {
+    "lint": "biome check apps",
+    "typecheck": "pnpm -r --if-present typecheck"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.0",
+    "typescript": "^5.6.0"
+  }
+}

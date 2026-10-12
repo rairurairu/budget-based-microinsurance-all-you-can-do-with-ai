@@ -1,0 +1,79 @@
+{
+  "case": "unregistered_route",
+  "key": "understand_facts:7c465d8435f16969",
+  "input": {
+    "answers": {
+      "commute": "the green line"
+    },
+    "declared_item_kinds": [
+      "device",
+      "device.laptop",
+      "device.phone",
+      "device.tablet",
+      "device.wearable",
+      "home_contents",
+      "vehicle",
+      "vehicle.bicycle",
+      "vehicle.motorcycle"
+    ],
+    "questions": [
+      {
+        "id": "work_hours",
+        "options": [
+          "Weekday daytime",
+          "Evenings or nights",
+          "Weekends",
+          "It changes"
+        ],
+        "text": "When do you usually ride?"
+      },
+      {
+        "id": "devices",
+        "options": [
+          "Phone",
+          "Tablet",
+          "Wearable",
+          "None"
+        ],
+        "text": "Which devices do you rely on for deliveries?"
+      },
+      {
+        "id": "commute",
+        "options": [],
+        "text": "Which MTR line do you take to start your shift?"
+      },
+      {
+        "id": "vehicle",
+        "options": [
+          "Motorcycle",
+          "Bicycle",
+          "On foot"
+        ],
+        "text": "How do you get around on deliveries?"
+      },
+      {
+        "id": "plans",
+        "options": [
+          "A trip",
+          "A concert or show",
+          "No plans yet"
+        ],
+        "text": "Any trip or ticketed event in the next three months?"
+      }
+    ],
+    "routes": [
+      "mtr.airport_express",
+      "mtr.disneyland",
+      "mtr.east_rail",
+      "mtr.island",
+      "mtr.kwun_tong",
+      "mtr.light_rail",
+      "mtr.south_island",
+      "mtr.tseung_kwan_o",
+      "mtr.tsuen_wan",
+      "mtr.tuen_ma",
+      "mtr.tung_chung"
+    ]
+  },
+  "reply": "{\"occupation\": null, \"devices\": [], \"commute_routes\": [\"Green Line\"]}"
+}

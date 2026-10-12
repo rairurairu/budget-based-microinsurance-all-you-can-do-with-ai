@@ -1,0 +1,168 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    },
+    "OrderSource": {
+      "description": "What the order settles.",
+      "oneOf": [
+        {
+          "const": "payout",
+          "description": "A parametric payout the customer took in kind (R28).",
+          "type": "string"
+        },
+        {
+          "const": "reward",
+          "description": "A partner reward bought with the reward balance (R16).",
+          "type": "string"
+        }
+      ]
+    },
+    "OrderState": {
+      "oneOf": [
+        {
+          "properties": {
+            "state": {
+              "const": "issued",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The supplier delivered. `charge` is what it is paid; `to_customer` the rest of an\ninvoiced payout, paid in cash.",
+          "properties": {
+            "charge": {
+              "$ref": "#/$defs/Money"
+            },
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "delivered",
+              "type": "string"
+            },
+            "to_customer": {
+              "$ref": "#/$defs/Money"
+            }
+          },
+          "required": [
+            "state",
+            "on",
+            "charge",
+            "to_customer"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "Not delivered in time: the amount reserved goes back to the customer.",
+          "properties": {
+            "on": {
+              "format": "date",
+              "type": "string"
+            },
+            "state": {
+              "const": "expired",
+              "type": "string"
+            }
+          },
+          "required": [
+            "state",
+            "on"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "Tariff": {
+      "description": "What the insurer pays a supplier for one delivery.",
+      "oneOf": [
+        {
+          "description": "An agreed price per delivery.",
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/Money"
+            },
+            "kind": {
+              "const": "fixed",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "amount"
+          ],
+          "type": "object"
+        },
+        {
+          "description": "The supplier's invoice, up to the amount reserved; for a payout, the rest is paid to the\ncustomer in cash.",
+          "properties": {
+            "kind": {
+              "const": "invoiced",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        }
+      ]
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "An instruction to a supplier to deliver one in-kind option, with the amount reserved for it.",
+  "properties": {
+    "expires_on": {
+      "description": "Last day it can be delivered, inclusive.",
+      "format": "date",
+      "type": "string"
+    },
+    "issued_on": {
+      "format": "date",
+      "type": "string"
+    },
+    "option": {
+      "description": "The in-kind option or the partner reward's offer id.",
+      "type": "string"
+    },
+    "order_id": {
+      "description": "The settled payout's or the redemption's idempotency key.",
+      "type": "string"
+    },
+    "reserved": {
+      "$ref": "#/$defs/Money"
+    },
+    "source": {
+      "$ref": "#/$defs/OrderSource"
+    },
+    "state": {
+      "$ref": "#/$defs/OrderState"
+    },
+    "supplier_id": {
+      "type": "string"
+    },
+    "tariff": {
+      "$ref": "#/$defs/Tariff"
+    }
+  },
+  "required": [
+    "order_id",
+    "supplier_id",
+    "option",
+    "source",
+    "tariff",
+    "reserved",
+    "issued_on",
+    "expires_on",
+    "state"
+  ],
+  "title": "InKindOrder",
+  "type": "object"
+}

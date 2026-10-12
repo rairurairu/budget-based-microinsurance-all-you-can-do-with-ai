@@ -1,0 +1,24 @@
+rules:
+- R10
+harness_only: true
+note: 'Synthetic image: replace with labelled pilot photos before scoring a live model.'
+input:
+  task:
+    task_type: screen_protector_fitted
+    cover_id: device_damage
+    event_reference: CX500/2026-12-20
+    action: Fit a screen protector on your phone before you fly.
+    evidence: photo
+    claim_prob_before: 400
+    claim_prob_after: 250
+    avg_claim_cost: 80000
+    reward_cost: 300
+  evidence:
+  - media_type: image/png
+    path: fixtures/evidence/screen_protector_synthetic.png
+  seen: []
+expect:
+  source: model
+  outcome: verdict
+  passed: true
+  reuse_suspected: false

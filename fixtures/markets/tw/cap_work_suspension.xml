@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Synthetic: the shape of a CAP 1.2 feed of work and school suspensions (an Atom feed with each
+     alert inline), as announced on Sunday 13 September 2026 at 20:00 for Monday. Not real data;
+     the event codes and geocodes follow config/markets/tw/triggers/dgpa_work_suspension.yaml. -->
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Work and school suspensions (synthetic)</title>
+  <updated>2026-09-13T20:00:00+08:00</updated>
+  <entry>
+    <id>urn:synthetic:dgpa:20260913-001</id>
+    <updated>2026-09-13T20:00:00+08:00</updated>
+    <content type="application/cap+xml">
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260913-001</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-13T20:00:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <senderName>臺北市政府、新北市政府</senderName>
+          <headline>颱風來襲，明日停止上班、停止上課</headline>
+          <area><areaDesc>臺北市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>63000</value></geocode></area>
+          <area><areaDesc>新北市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>65000</value></geocode></area>
+        </info>
+        <info>
+          <language>en-US</language>
+          <category>Other</category>
+          <event>Work and school suspended</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <headline>Typhoon: work and classes suspended tomorrow</headline>
+          <area><areaDesc>Taipei City</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>63000</value></geocode></area>
+          <area><areaDesc>New Taipei City</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>65000</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+  <entry>
+    <id>urn:synthetic:dgpa:20260913-002</id>
+    <updated>2026-09-13T20:05:00+08:00</updated>
+    <content type="application/cap+xml">
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260913-002</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-13T20:05:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <area><areaDesc>花蓮縣</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>10015</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+  <entry>
+    <id>urn:synthetic:dgpa:20260913-003</id>
+    <updated>2026-09-13T20:10:00+08:00</updated>
+    <content type="application/cap+xml">
+      <!-- Classes only: work goes on, so the income cover does not pay. -->
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260913-003</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-13T20:10:00+08:00</sent>
+        <status>Actual</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上課</event>
+          <urgency>Expected</urgency>
+          <severity>Moderate</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <area><areaDesc>臺中市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>66000</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+  <entry>
+    <id>urn:synthetic:dgpa:20260913-004</id>
+    <updated>2026-09-13T20:15:00+08:00</updated>
+    <content type="application/cap+xml">
+      <!-- An exercise never pays. -->
+      <alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+        <identifier>DGPA-20260913-004</identifier>
+        <sender>synthetic@dgpa.example</sender>
+        <sent>2026-09-13T20:15:00+08:00</sent>
+        <status>Exercise</status>
+        <msgType>Alert</msgType>
+        <scope>Public</scope>
+        <info>
+          <language>zh-TW</language>
+          <category>Other</category>
+          <event>停止上班、停止上課（演練）</event>
+          <urgency>Expected</urgency>
+          <severity>Severe</severity>
+          <certainty>Observed</certainty>
+          <eventCode><valueName>profile:CAP-TWP:Event:1.0</valueName><value>WORK_SCHOOL_SUSPENDED</value></eventCode>
+          <onset>2026-09-14T00:00:00+08:00</onset>
+          <expires>2026-09-15T00:00:00+08:00</expires>
+          <area><areaDesc>高雄市</areaDesc><geocode><valueName>Taiwan_Geocode_103</valueName><value>64000</value></geocode></area>
+        </info>
+      </alert>
+    </content>
+  </entry>
+</feed>

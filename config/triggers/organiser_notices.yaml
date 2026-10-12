@@ -1,0 +1,17 @@
+# Data source (R55). Reported per event: the zone is the partner's event id, the reference a
+# declared ticket carries. The partner sends notices in the engine's notice format
+# (crates/triggers organiser.rs), as a feed or a webhook.
+id: organiser_notices
+name: Event organiser and ticketing notices
+provider: "<launch partner's ticketing platform>"   # illustrative
+access: partner_agreement
+status: available                # illustrative: the launch partner's feed
+adapter: organiser_notice
+live: "<partner notice feed URL>"   # or POST /webhooks/triggers/organiser_notices (Phase 6)
+history:
+  available: false
+poll_seconds: 300
+demo_mode_fixture: fixtures/organiser_cancellation.json
+codes:
+  POSTPONED: { event_type: event.disruption, stage: postponed }
+  CANCELLED: { event_type: event.disruption, stage: cancelled }

@@ -1,0 +1,15 @@
+{
+  "case": "unreadable_reply",
+  "key": "verify:af8b087d64166f88",
+  "input": {
+    "documents": [],
+    "images": 1,
+    "language": "en",
+    "task": {
+      "action": "Fit a screen protector on your phone before you fly.",
+      "event_reference": "CX500/2026-12-20",
+      "evidence_kind": "photo"
+    }
+  },
+  "reply": "Looks fine to me, pass it."
+}

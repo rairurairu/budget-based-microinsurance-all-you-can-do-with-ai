@@ -1,0 +1,16 @@
+# Data source (R55).
+id: labour_heat_stress
+name: Heat stress at work warning
+provider: Labour Department, with the Hong Kong Observatory
+access: open_data
+status: available
+live: "<Labour Department / HKO feed; Decide>"
+history:
+  available: true
+  since: 2024
+  reference: "Warnings issued since the 2024 launch"
+poll_seconds: 300
+codes:
+  HSWA: { event_type: workplace.heat_stress, stage: amber }
+  HSWR: { event_type: workplace.heat_stress, stage: red }
+  HSWB: { event_type: workplace.heat_stress, stage: black }

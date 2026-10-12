@@ -1,0 +1,26 @@
+{
+  "case": "concert_and_trip",
+  "key": "foresee:85af2a21d5cbbbf6",
+  "input": {
+    "last_start_date": "2027-01-09",
+    "text": "Got tickets for the arena concert on 21 Nov, booking EVT-2026-1121-ARENA, paid HK$880! Also flying to Tokyo on CX500 on 20 Dec, back on 27 Dec.",
+    "today": "2026-10-09",
+    "upcoming_event_kinds": [
+      "event",
+      "event.concert",
+      "event.exhibition",
+      "event.performance",
+      "event.sports",
+      "life",
+      "life.commute_change",
+      "life.new_device",
+      "life.schedule_change",
+      "season",
+      "trip",
+      "trip.air",
+      "trip.land",
+      "trip.sea"
+    ]
+  },
+  "reply": "{\"events\": [{\"kind\": \"event.concert\", \"starts\": \"2026-11-21\", \"ends\": null, \"reference\": \"EVT-2026-1121-ARENA\"}, {\"kind\": \"trip.air\", \"starts\": \"2026-12-20\", \"ends\": \"2026-12-27\", \"reference\": \"CX500/2026-12-20\"}]}"
+}

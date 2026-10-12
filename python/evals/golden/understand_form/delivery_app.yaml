@@ -1,0 +1,8 @@
+rules:
+- R19
+- R22
+input:
+  channel: delivery_app
+expect:
+  source: model
+  max_questions: 5

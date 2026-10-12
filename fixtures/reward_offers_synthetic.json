@@ -1,0 +1,35 @@
+[
+  {
+    "offer_id": "lounge_day_pass",
+    "family": "partner",
+    "partner_id": "airport_lounge_network",
+    "description": "One airport lounge visit on your next trip",
+    "perceived_value": 45000,
+    "price": 200,
+    "funded_by": "partner",
+    "inventory": 40,
+    "is_cash": false
+  },
+  {
+    "offer_id": "concert_merch_voucher",
+    "family": "partner",
+    "partner_id": "ticketing_partner",
+    "description": "HK$50 off merchandise at your next concert",
+    "perceived_value": 5000,
+    "price": 500,
+    "funded_by": "co_funded",
+    "inventory": 0,
+    "is_cash": false
+  },
+  {
+    "offer_id": "screen_protector_fitting",
+    "family": "partner",
+    "partner_id": "phone_repair_network",
+    "description": "A screen protector fitted free at a partner shop",
+    "perceived_value": 12000,
+    "price": 300,
+    "funded_by": "partner",
+    "inventory": null,
+    "is_cash": false
+  }
+]

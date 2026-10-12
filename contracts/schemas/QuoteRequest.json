@@ -1,0 +1,31 @@
+{
+  "$defs": {
+    "Money": {
+      "description": "Money in minor units (cents). No floating point in money paths (R29).",
+      "format": "int64",
+      "type": "integer"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "What the customer asks a quote for: a plan, and optionally their own split of its price\n(R34). Without a split, the optimiser suggests one (R02).",
+  "properties": {
+    "plan_id": {
+      "type": "string"
+    },
+    "premiums": {
+      "additionalProperties": {
+        "$ref": "#/$defs/Money"
+      },
+      "default": null,
+      "type": [
+        "object",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "plan_id"
+  ],
+  "title": "QuoteRequest",
+  "type": "object"
+}

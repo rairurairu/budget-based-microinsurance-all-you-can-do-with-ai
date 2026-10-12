@@ -1,0 +1,11 @@
+rules:
+- R02
+- R22
+harness_only: true
+input:
+  today: '2026-10-09'
+  horizon_months: 3
+  text: Match at the stadium on 28 Nov, ticket was 450.
+expect:
+  source: fallback
+  events: []

@@ -1,0 +1,46 @@
+# Data source (R55): Central Weather Administration heavy rain advisories in CAP, per city and
+# county (ADR-012).
+id: cwa_rain_advisories
+name: Heavy rain advisories
+provider: Central Weather Administration, via the NCDR alert platform
+access: open_data
+status: available
+adapter: cap
+live: "<NCDR CAP feed of CWA heavy rain advisories>"   # Decide: the feed URL
+history:
+  available: true
+  since: 2000
+  reference: "CWA advisory archive"
+poll_seconds: 300
+cap:                             # confirm against the NCDR CAP profile
+  event_code: "profile:CAP-TWP:Event:1.0"
+  geocode: "Taiwan_Geocode_103"
+codes:
+  HEAVY_RAIN:                { event_type: weather.rainstorm, stage: heavy_rain }
+  EXTREMELY_HEAVY_RAIN:      { event_type: weather.rainstorm, stage: extremely_heavy_rain }
+  TORRENTIAL_RAIN:           { event_type: weather.rainstorm, stage: torrential_rain }
+  EXTREMELY_TORRENTIAL_RAIN: { event_type: weather.rainstorm, stage: extremely_torrential_rain }
+areas:                           # the Ministry of the Interior's city and county codes, to the area ids a
+                                 # customer declares (exposure: the declared work area, ADR-012)
+  "63000": tw.taipei_city
+  "64000": tw.kaohsiung_city
+  "65000": tw.new_taipei_city
+  "66000": tw.taichung_city
+  "67000": tw.tainan_city
+  "68000": tw.taoyuan_city
+  "10002": tw.yilan_county
+  "10004": tw.hsinchu_county
+  "10005": tw.miaoli_county
+  "10007": tw.changhua_county
+  "10008": tw.nantou_county
+  "10009": tw.yunlin_county
+  "10010": tw.chiayi_county
+  "10013": tw.pingtung_county
+  "10014": tw.taitung_county
+  "10015": tw.hualien_county
+  "10016": tw.penghu_county
+  "10017": tw.keelung_city
+  "10018": tw.hsinchu_city
+  "10020": tw.chiayi_city
+  "09007": tw.lienchiang_county
+  "09020": tw.kinmen_county

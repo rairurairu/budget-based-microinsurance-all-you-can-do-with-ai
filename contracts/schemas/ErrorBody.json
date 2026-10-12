@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "The body of every error response.",
+  "properties": {
+    "code": {
+      "description": "`rule`, `state`, `not_found`, `conflict`, `unauthorised`, `forbidden`, `bad_request` or\n`internal`.",
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "rule": {
+      "description": "The business rule that refused the request (`docs/rules.md`), when one did.",
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "required": [
+    "code",
+    "detail"
+  ],
+  "title": "ErrorBody",
+  "type": "object"
+}

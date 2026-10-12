@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "A partner's own reference for its customer, to exchange for a customer token.",
+  "properties": {
+    "customer_ref": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "customer_ref"
+  ],
+  "title": "TokenRequest",
+  "type": "object"
+}
